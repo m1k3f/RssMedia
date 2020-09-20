@@ -4,10 +4,14 @@
 
 - Simple, minimal RSS feed reader.
 - Feeds can be added with direct RSS URL, or main URL of site and app searches for RSS URL
+- 'All Feeds' button to view recent articles from all feeds
 - Podcast/Mp3 player on article when exists
 - Youtube/Video player on article when exists?
 - Stores feeds in browser storage
 - Imports/Exports feed list
+- Feeds have similar look & feel to a twitter feed 
+  - poll rss feeds every X minutes
+  - Slide down current articles and fade in new articles
 
 ## Tech
 
@@ -33,7 +37,7 @@
                - search content for RSS feed
                - return list of articles        
       - Feed titles container
-        - shows list of saved feeds
+        - shows list of saved feeds, 'All Feeds' option always exists        
         - buttons, left-to-right, line wrap, overflow scrolling
         - button click: highlight button, show feed articles in feed reader container
     - Feed articles
