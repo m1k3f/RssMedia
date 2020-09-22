@@ -1,5 +1,10 @@
 header {
+    background-color: #ffffff;
+}
 
+header > a:last-child {
+    position: absolute;    
+    right: 10px;
 }
 
 main {
