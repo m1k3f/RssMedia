@@ -1,28 +1,110 @@
+* {
+    box-sizing: border-box;
+    font-family: Verdana;
+    font-size: 14px;
+}
+
+body {    
+    margin: auto;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
 header {
+    /* border: 1px solid black; */
     background-color: #ffffff;
+    height: 60px;
 }
 
 header > a:last-child {
-    position: absolute;    
-    right: 10px;
+    /* position: absolute;    
+    top: 10px;
+    right: 10px; */
+    float: right;
+    padding: 14px 16px;
 }
 
-main {
+main {    
+    /* margin-top: 10px; */
+    padding: 10px;
+}
+
+.divFeedBar {
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
 
 }
 
-.feedBar {
-
+.divFeedBar div {
+    margin-right: 5px;
 }
 
 .divAdd {
+    display: flex;
+    align-items: center;
+}
 
+.divAdd > a {
+    cursor: pointer;
+    color: green;
+    padding: 10px;
+}
+
+.divAllFeeds {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid black;
+    padding-left: 10px;
+    border-right: 1px solid black;
+    padding-right: 10px;
+}
+
+.divAllFeeds > a {
+    cursor: pointer;
 }
 
 .divFeeds {
-    
+    /* height: 100px; */
+    display: flex;
+    align-items: center;
 }
 
-.feedArticles {
+.divFeeds a {
+    cursor: pointer;
+    padding: 10px;
+}
 
+.divFeeds a:hover:not(.divFeedsActive) {
+    background-color: #f6f6f6;
+}
+
+.divFeedsActive {
+    background-color: #ecf9ec;
+}
+
+.divFeedArticles {
+    border: 1px solid black;
+    margin-top: 10px;
+    /* height: 100px; */
+}
+
+.divFeedArticles details {
+    padding: 10px;
+}
+
+.detailsFeedArticles summary {
+    cursor: pointer;
+    width: 300px;
+    background-color: #f6f6f6;
+    box-shadow: 1px 1px 2px #bbbbbb;
+}
+
+.detailsFeedArticles article {
+    padding: 4px;
+    margin: 0;
+    background-color: #f6f6f6;
+    box-shadow: 1px 1px 2px #bbbbbb;
 }

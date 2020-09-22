@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { FeedBar } from './FeedBar';
+import { FeedArticles } from './FeedArticles';
 
-class Content extends Component {
+export class Content extends Component {
 
     render() {
         return (
@@ -12,4 +14,4 @@ class Content extends Component {
     }
 }
 
-export default Content;
+//export default Content;
