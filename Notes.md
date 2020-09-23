@@ -21,15 +21,15 @@
 
 ## Layout & Flow
 - RSSMedia single page app
-  - Navbar - Title? (left), Github link (right)
+  - Navbar - Title? (left), ~~Github link (right)~~
   - Main Content
     - Feed bar
       - Add button container
         - Requests URL for RSS feed or web page
-        - Add button
+        - ~~Add button~~
           - button click: show popup modal
         - Popup modal  
-          - text, textbox, add button
+          - text, textbox, save button
           - button click: send URL to service...
             - if URL is RSS feed, return list of articles
             - else...
@@ -39,7 +39,7 @@
       - Feed titles container
         - shows list of saved feeds, 'All Feeds' option always exists        
         - buttons, left-to-right, line wrap, overflow scrolling
-        - button click: highlight button, show feed articles in feed reader container
+        - button click: ~~highlight button,~~ show feed articles in feed reader container
     - Feed articles
       - shows X number articles for a feed
       - list of title containers expandable to show content
