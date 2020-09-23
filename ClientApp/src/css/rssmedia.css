@@ -5,7 +5,8 @@
 }
 
 body {    
-    margin: auto;
+    margin: auto;    
+    width: 90%;
 }
 
 .clickable {
@@ -35,8 +36,7 @@ main {
     border: 2px solid #cccccc;
     /* border-radius: 10px; */
     padding: 10px;
-    display: flex;
-
+    display: flex;    
 }
 
 .divFeedBar div {
@@ -75,9 +75,10 @@ main {
 }
 
 .divFeeds {
-    /* height: 100px; */
     display: flex;
     align-items: center;
+    justify-content: left;
+    flex-wrap: wrap;
 }
 
 .divFeeds a {
@@ -97,7 +98,7 @@ main {
 }
 
 .divFeedArticles {
-    border: 1px solid black;
+    border: 2px solid #cccccc;
     margin-top: 10px;
     /* height: 100px; */
 }
