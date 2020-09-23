@@ -1,9 +1,36 @@
 import React, { Component } from 'react';
+import swal from '@sweetalert/with-react';
 
 export class FeedBar extends Component {
 
-    handleAddButton() {
+    handleAddButton = (e) => {
+        swal({
+            content: this.getModalContent(),
+            buttons: {
+                confirm: {
+                    text: 'Save',
+                    value: true,
+                    visible: true
+                },
+                cancel: {
+                    text: 'Cancel',
+                    value: null,
+                    visible: true
+                }
+            }
+        })
+        .then((values) => {
+            //send entered values to service
+        });
+    }
 
+    getModalContent = () => {
+        return (
+            <div>
+                <h1>Popup Modal!</h1>
+                <p>This is a popup modal for adding a feed.</p>
+            </div>
+        );
     }
 
     handleAllFeedsButton = (e) => {
@@ -35,11 +62,8 @@ export class FeedBar extends Component {
     }
 
     clearActiveFeed = () => {
-        let allFeedsButton = document.querySelector('.divAllFeeds');
-        allFeedsButton.classList.remove('divFeedsActive');
         let feedButtons = document.querySelectorAll('a[name="btnFeeds"');
         feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
-
     }
 
     render() {
@@ -55,7 +79,7 @@ export class FeedBar extends Component {
                     </a>                    
                 </div>
                 <div className="divAllFeeds">
-                    <a onClick={this.handleAllFeedsButton}>
+                    <a name="btnFeeds" onClick={this.handleAllFeedsButton}>
                         All Feeds
                     </a>
                 </div>
