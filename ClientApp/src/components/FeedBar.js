@@ -19,16 +19,43 @@ export class FeedBar extends Component {
                 }
             }
         })
-        .then((values) => {
-            //send entered values to service
+        .then(async (value) => {
+            if (value) {
+                //send entered values to service
+                let feedTitle = document.querySelector('#textFeedTitle').value;
+                let feedUrl = document.querySelector('#textFeedUrl').value;
+
+                let feedSearchCriteria = {
+                    'title': feedTitle,
+                    'url': encodeURIComponent(feedUrl)
+                };
+
+                await fetch('rssmedia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(feedSearchCriteria)
+                }).then((response) => {
+                    //response contains feed object
+                    // use feed object to populate new feed button
+                });                
+            }
         });
     }
 
     getModalContent = () => {
         return (
-            <div>
-                <h1>Popup Modal!</h1>
-                <p>This is a popup modal for adding a feed.</p>
+            <div className="addButtonModal">
+                <h3>New Feed</h3>
+                <div>
+                    <label>Title: </label>
+                    <input id="textFeedTitle" type="text" />
+                </div>
+                <div>
+                    <label>Url: </label>
+                    <input id="textFeedUrl" type="text" />
+                </div>
             </div>
         );
     }

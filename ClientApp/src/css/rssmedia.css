@@ -54,6 +54,10 @@ main {
     padding: 10px;
 }
 
+.addButtonModal div {
+    margin: 5px;
+}
+
 .divAllFeeds {
     display: flex;
     align-items: center;
@@ -85,16 +89,18 @@ main {
     cursor: pointer;
     padding: 10px;
     margin-right: 4px;
+    margin-bottom: 4px;
     border: 2px solid #f2f2f2;
     border-radius: 30px;
 }
 
-.divFeeds a:hover:not(.divFeedsActive) {
+/* .divFeeds a:hover:not(.divFeedsActive) {
     background-color: #f6f6f6;
-}
+} */
 
 .divFeedsActive {
-    background-color: #e6f7ff;
+    background-color: #7cd1f9;
+    color: white;
 }
 
 .divFeedArticles {
