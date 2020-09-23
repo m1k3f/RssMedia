@@ -91,6 +91,12 @@ export class FeedBar extends Component {
                     <a name="btnFeeds" onClick={this.handleFeedButton}>
                         Test Feed Button 2
                     </a>
+                    <a name="btnFeeds" onClick={this.handleFeedButton}>
+                        Test Feed Button 3
+                    </a>
+                    <a name="btnFeeds" onClick={this.handleFeedButton}>
+                        Test Feed Button 4
+                    </a>
                 </div>
             </div>
         );
