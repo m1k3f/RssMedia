@@ -4,7 +4,7 @@ export class FeedArticles extends Component {
 
     render() {
         return (
-            <div className="divFeedArticles">
+            <div className="divFeedArticles" hidden>
                 {/* 
                     Show X number articles for a feed 
                     list of title containers expandable to show content

@@ -61,8 +61,11 @@ export class FeedBar extends Component {
     }
 
     handleAllFeedsButton = (e) => {
+        //get all feed articles from service
+
         this.clearActiveFeed();        
         e.target.classList.add('divFeedsActive');
+        document.querySelector('.divFeedArticles').hidden = false;
     }
 
     getFeedList() {
@@ -84,8 +87,11 @@ export class FeedBar extends Component {
     }
 
     handleFeedButton = (e) => {
+        //get feed articles from service
+
         this.clearActiveFeed();
         e.target.classList.add('divFeedsActive');
+        document.querySelector('.divFeedArticles').hidden = false;
     }
 
     clearActiveFeed = () => {

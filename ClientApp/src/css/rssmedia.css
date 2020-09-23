@@ -94,9 +94,9 @@ main {
     border-radius: 30px;
 }
 
-/* .divFeeds a:hover:not(.divFeedsActive) {
+.divFeeds a:hover:not(.divFeedsActive) {
     background-color: #f6f6f6;
-} */
+}
 
 .divFeedsActive {
     background-color: #7cd1f9;
