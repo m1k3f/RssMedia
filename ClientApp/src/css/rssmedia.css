@@ -104,25 +104,26 @@ main {
 }
 
 .divFeedArticles {
-    border: 2px solid #cccccc;
     margin-top: 10px;
     /* height: 100px; */
 }
 
 .divFeedArticles details {
     padding: 10px;
+    margin: 5px;
+    border: 2px solid #cccccc;
+    border-radius: 15px;
 }
 
 .detailsFeedArticles summary {
     cursor: pointer;
-    width: 300px;
-    background-color: #f6f6f6;
-    box-shadow: 1px 1px 2px #bbbbbb;
+    /* background-color: #f6f6f6;
+    box-shadow: 1px 1px 2px #bbbbbb; */
 }
 
 .detailsFeedArticles article {
     padding: 4px;
-    margin: 0;
+    margin: 5px;
     background-color: #f6f6f6;
     box-shadow: 1px 1px 2px #bbbbbb;
 }
