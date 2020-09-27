@@ -1,12 +1,12 @@
 * {
     box-sizing: border-box;
     font-family: Verdana;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 body {    
     margin: auto;    
-    width: 90%;
+    width: 95%;
 }
 
 .clickable {
@@ -16,36 +16,43 @@ body {
 header {
     /* border: 1px solid black; */
     background-color: #ffffff;
-    height: 60px;
+    height: 35px;
+    margin-top: 4px;
 }
 
 header > a:last-child {
     /* position: absolute;    
     top: 10px;
     right: 10px; */
+    /* display: block; */
     float: right;
-    padding: 14px 16px;
+    /* padding: 8px 10px; */
+    /* border: 1px solid black; */
 }
 
 main {    
     /* margin-top: 10px; */
-    padding: 10px;
+    /* padding: 10px; */
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .divFeedBar {
     border: 2px solid #cccccc;
     /* border-radius: 10px; */
-    padding: 10px;
+    padding: 6px;
     display: flex;    
 }
 
-.divFeedBar div {
+/* .divFeedBar div {
     margin-right: 5px;
-}
+} */
 
 .divAdd {
     display: flex;
     align-items: center;
+    padding-left: 4px;
+    padding-right: 10px;
 }
 
 .divAdd > a {
@@ -72,6 +79,7 @@ main {
     padding: 10px;
     border: 2px solid #f2f2f2;
     border-radius: 30px;
+    min-width: 80px;
 }
 
 .divAllFeeds a:hover:not(.divFeedsActive) {
@@ -83,15 +91,18 @@ main {
     align-items: center;
     justify-content: left;
     flex-wrap: wrap;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .divFeeds a {
     cursor: pointer;
     padding: 10px;
-    margin-right: 4px;
-    margin-bottom: 4px;
+    /* margin-right: 4px;
+    margin-bottom: 4px; */
     border: 2px solid #f2f2f2;
     border-radius: 30px;
+    min-width: 80px;
 }
 
 .divFeeds a:hover:not(.divFeedsActive) {
