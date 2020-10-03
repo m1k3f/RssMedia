@@ -8,7 +8,7 @@ export class FeedBar extends Component {
             content: this.getModalContent(),
             buttons: {
                 confirm: {
-                    text: 'Save',
+                    text: 'Add',
                     value: true,
                     visible: true
                 },
