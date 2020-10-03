@@ -18,6 +18,9 @@
 - HTML, CSS; Javascript, React, Angular, or .NET Core MVC
 - .NET Core/NodeJS API - read in webpages
   - Fetch content of a webpage: https://stackoverflow.com/questions/5299646/javascript-how-to-fetch-the-content-of-a-web-page
+  - https://dotnetcoretutorials.com/2018/02/27/loading-parsing-web-page-net-core/
+- RSS Feed interaction
+  - https://www.nuget.org/packages?q=Tags%3A%22rss%22
 
 ## Layout & Flow
 - RSSMedia single page app
