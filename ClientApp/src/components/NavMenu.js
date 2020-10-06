@@ -21,7 +21,7 @@ export class NavMenu extends Component {
         Title? (left)
         Github link (right) 
         */}
-        <a href="https://github.com/m1k3f/RadioPlayer-Web" target="_blank">
+        <a href="https://github.com/m1k3f/RssMedia" target="_blank">
             <img src="./images/GitHub-Mark-32px.png" alt="" />
         </a>
       </header>
