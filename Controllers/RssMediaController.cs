@@ -15,14 +15,23 @@ namespace RssMedia.Controllers {
 
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<HtmlFeedLink>> GetFeedUrlList(string url)
-        {
+        [HttpPost]
+        public async Task<IEnumerable<Models.FeedLink>> FeedLinks(string url)
+        {            
             try
             {
-                //Get feed urls
-                var feedUrlList = await FeedReader.GetFeedUrlsFromUrlAsync(url).ConfigureAwait(false);
-                return feedUrlList;
+                var feedLinkList = new List<Models.FeedLink>();
+
+                var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(url).ConfigureAwait(false);
+                foreach (var link in urlList)
+                {
+                    feedLinkList.Add(new FeedLink() {
+                        Title = link.Title,
+                        Url = link.Url
+                    });
+                }
+
+                return feedLinkList;
             }
             catch(Exception)
             {
@@ -30,55 +39,72 @@ namespace RssMedia.Controllers {
             }
         }
 
-        [HttpGet]
-        public async Task<Models.Feed> GetNewFeed(string feedName, string feedRssUrl)
-        {
-            Models.Feed feed = null;
-
-            try
-            {
-                var rssFeed = await GetRssFeed(feedRssUrl).ConfigureAwait(false);
-                feed = new Models.Feed() 
-                {
-                    Id = new Guid(),
-                    FeedName = feedName,
-                    FeedRssUrl = rssFeed.Link,
-                    FeedImageUrl = rssFeed.ImageUrl,
-                    FeedArticles = GetArticles(rssFeed.Items)
-                };
-                return feed;
-            }
-            catch(Exception ex)
-            {
-                feed.FeedArticles = null;
-                feed.FeedError = new FeedError()
-                {
-                    ErrorMessage = ex.Message,
-                    StackTrace = ex.StackTrace
-                };
-                return feed;
-            }
-        }
-
-        [HttpGet]
-        public async Task<Models.Feed> GetUpdatedFeedArticles(Models.Feed feed)
-        {
+        [HttpPost]
+        public async Task<Models.Feed> Feed(Models.Feed feed, int articleOffset, int articleCount)
+        {            
             try
             {
                 var rssFeed = await GetRssFeed(feed.FeedRssUrl).ConfigureAwait(false);
-                feed.FeedArticles = GetArticles(rssFeed.Items);
+                feed = new Models.Feed() 
+                {
+                    Id = new Guid(),
+                    FeedName = feed.FeedName,
+                    FeedRssUrl = rssFeed.Link,
+                    FeedImageUrl = rssFeed.ImageUrl
+                };
+
+                var articleList = GetArticles(rssFeed.Items);
+                feed.FeedArticles = GetFilteredArticles(articleList, articleOffset, articleCount);
+
                 return feed;
             }
             catch(Exception ex)
             {
-                feed.FeedArticles = null;
-                feed.FeedError = new FeedError()
-                {
-                    ErrorMessage = ex.Message,
-                    StackTrace = ex.StackTrace
-                };
-                return feed;
+                return GetFeedWithError(feed, ex);
             }
+        }
+
+        [HttpPost]
+        public async Task<Models.Feed> AllFeeds(IEnumerable<Models.Feed> feeds, int articleOffset, int articleCount) 
+        {
+            Models.Feed allFeed = null;            
+            try
+            {
+                allFeed = new Models.Feed() 
+                {
+                    Id = new Guid(),
+                    FeedName = "All Feeds"
+                };
+
+                var articleList = new List<Models.Article>();
+                foreach (var feedItem in feeds)
+                {
+                    var rssFeed = await GetRssFeed(feedItem.FeedRssUrl).ConfigureAwait(false);
+                    var feedArticles = GetArticles(rssFeed.Items);
+                    articleList.AddRange(feedArticles);
+                }
+
+                allFeed.FeedArticles = GetFilteredArticles(articleList, articleOffset, articleCount);
+
+                return allFeed;
+            }
+            catch(Exception ex) 
+            {
+                return GetFeedWithError(allFeed, ex);
+            }
+        }
+
+        #region Private Methods
+
+        private Models.Feed GetFeedWithError(Models.Feed feed, Exception exception)
+        {
+            feed.FeedArticles = null;
+            feed.FeedError = new FeedError()
+            {
+                ErrorMessage = exception.Message,
+                StackTrace = exception.StackTrace
+            };
+            return feed;
         }
 
         private async Task<CodeHollow.FeedReader.Feed> GetRssFeed(string url)
@@ -88,12 +114,12 @@ namespace RssMedia.Controllers {
             return readerTask.Result;
         }
 
-        private IEnumerable<Article> GetArticles(ICollection<CodeHollow.FeedReader.FeedItem> rssArticles)
+        private List<Models.Article> GetArticles(ICollection<CodeHollow.FeedReader.FeedItem> rssArticles)
         {
-            var articleList = new List<Article>();
+            var articleList = new List<Models.Article>();
             foreach (var rssArticle in rssArticles)
             {
-                var article = new Article()
+                articleList.Add(new Models.Article()
                 {
                     Id = new Guid(),
                     ArticleId = rssArticle.Id,
@@ -103,10 +129,19 @@ namespace RssMedia.Controllers {
                     ArticleDescription = rssArticle.Description,
                     ArticleTitle = rssArticle.Title,
                     ArticleContent = rssArticle.Content
-                };
-                articleList.Add(article);                
+                });              
             }
             return articleList;
         }
+
+        private List<Models.Article> GetFilteredArticles(List<Models.Article> articles, int articleOffset, int articleCount)
+        {
+            //Order list of articles by publish date, filter list by articleOffset and articleCount
+            var orderedArticles = articles.OrderByDescending(a => a.ArticlePublishingDate).ToList();
+            var filteredArticles = orderedArticles.GetRange(articleOffset-1, articleCount);
+            return filteredArticles;
+        }
+
+        #endregion
     }
 }
