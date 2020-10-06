@@ -22,22 +22,24 @@ export class FeedBar extends Component {
         .then(async (value) => {
             if (value) {
                 //send entered values to service
-                let feedTitle = document.querySelector('#textFeedTitle').value;
-                let feedUrl = document.querySelector('#textFeedUrl').value;
+                //let feedTitle = document.querySelector('#textFeedTitle').value;
+                let textFeedUrl = document.querySelector('#textFeedUrl').value;
+                let feedUrl = { url: encodeURIComponent(textFeedUrl) };
 
-                let feedSearchCriteria = {
-                    'title': feedTitle,
-                    'url': encodeURIComponent(feedUrl)
-                };
-
-                await fetch('rssmedia', {
+                await fetch('rssmedia/feedlinks', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify(feedSearchCriteria)
+                    },                    
+                    body: JSON.stringify(feedUrl)
                 }).then((response) => {
-                    //response contains feed object
+                    //if more than 1 URL, allow user to select the feed url
+                    if (response.ok) {
+                        let res = response;
+                        // call rssmedia/feed
+                    }
+                }).then((response) => {
+                    // response contains feed object
                     // use feed object to populate new feed button
                 });                
             }
@@ -76,7 +78,7 @@ export class FeedBar extends Component {
                 feedList = {
                     "feedList": []
                 };
-            }
+            }            
         }
         return feedList;
     }
@@ -87,6 +89,8 @@ export class FeedBar extends Component {
     }
 
     handleFeedButton = (e) => {
+        //get list of feeds and determine which one was clicked
+
         //get feed articles from service
 
         this.clearActiveFeed();
@@ -94,8 +98,15 @@ export class FeedBar extends Component {
         document.querySelector('.divFeedArticles').hidden = false;
     }
 
+    getFeedArticles = () => {
+        //get FeedUrlList from service
+        //const response = await fetch('rssmedia/feedlinks');
+        
+        //if more than 1 URL, allow user to 
+    }
+
     clearActiveFeed = () => {
-        let feedButtons = document.querySelectorAll('a[name="btnFeeds"');
+        let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
         feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
     }
 
