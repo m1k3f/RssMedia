@@ -5,7 +5,7 @@ export class FeedBar extends Component {
 
     handleAddButton = (e) => {
         swal({
-            content: this.getModalContent(),
+            content: this.getNewFeedModalContent(),
             buttons: {
                 confirm: {
                     text: 'Add',
@@ -26,7 +26,7 @@ export class FeedBar extends Component {
                 let textFeedUrl = document.querySelector('#textFeedUrl').value;
                 let feedUrl = { url: encodeURIComponent(textFeedUrl) };
 
-                await fetch('rssmedia/feedlinks', {
+                await fetch('http://localhost:5990/api/rssmedia/feedlinks', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -46,7 +46,7 @@ export class FeedBar extends Component {
         });
     }
 
-    getModalContent = () => {
+    getNewFeedModalContent = () => {
         return (
             <div className="addButtonModal">
                 <h3>New Feed</h3>
@@ -58,6 +58,19 @@ export class FeedBar extends Component {
                     <label>Url: </label>
                     <input id="textFeedUrl" type="text" />
                 </div>
+            </div>
+        );
+    }
+
+    getMultiFeedModalContent = (feedLinks) => {
+        let content = feedLinks.map((link) => {
+            return (<div>link.Title</div>);
+        });
+
+        return (
+            <div className="">
+                <p>Multiple feeds exist. Please select the desired feed: </p>
+                {content}
             </div>
         );
     }
