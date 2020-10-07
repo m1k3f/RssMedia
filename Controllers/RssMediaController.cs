@@ -9,25 +9,29 @@ using CodeHollow.FeedReader;
 
 namespace RssMedia.Controllers {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class RssMediaController : ControllerBase {
-        public RssMediaController() {
-
+        private readonly ILogger<RssMediaController> _logger;
+        public RssMediaController(ILogger<RssMediaController> logger) 
+        {
+            _logger = logger;
         }
 
         [HttpPost]
-        public async Task<IEnumerable<Models.FeedLink>> FeedLinks(string url)
+        [ActionName("FeedLinks")]
+        public async Task<IEnumerable<Models.FeedLink>> FeedLinks([FromBody]Models.FeedLink feedLink)
         {            
             try
             {
                 var feedLinkList = new List<Models.FeedLink>();
 
-                var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(url).ConfigureAwait(false);
+                var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(feedLink.BaseUrl).ConfigureAwait(false);
                 foreach (var link in urlList)
                 {
                     feedLinkList.Add(new FeedLink() {
                         Title = link.Title,
-                        Url = link.Url
+                        Url = link.Url,
+                        BaseUrl = feedLink.BaseUrl
                     });
                 }
 
@@ -40,10 +44,13 @@ namespace RssMedia.Controllers {
         }
 
         [HttpPost]
-        public async Task<Models.Feed> Feed(Models.Feed feed, int articleOffset, int articleCount)
-        {            
+        [ActionName("Feed")]
+        public async Task<Models.Feed> Feed([FromBody]Models.Feeds feeds)
+        {           
+            var feed = feeds.FeedList.First();
+
             try
-            {
+            {                
                 var rssFeed = await GetRssFeed(feed.FeedRssUrl).ConfigureAwait(false);
                 feed = new Models.Feed() 
                 {
@@ -54,7 +61,7 @@ namespace RssMedia.Controllers {
                 };
 
                 var articleList = GetArticles(rssFeed.Items);
-                feed.FeedArticles = GetFilteredArticles(articleList, articleOffset, articleCount);
+                feed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, feeds.FeedArticleCount);
 
                 return feed;
             }
@@ -65,7 +72,8 @@ namespace RssMedia.Controllers {
         }
 
         [HttpPost]
-        public async Task<Models.Feed> AllFeeds(IEnumerable<Models.Feed> feeds, int articleOffset, int articleCount) 
+        [ActionName("AllFeeds")]
+        public async Task<Models.Feed> AllFeeds(Models.Feeds feeds) 
         {
             Models.Feed allFeed = null;            
             try
@@ -77,14 +85,14 @@ namespace RssMedia.Controllers {
                 };
 
                 var articleList = new List<Models.Article>();
-                foreach (var feedItem in feeds)
+                foreach (var feedItem in feeds.FeedList)
                 {
                     var rssFeed = await GetRssFeed(feedItem.FeedRssUrl).ConfigureAwait(false);
                     var feedArticles = GetArticles(rssFeed.Items);
                     articleList.AddRange(feedArticles);
                 }
 
-                allFeed.FeedArticles = GetFilteredArticles(articleList, articleOffset, articleCount);
+                allFeed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, feeds.FeedArticleCount);
 
                 return allFeed;
             }
