@@ -3,6 +3,17 @@ import swal from '@sweetalert/with-react';
 
 export class FeedBar extends Component {
 
+    constructor(props) {
+        super(props); 
+        this.state = {
+            articles: []
+        }       
+    }
+
+    populateFeedArticles = (feedArticles) => {
+        this.props.contentCallback(feedArticles);
+    }
+
     handleAddButton = (e) => {
         swal({
             content: this.getNewFeedModalContent(),
@@ -26,22 +37,22 @@ export class FeedBar extends Component {
                 let textFeedUrl = document.querySelector('#textFeedUrl').value;
                 let feedUrl = { url: encodeURIComponent(textFeedUrl) };
 
-                await fetch('http://localhost:5990/api/rssmedia/feedlinks', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },                    
-                    body: JSON.stringify(feedUrl)
-                }).then((response) => {
-                    //if more than 1 URL, allow user to select the feed url
-                    if (response.ok) {
-                        let res = response;
-                        // call rssmedia/feed
-                    }
-                }).then((response) => {
-                    // response contains feed object
-                    // use feed object to populate new feed button
-                });                
+                // await fetch('api/rssmedia/feedlinks', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json;charset=utf-8'
+                //     },                    
+                //     body: JSON.stringify(feedUrl)
+                // }).then((response) => {
+                //     //if more than 1 URL, allow user to select the feed url
+                //     if (response.ok) {
+                //         let res = response;
+                //         // call rssmedia/feed
+                //     }
+                // }).then((response) => {
+                //     // response contains feed object
+                //     // use feed object to populate new feed button
+                // });                
             }
         });
     }
@@ -80,7 +91,7 @@ export class FeedBar extends Component {
 
         this.clearActiveFeed();        
         e.target.classList.add('divFeedsActive');
-        document.querySelector('.divFeedArticles').hidden = false;
+        //document.querySelector('.divFeedArticles').hidden = false;
     }
 
     getFeedList() {
@@ -102,20 +113,33 @@ export class FeedBar extends Component {
     }
 
     handleFeedButton = (e) => {
-        //get list of feeds and determine which one was clicked
+        //TODO: get list of feeds and determine which one was clicked
+        let feedUrl = '';
 
         //get feed articles from service
+        let feedArticles = this.getFeedArticles(feedUrl);
+
+        //set state with articles array
+        this.setState({
+            articles: feedArticles
+        })
+        this.populateFeedArticles(feedArticles);
 
         this.clearActiveFeed();
         e.target.classList.add('divFeedsActive');
-        document.querySelector('.divFeedArticles').hidden = false;
+        //document.querySelector('.divFeedArticles').hidden = false;
     }
 
-    getFeedArticles = () => {
+    getFeedArticles = (feedUrl) => {
         //get FeedUrlList from service
         //const response = await fetch('rssmedia/feedlinks');
         
-        //if more than 1 URL, allow user to 
+        //if more than 1 URL, allow user to select feed. use popup modal
+
+        //build feed object and get feed data from service
+
+        //return articles array
+        return [];
     }
 
     clearActiveFeed = () => {

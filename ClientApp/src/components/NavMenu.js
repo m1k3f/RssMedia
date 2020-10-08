@@ -21,6 +21,7 @@ export class NavMenu extends Component {
         Title? (left)
         Github link (right) 
         */}
+        {/* <h2>RSS Reader</h2> */}
         <a href="https://github.com/m1k3f/RssMedia" target="_blank">
             <img src="./images/GitHub-Mark-32px.png" alt="" />
         </a>
