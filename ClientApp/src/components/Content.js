@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FeedBar } from './FeedBar';
 import { FeedArticles } from './FeedArticles';
-import { Article } from './Article';
+
 
 export class Content extends Component {
 
@@ -18,25 +18,23 @@ export class Content extends Component {
         })
     }
 
-    renderArticles = () => {
-        let content = this.state.articles.map((article) => {
-            return (<Article data = {article} />);
-        });
+    // renderArticles = () => {
+    //     let content = this.state.articles.map((article) => {
+    //         return (<Article data = {article} />);
+    //     });
 
-        return(
-            <div>
-                {content}
-            </div>
-        );
-    }
+    //     return(
+    //         <div>
+    //             {content}
+    //         </div>
+    //     );
+    // }
 
     render() {
         return (
             <main>
                 <FeedBar contentCallback = {this.feedClickCallback} />
-                {
-                    this.renderArticles()
-                }
+                <FeedArticles data = {this.state.articles} />                
             </main>
         );
     }
