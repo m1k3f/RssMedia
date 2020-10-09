@@ -11,9 +11,12 @@ export class FeedLinks extends Component {
     }
 
     renderFeedLinks = () => {
-        let content = this.props.data.map((link) => {
-            return (<FeedLink data = {link} contentCallBack = {this.populateFeedArticles} />);
-        });
+        let content = '';
+        if (this.props.links.feedLinks.length !== 0) {
+            content = this.props.links.map((link) => {
+                return (<FeedLink data = {link} contentCallBack = {this.populateFeedArticles} />);
+            });
+        }
 
         return (content);
     }

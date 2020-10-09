@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Feed extends Component {
+export class FeedLink extends Component {
     constructor(props) {
         super(props);
     }

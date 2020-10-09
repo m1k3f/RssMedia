@@ -30,8 +30,8 @@ export class FeedArticles extends Component {
                     list of title containers expandable to show content
                     button to load more articles from service
                 */}
-                <div class="divSpinner" hidden>
-                    <i class="fas fa-spinner fa-spin fa-lg"></i>
+                <div className="divSpinner" hidden>
+                    <i className="fas fa-spinner fa-spin fa-lg"></i>
                 </div>
                 {this.renderArticles()}
                 

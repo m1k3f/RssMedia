@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import swal from '@sweetalert/with-react';
+import { FeedLinkAll } from './FeedLinkAll';
 import { FeedLinks } from './FeedLinks';
 
 export class FeedBar extends Component {
@@ -7,9 +8,15 @@ export class FeedBar extends Component {
     constructor(props) {
         super(props); 
         this.state = {
-            feedLinks: this.getFeedLinks()
+            feedLinks: this.getFeedLinksStorage()
         }       
     }
+
+    // componentDidMount() {
+    //     this.setState({
+    //         feedLinks: this.getFeedLinksStorage()
+    //     })
+    // }
 
     populateFeedArticles = (feedArticles) => {
         this.props.contentCallback(feedArticles);
@@ -135,12 +142,15 @@ export class FeedBar extends Component {
                         <i className="fas fa-plus fa-lg"></i>
                     </a>                    
                 </div>
-                <div className="divAllFeeds">
+                {/* <div className="divAllFeeds">
                     <a name="btnFeeds" onClick={this.handleAllFeedsButton}>
                         All Feeds
                     </a>
+                </div> */}
+                <div >
+                    <FeedLinkAll />
+                    <FeedLinks links = {this.state.feedLinks} contentCallback = {this.populateFeedArticles} />
                 </div>
-                <FeedLinks data = {this.state.feedLinks} contentCallback = {this.populateFeedArticles} />                
             </div>
         );
     }
