@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,13 +25,16 @@ namespace RssMedia.Controllers {
             try
             {
                 var feedLinkList = new List<Models.FeedLink>();
+                var decodedBaseUrl = WebUtility.UrlDecode(feedLink.BaseUrl);
 
-                var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(feedLink.BaseUrl).ConfigureAwait(false);
+                var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(decodedBaseUrl).ConfigureAwait(false);
                 foreach (var link in urlList)
                 {
                     feedLinkList.Add(new FeedLink() {
+                        Id = Guid.NewGuid(),
                         Title = link.Title,
-                        Url = link.Url,
+                        Url = WebUtility.UrlEncode(link.Url),
+                        Name = feedLink.Name,
                         BaseUrl = feedLink.BaseUrl
                     });
                 }
@@ -51,13 +55,14 @@ namespace RssMedia.Controllers {
 
             try
             {                
-                var rssFeed = await GetRssFeed(feed.FeedRssUrl).ConfigureAwait(false);
+                var decodedFeedRssUrl = WebUtility.UrlDecode(feed.FeedRssUrl);
+                var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
                 feed = new Models.Feed() 
                 {
                     Id = new Guid(),
                     FeedName = feed.FeedName,
-                    FeedRssUrl = rssFeed.Link,
-                    FeedImageUrl = rssFeed.ImageUrl
+                    FeedRssUrl = WebUtility.UrlEncode(rssFeed.Link),
+                    FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty
                 };
 
                 var articleList = GetArticles(rssFeed.Items);
@@ -87,7 +92,8 @@ namespace RssMedia.Controllers {
                 var articleList = new List<Models.Article>();
                 foreach (var feedItem in feeds.FeedList)
                 {
-                    var rssFeed = await GetRssFeed(feedItem.FeedRssUrl).ConfigureAwait(false);
+                    var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
+                    var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
                     var feedArticles = GetArticles(rssFeed.Items);
                     articleList.AddRange(feedArticles);
                 }
