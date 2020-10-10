@@ -5,13 +5,18 @@
     background-color: #ffffff;
 }
 
-body {    
-    margin: auto;    
-    width: 95%;
+.flexrow {
+    display: flex;
+    flex-direction: row;    
 }
 
 .clickable {
     cursor: pointer;
+}
+
+body {    
+    margin: auto;    
+    width: 95%;
 }
 
 header {
@@ -79,6 +84,26 @@ main {
 
 .addButtonModal div {
     margin: 5px;
+}
+
+.multiFeedModal {
+    display: flex;
+    flex-direction: column;
+}
+
+.multiFeedModal div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 6px;
+    margin-left: 40px;
+    margin-bottom: 6px;
+    background-color: #ffebe6;
+    width: 80%;
+}
+
+.multiFeedModal label {
+    background-color: #ffebe6;
 }
 
 .divAllFeeds {
