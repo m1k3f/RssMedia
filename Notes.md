@@ -22,6 +22,20 @@
 - RSS Feed interaction
   - https://www.nuget.org/packages?q=Tags%3A%22rss%22
 
+## Component Layout
+- App
+  - NavMenu
+  - Content
+    - Feedbar
+      - FeedLinkAdd
+        - modals/NewFeed
+        - modals/MultiFeedSelection
+      - FeedLinkAll
+      - FeedLinks
+        - FeedLink          
+    - FeedArticles
+      - Article
+
 ## Layout & Flow
 - RSSMedia single page app
   - Navbar - Title? (left), ~~Github link (right)~~
