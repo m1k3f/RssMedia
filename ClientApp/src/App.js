@@ -5,13 +5,12 @@ import './css/rssmedia.css';
 import './css/fontawesome/all.min.css';
 
 export default class App extends Component {
-  static displayName = App.name;
 
   render () {
     return (
-      <div>
-        <NavMenu />
-        <Content />
+      <div>        
+          <NavMenu />
+          <Content />
       </div>
     );
   }

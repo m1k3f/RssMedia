@@ -6,15 +6,12 @@ export class FeedLinks extends Component {
         super(props);        
     }
 
-    populateFeedArticles = (feedArticles) => {
-        this.props.contentCallback(feedArticles);
-    }
-
     renderFeedLinks = () => {
+        let feedLinks = this.props.links.feedLinks;
         let content = '';
-        if (this.props.links.feedLinks.length !== 0) {
-            content = this.props.links.map((link) => {
-                return (<FeedLink data = {link} contentCallBack = {this.populateFeedArticles} />);
+        if (feedLinks.length > 0) {
+            content = feedLinks.map((link) => {
+                return (<FeedLink key = {link.id} linkData = {link} />);
             });
         }
 

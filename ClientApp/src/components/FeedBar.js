@@ -10,11 +10,7 @@ export class FeedBar extends Component {
         this.state = {
             feedLinks: this.getFeedLinksStorage()
         }       
-    }
-
-    populateFeedArticles = (feedArticles) => {
-        this.props.contentCallback(feedArticles);
-    }        
+    }     
 
     getFeedLinksStorage = () => {
         let feedLinks = null;
@@ -24,14 +20,25 @@ export class FeedBar extends Component {
                 feedLinks = {
                     feedLinks: []
                 };
-            }            
+            }
+            else {
+                feedLinks = JSON.parse(feedLinks);
+            }
         }
         return feedLinks;
     }
 
-    saveFeedLinkStorage = (newFeedLink) => {
+    saveFeedLink = (newFeedLink) => {
         let savedfeedLinks = this.state.feedLinks;
-        
+        savedfeedLinks.feedLinks.push(newFeedLink);
+
+        if (window.localStorage) {
+            localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
+        }
+
+        this.setState({
+            feedLinks: this.getFeedLinksStorage()
+        });
     }   
 
     clearActiveFeed = () => {
@@ -39,23 +46,22 @@ export class FeedBar extends Component {
         feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
     }
 
+    handleFeedLinkAddCallback = (feedLink) => {
+        //save new feed link to storage
+        this.saveFeedLink(feedLink);
+    }
+
     render() {
+        let showFeedLinks = (this.state.feedLinks > 0);
+
         return (
-            <div className="divFeedBar">
-                {/* <div className="divAdd">
-                    <a onClick={this.handleAddButton}>
-                        <i className="fas fa-plus fa-lg"></i>
-                    </a>                    
-                </div> */}
-                {/* <div className="divAllFeeds">
-                    <a name="btnFeeds" onClick={this.handleAllFeedsButton}>
-                        All Feeds
-                    </a>
-                </div> */}
-                <FeedLinkAdd />
-                <div hidden>
+            <div className="divFeedBar">                
+                <FeedLinkAdd feedBarCallback = {this.handleFeedLinkAddCallback} />
+                <div hidden={showFeedLinks}>
                     <FeedLinkAll />
-                    <FeedLinks links = {this.state.feedLinks} contentCallback = {this.populateFeedArticles} />
+                </div>
+                <div hidden={showFeedLinks}>
+                    <FeedLinks links = {this.state.feedLinks} />
                 </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FeedContext from './context/FeedContext';
 import { Article } from './Article';
 
 export class FeedArticles extends Component {
@@ -6,14 +7,33 @@ export class FeedArticles extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            selectedFeed: null
+        }
+    }
+
+    static contextType = FeedContext;
+
+    componentDidMount() {
+        const feed = this.context;
+        if (feed !== undefined) {
+            this.setState({
+                selectedFeed: feed
+            })
+        }
     }
 
     renderArticles = () => {
-        let articleCount = 0;
-        let content = this.props.data.map((article) => {
-            articleCount++;            
-            return (<Article count = {articleCount} data = {article} />);
-        });
+        let feed = this.state.selectedFeed;
+        let content = '';
+        if (feed !== null) {
+            let feedArticles = feed.FeedArticles;
+            let articleCount = 0;
+            content = feedArticles.map((article) => {
+                articleCount++;            
+                return (<Article count = {articleCount} data = {article} />);
+            });
+        }
 
         return(
             <div>
