@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
-export class Article extends Component {
-
-    constructor(props) {
-        super(props);
-    }    
+export class Article extends Component {  
 
     render() {
         let inputId = `input${this.props.count}`;

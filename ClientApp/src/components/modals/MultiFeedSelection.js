@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import swal from '@sweetalert/with-react';
 
 export class MultiFeedSelection extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
+    
     showMultiFeedModal = (feedLinks) => {
         swal({
             content: this.getMultiFeedModalContent(feedLinks),

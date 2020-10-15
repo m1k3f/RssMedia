@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { FeedLink } from './FeedLink';
 
 export class FeedLinks extends Component {
-    constructor(props) {
-        super(props);        
-    }
-
+    
     renderFeedLinks = () => {
         let feedLinks = this.props.links.feedLinks;
         let content = '';

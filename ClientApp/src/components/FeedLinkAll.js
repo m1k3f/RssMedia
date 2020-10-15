@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
 export class FeedLinkAll extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     handleAllFeedsButton = (e) => {
         //get all feed articles from service
 
