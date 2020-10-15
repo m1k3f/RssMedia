@@ -54,19 +54,25 @@ namespace RssMedia.Controllers {
             var feed = feeds.FeedList.First();
 
             try
-            {                
-                var decodedFeedRssUrl = WebUtility.UrlDecode(feed.FeedRssUrl);
-                var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                feed = new Models.Feed() 
+            {              
+                if (!string.IsNullOrEmpty(feed.FeedRssUrl))
                 {
-                    Id = new Guid(),
-                    FeedName = feed.FeedName,
-                    FeedRssUrl = WebUtility.UrlEncode(rssFeed.Link),
-                    FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty
-                };
+                    var decodedFeedRssUrl = WebUtility.UrlDecode(feed.FeedRssUrl);
+                    var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
 
-                var articleList = GetArticles(rssFeed.Items);
-                feed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, feeds.FeedArticleCount);
+                    feed.Id = Guid.NewGuid();
+                    feed.FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty;
+
+                    var articleList = GetArticles(rssFeed.Items);
+
+                    var articleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
+                    feed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);
+                    
+                }
+                else 
+                {
+                    feed.FeedArticles = null;
+                }
 
                 return feed;
             }
@@ -151,8 +157,9 @@ namespace RssMedia.Controllers {
         private List<Models.Article> GetFilteredArticles(List<Models.Article> articles, int articleOffset, int articleCount)
         {
             //Order list of articles by publish date, filter list by articleOffset and articleCount
-            var orderedArticles = articles.OrderByDescending(a => a.ArticlePublishingDate).ToList();
-            var filteredArticles = orderedArticles.GetRange(articleOffset-1, articleCount);
+            var orderedArticles = articles.OrderByDescending(a => a.ArticlePublishingDate).ToList();            
+            var filteredArticles = orderedArticles.GetRange(articleOffset, articleCount);
+
             return filteredArticles;
         }
 

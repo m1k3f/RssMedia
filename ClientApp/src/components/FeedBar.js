@@ -39,7 +39,7 @@ export class FeedBar extends Component {
         this.setState({
             feedLinks: this.getFeedLinksStorage()
         });
-    }   
+    }
 
     clearActiveFeed = () => {
         let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
@@ -47,20 +47,22 @@ export class FeedBar extends Component {
     }
 
     handleFeedLinkAddCallback = (feedLink) => {
-        //save new feed link to storage
-        this.saveFeedLink(feedLink);
+        if (Object.entries(feedLink).length > 0 && feedLink != null) {
+            //save new feed link to storage
+            this.saveFeedLink(feedLink);
+        }
     }
 
     render() {
-        let showFeedLinks = (this.state.feedLinks > 0);
+        let feedLinksExist = (this.state.feedLinks.feedLinks.length > 0);
 
         return (
             <div className="divFeedBar">                
                 <FeedLinkAdd feedBarCallback = {this.handleFeedLinkAddCallback} />
-                <div hidden={showFeedLinks}>
+                <div hidden={!feedLinksExist}>
                     <FeedLinkAll />
                 </div>
-                <div hidden={showFeedLinks}>
+                <div hidden={!feedLinksExist}>
                     <FeedLinks links = {this.state.feedLinks} />
                 </div>
             </div>

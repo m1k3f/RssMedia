@@ -25,13 +25,23 @@ export class FeedLinkAdd extends Component {
             });
         }
         else {
-            this.feedBarCallback(feedLinkData);
+            this.setState({
+                showNewFeedModal: false,
+                showMultiFeedModal: false
+            }, 
+            this.feedBarCallback(feedLinkData)
+            );
         }
         
     }
 
     handleMultiFeedCallback = (feedLink) => {
-        this.feedBarCallback(feedLink);
+        this.setState({
+            showNewFeedModal: false,
+            showMultiFeedModal: false
+        }, 
+        this.feedBarCallback(feedLink)
+        );
     }
 
     feedBarCallback = (feedLink) => {

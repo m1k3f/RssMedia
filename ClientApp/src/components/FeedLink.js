@@ -1,41 +1,37 @@
 import React, { Component } from 'react';
 import FeedContext from './context/FeedContext';
 
-export class FeedLink extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            feedObject: {}
-        }
-    }
+export class FeedLink extends Component {    
 
     static contextType = FeedContext;
 
     handleFeedButton = async (e) => {
+        const eventTarget = e.target;
+
         //show spinner
         document.querySelector('.divSpinner').hidden = false;
 
-        if (e.target != null && e.target.dataset.url.length > 0) {
-            const feedUrl = e.target.dataset.url;
+        if (eventTarget != null && eventTarget.dataset.url.length > 0) {
+            const feedUrl = eventTarget.dataset.url;
             let feed = await this.getFeed(feedUrl, 0, 20);
 
-            //show active feed in feedbar
-            this.clearActiveFeed();
-            e.target.classList.add('divFeedsActive');
-            //document.querySelector('.divFeedArticles').hidden = false;
+            if (feed.feedError === null) {
+                //show active feed in feedbar
+                this.clearActiveFeed();
+                eventTarget.classList.add('divFeedsActive');
+                //document.querySelector('.divFeedArticles').hidden = false;               
 
-            //set state with articles array
-            this.setState({
-                feedObject: feed
-            })
+                //hide spinner
+                document.querySelector('.divSpinner').hidden = true;
 
-            //hide spinner
-            document.querySelector('.divSpinner').hidden = true;
-
-            //add feed to context
-            const {setFeed} = this.context;
-            setFeed(feed);        
+                //add feed to context
+                const {setFeed} = this.context;
+                setFeed(feed); 
+            }
+            else {
+                //hide spinner
+                document.querySelector('.divSpinner').hidden = true;
+            }
         }
         else {
             //hide spinner
@@ -48,7 +44,7 @@ export class FeedLink extends Component {
     getFeed = async (feedUrl, articleOffset, articleCount) => {
 
         let feed = {
-            // feedname: feedLink.name,
+            //feedname: feedLink.name,
             feedrssurl: feedUrl
         };
 
@@ -84,9 +80,10 @@ export class FeedLink extends Component {
         return (            
             <a name="btnFeeds" onClick={this.handleFeedButton} 
                 data-feedid={feedLink.id} 
-                data-url={encodeURIComponent(feedUrl)}>
+                data-url={feedUrl}>
                 {feedLink.name}
             </a>                
         );
     }
 }
+//FeedLink.contextType = FeedContext;

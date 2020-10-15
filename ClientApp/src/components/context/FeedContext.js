@@ -10,7 +10,9 @@ class FeedProvider extends Component {
     }
 
     setFeed = (feed) => {
-        this.setState((prevState) => ({feed}));
+        this.setState({
+            selectedFeed: feed
+        });
     }
 
     render() {
@@ -33,5 +35,5 @@ class FeedProvider extends Component {
     }
 }
 
-export default { FeedContext };
+export default FeedContext;
 export { FeedProvider };
