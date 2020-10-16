@@ -13,25 +13,16 @@ export class FeedArticles extends Component {
     }
 
     static contextType = FeedContext;
-
-    componentDidMount() {
-        const feed = this.context;
-        if (feed !== undefined) {
-            this.setState({
-                selectedFeed: feed
-            })
-        }
-    }
-
+    
     renderArticles = () => {
-        let feed = this.state.selectedFeed;
         let content = '';
-        if (feed !== null) {
-            let feedArticles = feed.FeedArticles;
+        const feedContext = this.context;
+        if (feedContext != null && feedContext.selectedFeed != null) {        
+            let feedArticles = feedContext.selectedFeed.feedArticles;
             let articleCount = 0;
             content = feedArticles.map((article) => {
                 articleCount++;            
-                return (<Article count = {articleCount} data = {article} />);
+                return (<Article key = {article.id} count = {articleCount} data = {article} />);
             });
         }
 

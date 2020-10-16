@@ -6,7 +6,7 @@ const FeedContext = React.createContext();
 
 class FeedProvider extends Component {
     state = {
-        selectedFeed: {}
+        selectedFeed: null
     }
 
     setFeed = (feed) => {

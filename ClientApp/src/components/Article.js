@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 export class Article extends Component {  
 
@@ -9,8 +10,8 @@ export class Article extends Component {
         return(
             <article>
                 <input type="checkbox" name="collapse" id={inputId}  />
-                <label htmlFor={inputId}>{article.articletitle}</label>
-                <p>{article.articlecontent}</p>
+                <label htmlFor={inputId}>{article.articleTitle}</label>
+                <section>{ReactHtmlParser(article.articleDescription)}</section>
             </article>
         );
     }

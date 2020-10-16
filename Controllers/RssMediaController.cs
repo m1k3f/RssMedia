@@ -141,7 +141,7 @@ namespace RssMedia.Controllers {
             {
                 articleList.Add(new Models.Article()
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     ArticleId = rssArticle.Id,
                     ArticleUrl = rssArticle.Link,
                     ArticleAuthor = rssArticle.Author,
