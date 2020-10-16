@@ -6,10 +6,15 @@ export class NavMenu extends Component {
   render () {
     return (
       <header>
-        <p>RSS Reader</p>
-        <a href="https://github.com/m1k3f/RssMedia" target="_blank">
-            <img src="./images/GitHub-Mark-32px.png" alt="" />
-        </a>
+        <div>
+          <i className="fas fa-rss-square fa-lg"></i>
+          <p>RSS Reader</p>
+        </div>
+        <div>
+          <a href="https://github.com/m1k3f/RssMedia" target="_blank">
+              <i className="fab fa-github fa-2x"></i>
+          </a>
+        </div>
       </header>
     );
   }
