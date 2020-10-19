@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FeedContext from './context/FeedContext';
+import { Spinner } from './Spinner';
 import { Article } from './Article';
+import { FeedArticlesControls } from './FeedArticlesControls';
 
 export class FeedArticles extends Component {
 
@@ -8,19 +10,30 @@ export class FeedArticles extends Component {
         super(props);
 
         this.state = {
-            selectedFeed: null
-        }
+            selectedFeed: null,
+            hideSpinner: true
+        }        
+    }    
+
+    static contextType = FeedContext;    
+
+    handleContentCallback = (option) => {
+        let feedLink = this.context.selectedFeed;
+        this.props.contentCallback(feedLink, option);
+    }    
+
+    renderSpinner = () => {
+        return (<Spinner hide={this.state.hideSpinner} />);
     }
 
-    static contextType = FeedContext;
-    
-    renderArticles = () => {
+    renderArticles = () => {        
         let content = '';
         const feedContext = this.context;
-        if (feedContext != null && feedContext.selectedFeed != null) {        
-            let feedArticles = feedContext.selectedFeed.feedArticles;
+
+        if (feedContext != null && feedContext.selectedFeed != null) {           
+
             let articleCount = 0;
-            content = feedArticles.map((article) => {
+            content = feedContext.selectedFeed.feedArticles.map((article) => {
                 articleCount++;            
                 return (<Article key = {article.id} count = {articleCount} data = {article} />);
             });
@@ -34,6 +47,8 @@ export class FeedArticles extends Component {
     }
 
     render() {
+        let feedTitle = (this.context.selectedFeed != null) ? this.context.selectedFeed.feedTitle : '';
+
         return (
             <div className="divFeedArticles">
                 {/* 
@@ -41,21 +56,15 @@ export class FeedArticles extends Component {
                     list of title containers expandable to show content
                     button to load more articles from service
                 */}
-                <div className="divSpinner" hidden>
+                {/* <div className="divFeedArticleControls" /> */}
+                {/* <div className="divSpinner" hidden>
                     <i className="fas fa-spinner fa-spin fa-lg"></i>
-                </div>
+                </div> */}
+                <FeedArticlesControls 
+                    feedTitle = {feedTitle} 
+                    feedArticlesCallback = {this.handleContentCallback} />
                 {this.renderArticles()}
-                
-                {/* <article>
-                    <input type="checkbox" name="collapse" id="toggle1" defaultChecked />
-                    <label htmlFor="toggle1">Test Article Header 1</label>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In auctor, purus non condimentum egestas, felis sapien auctor sem, at laoreet lectus justo at purus. Nulla accumsan ligula eu nisl consectetur, sit amet fermentum elit tincidunt. Aenean a vulputate tellus. Mauris accumsan nunc vitae leo hendrerit, vel laoreet neque volutpat. Cras ornare egestas arcu, condimentum lacinia velit tristique quis. Proin congue erat elit, eget pulvinar leo sagittis eget. Nullam eros leo, convallis ac tortor quis, gravida dignissim lectus. Fusce vel ex sed ex scelerisque ultricies. Vivamus tempus facilisis sem id hendrerit. In id ex placerat, aliquam libero eu, tempus dui. Proin tempus gravida magna, sit amet faucibus orci suscipit et. Mauris fringilla tortor a sagittis auctor. Sed molestie euismod turpis, vitae iaculis magna lacinia at.</p>
-                </article>
-                <article>
-                    <input type="checkbox" name="collapse" id="toggle2" />
-                    <label htmlFor="toggle2">Test Article Header 2</label>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In auctor, purus non condimentum egestas, felis sapien auctor sem, at laoreet lectus justo at purus. Nulla accumsan ligula eu nisl consectetur, sit amet fermentum elit tincidunt. Aenean a vulputate tellus. Mauris accumsan nunc vitae leo hendrerit, vel laoreet neque volutpat. Cras ornare egestas arcu, condimentum lacinia velit tristique quis. Proin congue erat elit, eget pulvinar leo sagittis eget. Nullam eros leo, convallis ac tortor quis, gravida dignissim lectus. Fusce vel ex sed ex scelerisque ultricies. Vivamus tempus facilisis sem id hendrerit. In id ex placerat, aliquam libero eu, tempus dui. Proin tempus gravida magna, sit amet faucibus orci suscipit et. Mauris fringilla tortor a sagittis auctor. Sed molestie euismod turpis, vitae iaculis magna lacinia at.</p>
-                </article> */}
+                              
             </div>
         );
     }
