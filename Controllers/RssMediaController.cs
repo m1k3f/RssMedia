@@ -61,6 +61,7 @@ namespace RssMedia.Controllers {
                     var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
 
                     feed.Id = Guid.NewGuid();
+                    feed.FeedTitle = rssFeed.Title;
                     feed.FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty;
 
                     var articleList = GetArticles(rssFeed.Items);
