@@ -162,27 +162,54 @@ main {
 } */
 
 .divFeedsActive {
-    background-color: #7cd1f9;
+    background-color: #333333;
     color: white;
 }
 
 .divFeedArticles {
-    margin-top: 10px;
+    margin-top: 8px;
     /* height: 100px; */
 }
 
-.divFeedArticles article {
-    /* padding: 10px; */
+.divFeedArticles .divFeedArticlesControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 8px;
-    /* margin-bottom: 2px; */
-    /* border: 2px solid #076692; */
+    line-height: 5px;
+}
+
+.divFeedArticles .divFeedArticlesControls > p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.divFeedArticles .divFeedArticlesControls > div a {
+    padding-right: 8px;
+}
+
+.divFeedArticles article {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 8px;
 }
 
 .divFeedArticles input[name="collapse"] {
     display: none;
 }
+
+/* article[name="feedArticle"] div {
+    display: flex;
+    justify-content: space-between;
+} */
+
+/* article[name="feedArticle"] div > p {
+    background-color: #333333;
+    color: #ffffff;
+} */
 
 .divFeedArticles label {
     cursor: pointer;
@@ -191,12 +218,12 @@ main {
     padding: 10px;
     display: block;
     transition: .2s;
-    background-color: #b0100c;
+    background-color: #333333;
     color: #ffffff;
 }
 
 .divFeedArticles label:hover {
-    background-color: #d7120f;
+    background-color: #b0100c;
 }
 
 .divFeedArticles section {
