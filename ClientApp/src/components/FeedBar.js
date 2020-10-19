@@ -5,45 +5,19 @@ import { FeedLinks } from './FeedLinks';
 
 export class FeedBar extends Component {
 
-    constructor(props) {
-        super(props); 
-        this.state = {
-            feedLinks: this.getFeedLinksStorage()
-        }       
-    }     
-
-    getFeedLinksStorage = () => {
-        let feedLinks = null;
-        if (window.localStorage) {
-            feedLinks = localStorage.getItem("rmFeeds");
-            if (feedLinks === undefined || feedLinks === null || feedLinks === '') {        
-                feedLinks = {
-                    feedLinks: []
-                };
-            }
-            else {
-                feedLinks = JSON.parse(feedLinks);
-            }
-        }
-        return feedLinks;
-    }
-
     saveFeedLink = (newFeedLink) => {
-        let savedfeedLinks = this.state.feedLinks;
+        let savedfeedLinks = this.props.feedLinks;
         savedfeedLinks.feedLinks.push(newFeedLink);
 
         if (window.localStorage) {
             localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
         }
 
-        this.setState({
-            feedLinks: this.getFeedLinksStorage()
-        });
-    }
+        // this.setState({
+        //     feedLinks: this.getFeedLinksStorage()
+        // });
 
-    clearActiveFeed = () => {
-        let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
-        feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
+        this.props.contentCallback();
     }
 
     handleFeedLinkAddCallback = (feedLink) => {
@@ -54,7 +28,7 @@ export class FeedBar extends Component {
     }
 
     render() {
-        let feedLinksExist = (this.state.feedLinks.feedLinks.length > 0);
+        let feedLinksExist = (this.props.feedLinks.feedLinks.length > 0);
 
         return (
             <div className="divFeedBar">                
@@ -63,7 +37,7 @@ export class FeedBar extends Component {
                     <FeedLinkAll />
                 </div>
                 <div hidden={!feedLinksExist}>
-                    <FeedLinks links = {this.state.feedLinks} />
+                    <FeedLinks links = {this.props.feedLinks} />
                 </div>
             </div>
         );

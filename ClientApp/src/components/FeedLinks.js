@@ -18,20 +18,7 @@ export class FeedLinks extends Component {
     render() {
         return(
             <div className="divFeeds">
-                {this.renderFeedLinks()}                   
-
-                {/* <a name="btnFeeds" onClick={this.handleFeedButton}>
-                    Test Feed Button 1
-                </a>
-                <a name="btnFeeds" onClick={this.handleFeedButton}>
-                    Test Feed Button 2
-                </a>
-                <a name="btnFeeds" onClick={this.handleFeedButton}>
-                    Test Feed Button 3
-                </a>
-                <a name="btnFeeds" onClick={this.handleFeedButton}>
-                    Test Feed Button 4
-                </a> */}
+                {this.renderFeedLinks()}
             </div>
         );
     }
