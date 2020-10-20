@@ -40,7 +40,7 @@ export class FeedArticles extends Component {
         }
 
         return(
-            <div>
+            <div className="divFeedArticlesList">
                 {content}
             </div>
         );

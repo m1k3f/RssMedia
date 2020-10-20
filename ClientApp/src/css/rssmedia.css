@@ -162,13 +162,14 @@ main {
 } */
 
 .divFeedsActive {
-    background-color: #333333;
+    background-color: #4d4d4d;
     color: white;
 }
 
 .divFeedArticles {
     margin-top: 8px;
     /* height: 100px; */
+    
 }
 
 .divFeedArticles .divFeedArticlesControls {
@@ -178,7 +179,7 @@ main {
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     line-height: 5px;
 }
 
@@ -188,76 +189,64 @@ main {
 }
 
 .divFeedArticles .divFeedArticlesControls > div a {
-    padding-right: 8px;
+    padding-left: 20px;
+}
+
+.divFeedArticles .divFeedArticlesList {
+    overflow: auto;
+    max-height: 500px;
 }
 
 .divFeedArticles article {
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
-.divFeedArticles input[name="collapse"] {
-    display: none;
-}
-
-/* article[name="feedArticle"] div {
-    display: flex;
+article[name="feedArticle"] > button {    
+    cursor: pointer;
+    display:flex;
+    flex-direction: row;
     justify-content: space-between;
-} */
+    border: none;
+    outline: none;
+    width: 100%;
+    line-height: 14px;
+    transition: 0.4s;
+}
 
-/* article[name="feedArticle"] div > p {
+article[name="feedArticle"] > button > div {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%; 
     background-color: #333333;
     color: #ffffff;
-} */
+}
 
-.divFeedArticles label {
-    cursor: pointer;
+article[name="feedArticle"] > button > div div {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+article[name="feedArticle"] > button > div i {
+    padding-left: 15px;
+}
+
+article[name="feedArticle"] > button,
+article[name="feedArticle"] > button > div p,
+article[name="feedArticle"] > button > div div,
+article[name="feedArticle"] > button > div i {
+    background-color: #333333;
+    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
-    padding: 10px;
-    display: block;
-    transition: .2s;
-    background-color: #333333;
-    color: #ffffff;
 }
 
-.divFeedArticles label:hover {
-    background-color: #b0100c;
-}
-
-.divFeedArticles section {
-    height: 0;
+article[name="feedArticle"] section {
+    padding-left: 10px;
+    padding-right: 10px;
     overflow: hidden;
-    display: none;
-    background-color: #f6f6f6;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    margin: 0;
-    transition: 4.0s;
+    transition: max-height 0.2s ease-out;
 }
-
-.divFeedArticles input[name="collapse"]:checked ~ section {
-    height: 100%;
-    display: block;
-    transition: height 4.0s;
-}
-
-
-/* .divFeedArticles details {
-    padding: 10px;
-    margin: 5px;
-    border: 2px solid #076692;
-    border-radius: 15px;
-}
-
-.detailsFeedArticles summary {
-    cursor: pointer;
-}
-
-.detailsFeedArticles article {
-    padding: 4px;
-    margin: 5px;
-    background-color: #f6f6f6;
-    box-shadow: 1px 1px 2px #bbbbbb;
-} */
