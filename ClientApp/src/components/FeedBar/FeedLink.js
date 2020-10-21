@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FeedContext from './context/FeedContext';
+import FeedContext from '../context/FeedContext';
 
 export class FeedLink extends Component {    
 

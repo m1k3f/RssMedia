@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { SyncButton } from './FeedArticles/Controls/SyncButton';
-import { EditButton } from './FeedArticles/Controls/EditButton';
-import { DeleteButton } from './FeedArticles/Controls/DeleteButton';
+import { SyncButton } from './Controls/SyncButton';
+import { EditButton } from './Controls/EditButton';
+import { DeleteButton } from './Controls/DeleteButton';
 
 export class FeedArticlesControls extends Component {
     

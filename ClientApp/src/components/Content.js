@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FeedProvider } from './context/FeedContext';
-import { FeedBar } from './FeedBar';
-import { FeedArticles } from './FeedArticles';
+import { FeedBar } from './FeedBar/FeedBar';
+import { FeedArticles } from './FeedArticles/FeedArticles';
 
 export class Content extends Component {
     constructor() {

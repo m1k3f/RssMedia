@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FeedContext from './context/FeedContext';
-import { Spinner } from './Spinner';
+import FeedContext from '../context/FeedContext';
+import { Spinner } from './Controls/Spinner';
 import { Article } from './Article';
 import { FeedArticlesControls } from './FeedArticlesControls';
 
