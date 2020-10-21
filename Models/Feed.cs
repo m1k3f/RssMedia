@@ -6,6 +6,7 @@ namespace RssMedia.Models
     public class Feed
     {
         public Guid Id {get; set;}
+        public Guid FeedLinkId {get; set;}
         public string FeedName {get; set;}
         public string FeedTitle {get; set;}
         public string FeedRssUrl {get; set;}

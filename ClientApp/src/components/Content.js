@@ -32,15 +32,17 @@ export class Content extends Component {
         
         //remove feedlink from feedlinks array
         let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLinkId);
-        savedfeedLinks.splice(linkIndex, 1);
+        if (linkIndex > -1) {
+            savedfeedLinks.feedLinks.splice(linkIndex, 1);
 
-        if (window.localStorage) {
-            localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
+            if (window.localStorage) {
+                localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
+            }
+
+            this.setState({
+                feedLinks: this.getFeedLinksStorage()
+            });
         }
-
-        this.setState({
-            feedLinks: this.getFeedLinksStorage()
-        });
     }
 
     handleFeedbarCallback = () => {
@@ -49,12 +51,15 @@ export class Content extends Component {
         });
     }
 
-    handleFeedArticlesCallback = (feedLink, option) => {
-        if (option === 'edit') {
+    handleFeedArticlesCallback = (feed, option) => {
+        if (option === 'sync') {
+            
+        }
+        else if (option === 'edit') {
 
         }
         else if (option === 'delete') {
-            this.removeFeedLink(feedLink.id);
+            this.removeFeedLink(feed.feedLinkId);
         }
     }
 

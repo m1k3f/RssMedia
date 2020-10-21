@@ -12,8 +12,14 @@ export class FeedLink extends Component {
         //document.querySelector('.divSpinner').hidden = false;
 
         if (eventTarget != null && eventTarget.dataset.url.length > 0) {
+            const feedLinkId = eventTarget.dataset.feedid;
             const feedUrl = eventTarget.dataset.url;
-            let feed = await this.getFeed(feedUrl, 0, 20);
+            let feedObject = {
+                feedlinkid: feedLinkId,
+                feedrssurl: feedUrl,
+                feedname: ''
+            }
+            let feed = await this.getFeed(feedObject, 0, 20);
 
             if (feed.feedError === null) {
                 //show active feed in feedbar
@@ -41,15 +47,10 @@ export class FeedLink extends Component {
         
     }
 
-    getFeed = async (feedUrl, articleOffset, articleCount) => {
-
-        let feed = {
-            //feedname: feedLink.name,
-            feedrssurl: feedUrl
-        };
+    getFeed = async (feedObject, articleOffset, articleCount) => {
 
         let feeds = {
-            feedlist: [feed],
+            feedlist: [feedObject],
             feedarticleoffset: articleOffset,
             feedarticlecount: articleCount
         };      

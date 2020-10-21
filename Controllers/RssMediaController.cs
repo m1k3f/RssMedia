@@ -30,8 +30,9 @@ namespace RssMedia.Controllers {
                 var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(decodedBaseUrl).ConfigureAwait(false);
                 foreach (var link in urlList)
                 {
+                    var guidId = (feedLink.Id == null || feedLink.Id == Guid.Empty) ? Guid.NewGuid() : feedLink.Id;
                     feedLinkList.Add(new FeedLink() {
-                        Id = Guid.NewGuid(),
+                        Id = guidId,
                         Title = link.Title,
                         Url = WebUtility.UrlEncode(link.Url),
                         Name = feedLink.Name,
