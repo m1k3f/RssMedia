@@ -53,8 +53,7 @@ export class FeedArticles extends Component {
     }
 
     render() {
-        let feedTitle = (this.context.selectedFeed != null) ? this.context.selectedFeed.feedTitle : '';
-
+        
         return (
             <div className="divFeedArticles">
                 {/* 
@@ -66,8 +65,8 @@ export class FeedArticles extends Component {
                 {/* <div className="divSpinner" hidden>
                     <i className="fas fa-spinner fa-spin fa-lg"></i>
                 </div> */}
-                <FeedArticlesControls 
-                    feedTitle = {feedTitle} 
+                <FeedArticlesControls
+                    feed = {this.context.selectedFeed}
                     feedArticlesCallback = {this.handleContentCallback} />
                 {this.renderArticles()}
                               
