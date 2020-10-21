@@ -8,14 +8,14 @@ export class Article extends Component {
     }
 
     handleHeaderClick = (e) => {
-        if (this.state.opened === false) {
+        if (this.state.opened) {
             this.setState({
-                opened: true
+                opened: false
             });
         }
         else {
             this.setState({
-                opened: false
+                opened: true
             });
         }
     }

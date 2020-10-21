@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class SyncButton extends Component {
 
     handleSyncClick = (e) => {
-        this.props.feedArticlesCallback("sync");
+        this.props.controlsCallback("sync");
     }
 
     render() {

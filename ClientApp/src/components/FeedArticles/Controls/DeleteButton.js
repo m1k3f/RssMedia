@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class DeleteButton extends Component {
 
     handleDeleteClick = (e) => {
-        this.props.feedArticlesCallback("delete");
+        this.props.controlsCallback("delete");
     }
 
     render() {

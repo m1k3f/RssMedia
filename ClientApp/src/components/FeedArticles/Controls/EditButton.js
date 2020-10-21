@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class EditButton extends Component {
 
     handleEditClick = (e) => {
-        this.props.feedArticlesCallback("edit");
+        this.props.controlsCallback("edit");
     }
 
     render() {

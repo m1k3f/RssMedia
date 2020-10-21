@@ -1,21 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { SyncButton } from './FeedArticles/Controls/SyncButton';
+import { EditButton } from './FeedArticles/Controls/EditButton';
+import { DeleteButton } from './FeedArticles/Controls/DeleteButton';
 
 export class FeedArticlesControls extends Component {
-
-    state = {
-        showControls: false
-    }
-
-    handleSyncClick = (e) => {
-        this.props.feedArticlesCallback("sync");
-    }
-
-    handleEditClick = (e) => {
-        this.props.feedArticlesCallback("edit");
-    }
-
-    handleDeleteClick = (e) => {
-        this.props.feedArticlesCallback("delete");
+    
+    handleButtonClick = (option) => {
+        this.props.feedArticlesCallback(option);
     }
 
     renderControls = () => {
@@ -26,20 +17,15 @@ export class FeedArticlesControls extends Component {
                 <div className="divFeedArticlesControls">
                     {/* 
                         Feed Title (left)
+                        Sync Feed button (right)
                         Edit Feed button (right)
                         Delete Feed button (right)
                     */}
                     <p>{this.props.feedTitle}</p>
                     <div>
-                        <a className="clickable" onClick={this.handleSyncClick}>
-                            <i className="fas fa-sync-alt fa-lg"></i>
-                        </a>
-                        <a className="clickable" onClick={this.handleEditClick}>
-                            <i className="fas fa-edit fa-lg"></i>
-                        </a>
-                        <a className="clickable" onClick={this.handleDeleteClick}>
-                            <i className="fas fa-trash fa-lg"></i>
-                        </a>
+                        <SyncButton controlsCallback = {this.handleButtonClick} />
+                        <EditButton controlsCallback = {this.handleButtonClick} />
+                        <DeleteButton controlsCallback = {this.handleButtonClick} />
                     </div>
                 </div>
             );
