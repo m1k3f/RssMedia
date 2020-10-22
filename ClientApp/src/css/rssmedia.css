@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: sans-serif;    
+    font-family: 'Segoe UI',Arial,sans-serif;    
     /* background:#ccc none repeat scroll 0 0; */
     background-color: #ffffff;
 }
@@ -59,6 +59,9 @@ main {
     /* border-radius: 10px; */
     padding: 10px;
     display: flex;    
+    /* z-index: 10;
+    position: fixed;
+    width: 90%; */
 }
 
 /* .divFeedBar div {
@@ -193,14 +196,16 @@ main {
 }
 
 .divFeedArticles .divFeedArticlesList {
-    overflow: auto;
-    max-height: 500px;
+    /* border: 1px solid #333333; */
+    padding-top: 2px;
+    overflow: visible;
+    max-height: 550px;
 }
 
 .divFeedArticles article {
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 1px;
 }
 
 article[name="feedArticle"] > button {    
@@ -220,7 +225,7 @@ article[name="feedArticle"] > button > div {
     flex-direction: row;
     justify-content: space-between;
     width: 100%; 
-    background-color: #333333;
+    background-color: #404040;
     color: #ffffff;
 }
 
@@ -238,15 +243,20 @@ article[name="feedArticle"] > button,
 article[name="feedArticle"] > button > div p,
 article[name="feedArticle"] > button > div div,
 article[name="feedArticle"] > button > div i {
-    background-color: #333333;
+    background-color: #404040;
     color: #ffffff;
     font-size: 14px;
     font-weight: 600;
 }
 
 article[name="feedArticle"] section {
+    background-color: #fafafa;
     padding-left: 10px;
     padding-right: 10px;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+article[name="feedArticle"] section p {
+    background-color: #fafafa;
 }
