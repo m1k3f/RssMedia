@@ -22,8 +22,8 @@ export class Article extends Component {
 
     render() {
         let article = this.props.data;
-        let publishDateTime = new Date(article.articlePublishingDate);
-        let formattedPublishDateTime = `${publishDateTime.getMonth() + 1}/${publishDateTime.getDay()}/${publishDateTime.getFullYear()}`;
+        let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
+        let formattedPublishDateTime = `${publishDateTime.getMonth() + 1}/${publishDateTime.getDate()}/${publishDateTime.getFullYear()}`;
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
