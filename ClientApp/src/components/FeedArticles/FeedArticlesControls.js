@@ -13,6 +13,7 @@ export class FeedArticlesControls extends Component {
         let hideDiv = (this.props.feed == null);
         let content = null;
         if (!hideDiv) {
+            let imageUrl = (this.props.feed.feedImageUrl != '') ? decodeURIComponent(this.props.feed.feedImageUrl) : '';
             content = (
                 <div className="divFeedArticlesControls">
                     {/* 
@@ -22,6 +23,7 @@ export class FeedArticlesControls extends Component {
                         Delete Feed button (right)
                     */}
                     <p>{this.props.feed.feedTitle}</p>
+                    <img src={imageUrl} />
                     <div>
                         <SyncButton controlsCallback = {this.handleButtonClick} />
                         <EditButton controlsCallback = {this.handleButtonClick} 

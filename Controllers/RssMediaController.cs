@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -67,6 +68,8 @@ namespace RssMedia.Controllers {
                     feed.Id = Guid.NewGuid();
                     feed.FeedTitle = rssFeed.Title;
                     feed.FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty;
+                    //feed.FeedImageBytes = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? await GetImageData(rssFeed.ImageUrl) : null;
+                    //feed.FeedImageFileType = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? GetImageFileType(rssFeed.ImageUrl) : string.Empty;
 
                     var articleList = GetArticles(rssFeed.Items);
 
@@ -168,12 +171,26 @@ namespace RssMedia.Controllers {
             return filteredArticles;
         }
 
-        private async void GetImageData(string imageUrl)
-        {
-            HttpResponseMessage response = await _client.GetAsync(imageUrl);
+        // private async Task<byte[]> GetImageData(string imageUrl)
+        // {
+        //     HttpResponseMessage response = await _client.GetAsync(imageUrl);
+        //     response.EnsureSuccessStatusCode();
+        //     var imageBytes = await response.Content.ReadAsByteArrayAsync();
 
-            //return new byte[];
-        }
+        //     return imageBytes;
+        // }
+
+        // private string GetImageFileType(string imageUrl)
+        // {
+        //     var type = Path.GetExtension(imageUrl);
+
+        //     if (type.Length > 0) {
+        //         return type;
+        //     }
+        //     else {
+        //         return null;
+        //     }
+        // }
 
         #endregion
     }
