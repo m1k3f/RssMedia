@@ -29,7 +29,7 @@ export class NewFeed extends Component {
 
                 let feedLink = {
                     name: feedName,
-                    baseurl: encodeURIComponent(textFeedUrl)
+                    addurl: encodeURIComponent(textFeedUrl)
                 };
 
                 //send entered values to service
@@ -59,7 +59,7 @@ export class NewFeed extends Component {
     }
 
     getFeedLinkData = async (feedLink) => {
-        let request = new Request('api/rssmedia/feedlinks', {
+        let request = new Request('api/rssmedia/GetFeedLinks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

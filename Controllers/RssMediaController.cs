@@ -23,6 +23,23 @@ namespace RssMedia.Controllers {
         }
 
         [HttpPost]
+        [ActionName("GetFeedLinks")]
+        public async Task<IEnumerable<Models.FeedLink>> GetFeedLinks([FromBody]Models.FeedLink feedLink)
+        {          
+            try
+            {                
+                var feedAccess = new RSS.FeedAccess(feedLink);
+                var feedLinkList = await feedAccess.GetFeedLinkList();                
+
+                return feedLinkList;                
+            }
+            catch(Exception)
+            {
+                return null;
+            }            
+        }
+
+        [HttpPost]
         [ActionName("FeedLinks")]
         public async Task<IEnumerable<Models.FeedLink>> FeedLinks([FromBody]Models.FeedLink feedLink)
         {            
