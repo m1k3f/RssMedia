@@ -33,8 +33,9 @@ namespace RssMedia.Controllers {
 
                 return feedLinkList;                
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                var errorMessage = ex.Message;
                 return null;
             }            
         }

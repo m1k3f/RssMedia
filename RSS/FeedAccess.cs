@@ -19,8 +19,8 @@ namespace RssMedia.RSS
 
         public async Task<IEnumerable<Models.FeedLink>> GetFeedLinkList()
         {
-            //var feedsByUrl = await GetFeedsFromPageUrl();
-            var feedsByUrl = GetFeedsFromPageUrlManual();
+            var feedsByUrl = await GetFeedsFromPageUrl();
+            //var feedsByUrl = await GetFeedsFromPageUrlManual();
             if (feedsByUrl.Count() > 0)
             {
                 return feedsByUrl;
@@ -34,16 +34,20 @@ namespace RssMedia.RSS
                 }
                 else
                 {
-                    var feedsByUrlManual = GetFeedsFromPageUrlManual();
-                    if (feedsByUrlManual.Count() > 0)
-                    {
-                        return feedsByUrlManual;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return null;
                 }
+                // else
+                // {
+                //     var feedsByUrlManual = await GetFeedsFromPageUrlManual();
+                //     if (feedsByUrlManual.Count() > 0)
+                //     {
+                //         return feedsByUrlManual;
+                //     }
+                //     else
+                //     {
+                //         return null;
+                //     }
+                // }
             }
         }
 
@@ -88,13 +92,13 @@ namespace RssMedia.RSS
             return feedLinkList;
         }
 
-        private IEnumerable<Models.FeedLink> GetFeedsFromPageUrlManual()
+        private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrlManual()
         {
             var feedLinkList = new List<Models.FeedLink>();
 
             //Do a manual search through page to find feed(s)
             var web = new HtmlAgilityPack.HtmlWeb();
-            var pageDoc = web.Load(_decodedUrl);
+            var pageDoc = await web.LoadFromWebAsync(_decodedUrl);
             var rssFeedXpath = "//link[(@type='application/rss+xml' or @type='application/atom+xml') and @rel='alternate']";
             var rssFeeds = pageDoc.DocumentNode.SelectNodes(rssFeedXpath);
 
