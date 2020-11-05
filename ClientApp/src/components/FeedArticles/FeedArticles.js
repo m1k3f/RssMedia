@@ -3,6 +3,7 @@ import FeedContext from '../context/FeedContext';
 import { Spinner } from './Controls/Spinner';
 import { Article } from './Article';
 import { FeedArticlesControls } from './FeedArticlesControls';
+import { FeedTitle } from './Controls/FeedTitle';
 
 export class FeedArticles extends Component {
 
@@ -53,7 +54,11 @@ export class FeedArticles extends Component {
     }
 
     render() {
-        
+        let feedTitle = (this.context != null && this.context.selectedFeed != null) 
+                        ? this.context.selectedFeed.feedTitle 
+                        : '';
+
+
         return (
             <div className="divFeedArticles">
                 {/* 
@@ -65,6 +70,7 @@ export class FeedArticles extends Component {
                 {/* <div className="divSpinner" hidden>
                     <i className="fas fa-spinner fa-spin fa-lg"></i>
                 </div> */}
+                <FeedTitle title={feedTitle} />
                 <FeedArticlesControls
                     feed = {this.context.selectedFeed}
                     feedArticlesCallback = {this.handleContentCallback} />

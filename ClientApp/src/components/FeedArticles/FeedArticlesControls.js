@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { SyncButton } from './Controls/SyncButton';
 import { EditButton } from './Controls/EditButton';
 import { DeleteButton } from './Controls/DeleteButton';
+import { FeedImageLink } from './Controls/FeedImageLink';
 
 export class FeedArticlesControls extends Component {
     
@@ -13,23 +14,22 @@ export class FeedArticlesControls extends Component {
         let hideDiv = (this.props.feed == null);
         let content = null;
         if (!hideDiv) {
-            let imageUrl = (this.props.feed.feedImageUrl != '') ? decodeURIComponent(this.props.feed.feedImageUrl) : '';
+            // let imageUrl = (this.props.feed.feedImageUrl != '') ? decodeURIComponent(this.props.feed.feedImageUrl) : '';
             content = (
                 <div className="divFeedArticlesControls">
                     {/* 
-                        Feed Title (left)
-                        Sync Feed button (right)
-                        Edit Feed button (right)
-                        Delete Feed button (right)
+                        Feed Image Link
+                        Sync Feed button 
+                        Edit Feed button 
+                        Delete Feed button 
                     */}
-                    <p>{this.props.feed.feedTitle}</p>
-                    <img src={imageUrl} />
-                    <div>
-                        <SyncButton controlsCallback = {this.handleButtonClick} />
-                        <EditButton controlsCallback = {this.handleButtonClick} 
-                                    selectedFeed = {this.props.feed} />
-                        <DeleteButton controlsCallback = {this.handleButtonClick} />
-                    </div>
+                    {/* <p>{this.props.feed.feedTitle}</p> */}
+                    {/* <img src={imageUrl} /> */}
+                    <FeedImageLink selectedFeed = {this.props.feed} />
+                    <SyncButton controlsCallback = {this.handleButtonClick} />
+                    <EditButton controlsCallback = {this.handleButtonClick} 
+                                selectedFeed = {this.props.feed} />
+                    <DeleteButton controlsCallback = {this.handleButtonClick} />
                 </div>
             );
         }
