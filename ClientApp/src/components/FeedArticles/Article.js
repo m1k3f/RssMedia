@@ -23,7 +23,7 @@ export class Article extends Component {
     render() {
         let article = this.props.data;
         let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
-        let formattedPublishDateTime = `${publishDateTime.getMonth() + 1}/${publishDateTime.getDate()}/${publishDateTime.getFullYear()}`;
+        let formattedPublishDateTime = `${publishDateTime.getMonth() + 1}/${publishDateTime.getDate()}/${publishDateTime.getFullYear()} ${publishDateTime.getHours()}:${publishDateTime.getMinutes()}`;
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
