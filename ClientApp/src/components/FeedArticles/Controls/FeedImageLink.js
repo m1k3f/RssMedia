@@ -4,8 +4,8 @@ export class FeedImageLink extends Component {
 
     render() {
         //let homepageLink = this.props.feed.;
-        let imageUrl = (this.props.feed.feedImageUrl != '') 
-                        ? decodeURIComponent(this.props.feed.feedImageUrl) 
+        let imageUrl = (this.props.selectedFeed.feedImageUrl != '') 
+                        ? decodeURIComponent(this.props.selectedFeed.feedImageUrl) 
                         : '';
 
         return(
