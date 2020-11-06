@@ -181,7 +181,7 @@ main {
     margin-bottom: 10px;
 }
 
-.divFeedArticles section {
+.divFeedArticles > section {
     display: flex;
     flex-direction: row;
 }
@@ -278,6 +278,11 @@ article[name="feedArticle"] section {
     padding-right: 10px;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+article[name="feedArticle"] section > * {
+    background-color: #fafafa;
+    padding: 10px;
 }
 
 article[name="feedArticle"] section p {

@@ -41,8 +41,11 @@ export class Article extends Component {
                         </div>
                     </div>
                 </button>
-                <section style={sectionStyle}>
-                    {ReactHtmlParser(article.articleDescription)}
+                <section style={sectionStyle}>                    
+                    <div>
+                        {ReactHtmlParser(article.articleDescription)}
+                    </div>
+                    <a href={article.articleUrl}>Link</a>
                 </section>
             </article>
         );
