@@ -54,7 +54,7 @@ main {
 }
 
 .divFeedBar {
-    border: 2px solid #333333;
+    border: 3px solid #333333;
     border-radius: 5px;
     /* border-radius: 10px; */
     padding: 10px;
@@ -154,6 +154,7 @@ main {
     border-radius: 30px;
     min-width: 80px;
     transition: transform .2s;
+    text-align: center;
 }
 
 .divFeeds a:hover {
@@ -171,33 +172,51 @@ main {
 
 .divFeedArticles {
     margin-top: 8px;
-    /* height: 100px; */
-    
+    width: 100%;
+}
+
+.divFeedArticles .divFeedTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.divFeedArticles section {
+    display: flex;
+    flex-direction: row;
+}
+
+.divFeedArticles section > div:first-child {
+    margin-right: 20px;
 }
 
 .divFeedArticles .divFeedArticlesControls {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    line-height: 5px;
 }
 
-.divFeedArticles .divFeedArticlesControls > p {
-    font-size: 16px;
-    font-weight: 600;
+.divFeedArticles .divFeedArticlesControls > * {
+    display: block;
+    margin-bottom: 30px;
 }
 
-.divFeedArticles .divFeedArticlesControls > div a {
-    padding-left: 20px;
+.divFeedArticles .divFeedArticlesControls > img {
+    width: 64px;
+    height: 64px;
+}
+
+.divFeedArticles .divFeedArticlesControls > a > i {
+    /* padding-left: 20px; */
+    font-size: 40px;
 }
 
 .divFeedArticles .divFeedArticlesList {
     /* border: 1px solid #333333; */
-    padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+    /* padding-top: 2px; */
     overflow: visible;
     max-height: 550px;
 }
@@ -218,6 +237,10 @@ article[name="feedArticle"] > button {
     width: 100%;
     line-height: 14px;
     transition: 0.4s;
+}
+
+article[name="feedArticle"] > button > div > p {
+    overflow: hidden;
 }
 
 article[name="feedArticle"] > button > div {

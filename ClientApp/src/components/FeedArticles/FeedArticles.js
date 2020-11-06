@@ -71,10 +71,12 @@ export class FeedArticles extends Component {
                     <i className="fas fa-spinner fa-spin fa-lg"></i>
                 </div> */}
                 <FeedTitle title={feedTitle} />
-                <FeedArticlesControls
-                    feed = {this.context.selectedFeed}
-                    feedArticlesCallback = {this.handleContentCallback} />
-                {this.renderArticles()}
+                <section>
+                    <FeedArticlesControls
+                        feed = {this.context.selectedFeed}
+                        feedArticlesCallback = {this.handleContentCallback} />
+                    {this.renderArticles()}
+                </section>
                               
             </div>
         );
