@@ -20,10 +20,21 @@ export class Article extends Component {
         }
     }
 
+    getFormattedDateTime = (dateTimeValue) => {
+        let currentMonth = dateTimeValue.getMonth() + 1;
+        let month = (currentMonth < 10) ? "0" + currentMonth : currentMonth;
+        let day = (dateTimeValue.getDate() < 10) ? "0" + dateTimeValue.getDate() : dateTimeValue.getDate();
+        let hours = (dateTimeValue.getHours() < 10) ? "0" + dateTimeValue.getHours() : dateTimeValue.getHours();
+        let minutes = (dateTimeValue.getMinutes() < 10) ? "0" + dateTimeValue.getMinutes() : dateTimeValue.getMinutes();
+        return (
+            `${month}/${day}/${dateTimeValue.getFullYear()} ${hours}:${minutes}`
+        );
+    }
+
     render() {
         let article = this.props.data;
         let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
-        let formattedPublishDateTime = `${publishDateTime.getMonth() + 1}/${publishDateTime.getDate()}/${publishDateTime.getFullYear()} ${publishDateTime.getHours()}:${publishDateTime.getMinutes()}`;
+        let formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
