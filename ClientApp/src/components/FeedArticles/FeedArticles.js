@@ -4,6 +4,7 @@ import { Spinner } from './Controls/Spinner';
 import { Article } from './Article';
 import { FeedArticlesControls } from './FeedArticlesControls';
 import { FeedTitle } from './Controls/FeedTitle';
+import { ViewLink } from './modals/ViewLink';
 
 export class FeedArticles extends Component {
 
@@ -12,7 +13,8 @@ export class FeedArticles extends Component {
 
         this.state = {
             selectedFeed: null,
-            hideSpinner: true
+            hideSpinner: true,
+            showLinkFrame: false
         }        
     }    
 
@@ -29,6 +31,12 @@ export class FeedArticles extends Component {
         this.props.contentCallback(feed, option);
     }    
 
+    // handleArticleLinkClickCallback = () => {
+    //     this.setState({
+    //         showLinkFrame: true
+    //     })
+    // }
+
     renderSpinner = () => {
         return (<Spinner hide={this.state.hideSpinner} />);
     }
@@ -42,7 +50,13 @@ export class FeedArticles extends Component {
             let articleCount = 0;
             content = feedContext.selectedFeed.feedArticles.map((article) => {
                 articleCount++;            
-                return (<Article key = {article.id} count = {articleCount} data = {article} />);
+                return (
+                    <Article 
+                        key = {article.id} 
+                        count = {articleCount} 
+                        data = {article} 
+                    />
+                );
             });
         }
 
@@ -58,15 +72,8 @@ export class FeedArticles extends Component {
                         ? this.context.selectedFeed.feedTitle 
                         : '';
 
-
         return (
             <div className="divFeedArticles">
-                {/* 
-                    Show X number articles for a feed 
-                    list of title containers expandable to show content
-                    button to load more articles from service
-                */}
-                {/* <div className="divFeedArticleControls" /> */}
                 {/* <div className="divSpinner" hidden>
                     <i className="fas fa-spinner fa-spin fa-lg"></i>
                 </div> */}
@@ -77,7 +84,6 @@ export class FeedArticles extends Component {
                         feedArticlesCallback = {this.handleContentCallback} />
                     {this.renderArticles()}
                 </section>
-                              
             </div>
         );
     }

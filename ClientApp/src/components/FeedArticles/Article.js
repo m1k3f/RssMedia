@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import { ViewLink } from './modals/ViewLink';
 
 export class Article extends Component {  
 
     state = {
-        opened: false
+        opened: false,
+        showViewLink: false
     }
 
     handleHeaderClick = (e) => {
@@ -20,6 +22,14 @@ export class Article extends Component {
         }
     }
 
+    handleArticleLink = (e) => {
+        this.setState({
+            showViewLink: true
+        });
+    }
+
+
+
     getFormattedDateTime = (dateTimeValue) => {
         let currentMonth = dateTimeValue.getMonth() + 1;
         let month = (currentMonth < 10) ? "0" + currentMonth : currentMonth;
@@ -29,6 +39,15 @@ export class Article extends Component {
         return (
             `${month}/${day}/${dateTimeValue.getFullYear()} ${hours}:${minutes}`
         );
+    }
+
+    renderViewLinkModal = (show) => {
+        let content = '';
+        if (show) {
+            content = <ViewLink url = {this.props.data.articleUrl} />
+        }
+
+        return content;
     }
 
     render() {
@@ -56,7 +75,10 @@ export class Article extends Component {
                     <div>
                         {ReactHtmlParser(article.articleDescription)}
                     </div>
-                    <a href={article.articleUrl}>Link</a>
+                    <a href="#" onClick={this.handleArticleLink}>
+                        Link
+                    </a>
+                    {this.renderViewLinkModal(this.state.showViewLink)}
                 </section>
             </article>
         );
