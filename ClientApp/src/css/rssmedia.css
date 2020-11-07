@@ -194,12 +194,12 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .divFeedArticles .divFeedArticlesControls > * {
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .divFeedArticles .divFeedArticlesControls > img {
@@ -233,9 +233,10 @@ article[name="feedArticle"] > button {
     flex-direction: row;
     justify-content: space-between;
     border: none;
+    border-radius: 5px;
     outline: none;
     width: 100%;
-    line-height: 14px;
+    line-height: 16px;
     transition: 0.4s;
 }
 
@@ -274,6 +275,7 @@ article[name="feedArticle"] > button > div i {
 
 article[name="feedArticle"] section {
     background-color: #fafafa;
+    border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
     overflow: hidden;
