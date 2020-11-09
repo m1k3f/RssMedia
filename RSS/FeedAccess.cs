@@ -19,7 +19,8 @@ namespace RssMedia.RSS
         {
             _client = new HttpClient();
             _originalfeedLink = feedLink;
-            _decodedUrl = WebUtility.UrlDecode(feedLink.AddUrl);            
+
+            _decodedUrl = GetValidUrl(WebUtility.UrlDecode(feedLink.AddUrl));
         }
 
         public async Task<IEnumerable<Models.FeedLink>> GetFeedLinkList()
@@ -82,17 +83,22 @@ namespace RssMedia.RSS
         private async Task<IEnumerable<Models.FeedLink>> GetFeedFromFeedUrl()
         {
             var feedLinkList = new List<Models.FeedLink>();
-            var rssFeed = await FeedReader.ReadAsync(_decodedUrl);
-            if (rssFeed != null)
+
+            if (_decodedUrl != null)
             {
-                var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-                feedLinkList.Add(new Models.FeedLink() {
-                    Id = guidId,
-                    Title = rssFeed.Title,
-                    Url = WebUtility.UrlEncode(_decodedUrl),
-                    Name = _originalfeedLink.Name,
-                    AddUrl = _originalfeedLink.AddUrl
-                });
+                var rssFeed = await FeedReader.ReadAsync(_decodedUrl);
+                
+                if (rssFeed != null)
+                {
+                    var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
+                    feedLinkList.Add(new Models.FeedLink() {
+                        Id = guidId,
+                        Title = rssFeed.Title,
+                        Url = WebUtility.UrlEncode(_decodedUrl),
+                        Name = _originalfeedLink.Name,
+                        AddUrl = _originalfeedLink.AddUrl
+                    });
+                }
             }
 
             return feedLinkList;
@@ -147,9 +153,9 @@ namespace RssMedia.RSS
         private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrlManual()
         {
             var feedLinkList = new List<Models.FeedLink>();
-            var response = await _client.GetAsync(_decodedUrl);
-            var contentBytes = await response.Content.ReadAsByteArrayAsync();
-            var contentString = Encoding.UTF8.GetString(contentBytes);
+
+            //TODO: don't get source as string; use stream instead
+            var contentString = await GetPageSource(_decodedUrl);
 
             // Regex rex = new Regex("<link.*rel=\"alternate\".*>");
             Regex rex = new Regex("<link(.*?)/>");
@@ -162,27 +168,37 @@ namespace RssMedia.RSS
                 {
                     var titleString = GetHtmlAttributeValueByName(matchString, "title");
                     var linkString = GetHtmlAttributeValueByName(matchString, "href");
+                    linkString = GetValidUrl(linkString);
 
-                    // rex = new Regex("title=\"(.*?)\"");
-                    // var title = rex.Matches(matchString).FirstOrDefault();
-                    // var titleString = (title != null) ? title.Value.Replace("title=", "").Replace("\"", "") : "";
-                    
-                    // rex = new Regex("href=\"(.*?)\"");
-                    // var link = rex.Matches(matchString).FirstOrDefault();
-                    // var linkString = (link != null) ? link.Value.Replace("href=", "").Replace("\"", "") : null;
-
-                    var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-                    feedLinkList.Add(new Models.FeedLink() {
-                        Id = guidId,
-                        Title = titleString,
-                        Url = WebUtility.UrlEncode(linkString),
-                        Name = _originalfeedLink.Name,
-                        AddUrl = _originalfeedLink.AddUrl
-                    });
+                    if (linkString != null)
+                    {
+                        var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
+                        feedLinkList.Add(new Models.FeedLink() {
+                            Id = guidId,
+                            Title = titleString,
+                            Url = WebUtility.UrlEncode(linkString),
+                            Name = _originalfeedLink.Name,
+                            AddUrl = _originalfeedLink.AddUrl
+                        });
+                    }
                 }
             }
 
             return feedLinkList;
+        }
+
+        private async Task<string> GetPageSource(string url)
+        {
+            var contentString = string.Empty;
+
+            if (!string.IsNullOrEmpty(url))
+            {
+                var response = await _client.GetAsync(url);
+                var contentBytes = await response.Content.ReadAsByteArrayAsync();
+                contentString = Encoding.UTF8.GetString(contentBytes);
+            }
+
+            return contentString;
         }
 
         private string GetHtmlAttributeValueByName(string htmlTag, string attributeName)
@@ -193,6 +209,37 @@ namespace RssMedia.RSS
             var matchString = (match != null) ? match.Value.Replace($"{attributeName}=", "").Replace("\"", "") : "";
             
             return matchString;
+        }        
+
+        private string GetValidUrl(string url) 
+        {
+            string validUrl = url;
+            if (url.StartsWith('/'))
+            {
+                //feed url has relative path; make it absolute
+                validUrl = $"{_decodedUrl}{url}";
+            }
+
+            validUrl = GetValidUrlScheme(validUrl);            
+
+            if (!Uri.IsWellFormedUriString(validUrl, UriKind.Absolute))
+            {
+                validUrl = null;
+            }
+
+            return validUrl;
+        }
+
+        private string GetValidUrlScheme(string url)
+        {
+            var validUrl = url;
+
+            if (!url.Contains("http://") && !url.Contains("https://"))
+            {
+                validUrl = $"https://{url}";
+            }
+
+            return validUrl;
         }
 
         #endregion
