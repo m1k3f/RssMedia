@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
-import swal from '@sweetalert/with-react';
+import swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 
 export class ViewLink extends Component {
 
     showViewLinkModal = () => {
-        swal({
-            content: this.getViewLinkModalContent(),
-            buttons: {
-                confirm: {
-                    text: 'Close',
-                    value: true,
-                    visible: true
-                }
-            }
+        const ReactSwal = withReactContent(swal);
+
+        ReactSwal.fire({
+            title: 'External Link',
+            html: this.getViewLinkModalContent(),
+            showCancelButton: false,
+            allowOutsideClick: false,
+            allowEnterKey: false,
+            showConfirmButton: true,
+            confirmButtonText: "Close",
+            showCloseButton: true,
+            width: '90%',
+            customClass: 'swalPopup'
         })
         .then((value) => {
             
@@ -21,7 +26,7 @@ export class ViewLink extends Component {
 
     getViewLinkModalContent = () => {
         return (
-            <iframe src={this.props.url} name="articleFrame"></iframe>
+            <iframe src={this.props.url} name="extLinkFrame"></iframe>
         );
     }
 

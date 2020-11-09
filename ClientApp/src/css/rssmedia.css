@@ -290,3 +290,12 @@ article[name="feedArticle"] section > * {
 article[name="feedArticle"] section p {
     background-color: #fafafa;
 }
+
+iframe[name="extLinkFrame"] {
+    width: 100%;
+    height: 80vh;
+}
+
+.swalPopup {
+    height: 100%;
+}
