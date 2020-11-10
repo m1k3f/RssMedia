@@ -1,29 +1,24 @@
 import React, { Component } from 'react';
-import swal from '@sweetalert/with-react';
+import swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 
 export class NewFeed extends Component {
-    state = {
-        
-    }
 
     showNewFeedModal = () => {
-        swal({
-            content: this.getNewFeedModalContent(),
-            buttons: {
-                confirm: {
-                    text: 'Add',
-                    value: true,
-                    visible: true
-                },
-                cancel: {
-                    text: 'Cancel',
-                    value: null,
-                    visible: true
-                }
-            }
+        const ReactSwal = withReactContent(swal);
+
+        ReactSwal.fire({
+            title: 'New Feed',
+            html: this.getNewFeedModalContent(),
+            showConfirmButton: true,
+            confirmButtonText: "Save",
+            showCancelButton: false,
+            allowOutsideClick: false,
+            allowEnterKey: false,            
+            showCloseButton: true
         })
         .then(async (value) => {
-            if (value) {                
+            if (value.isConfirmed) {                
                 let feedName = document.querySelector('#textFeedName').value;
                 let textFeedUrl = document.querySelector('#textFeedUrl').value;
 
