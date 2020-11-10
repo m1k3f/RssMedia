@@ -86,7 +86,8 @@ namespace RssMedia.RSS
 
             if (_decodedUrl != null)
             {
-                var rssFeed = await FeedReader.ReadAsync(_decodedUrl);
+                //var rssFeed = await FeedReader.ReadAsync(_decodedUrl);
+                var rssFeed = await GetFeedReaderFeed();
                 
                 if (rssFeed != null)
                 {
@@ -102,6 +103,21 @@ namespace RssMedia.RSS
             }
 
             return feedLinkList;
+        }
+
+        private async Task<CodeHollow.FeedReader.Feed> GetFeedReaderFeed()
+        {
+            CodeHollow.FeedReader.Feed feed;
+            try
+            {
+                feed = await FeedReader.ReadAsync(_decodedUrl);
+            }
+            catch(Exception)
+            {
+                feed = null;
+            }
+
+            return feed;
         }
 
         // private IEnumerable<Models.FeedLink> GetFeedFromUrl()
@@ -158,13 +174,12 @@ namespace RssMedia.RSS
             var contentString = await GetPageSource(_decodedUrl);
 
             // Regex rex = new Regex("<link.*rel=\"alternate\".*>");
-            Regex rex = new Regex("<link(.*?)/>");
+            Regex rex = new Regex("<link[^>]*>");
             var matches = rex.Matches(contentString);
             foreach (var match in matches)
             {
                 var matchString = match.ToString();
-                if (matchString.Contains("alternate") && 
-                    matchString.Contains("rss"))
+                if (FeedValidator.FeedExists(matchString))
                 {
                     var titleString = GetHtmlAttributeValueByName(matchString, "title");
                     var linkString = GetHtmlAttributeValueByName(matchString, "href");
