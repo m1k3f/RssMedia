@@ -4,6 +4,10 @@ import withReactContent from 'sweetalert2-react-content'
 
 export class ViewLink extends Component {
 
+    state = {
+        article: this.props.article
+    }
+
     showViewLinkModal = () => {
         const ReactSwal = withReactContent(swal);
 
@@ -13,20 +17,25 @@ export class ViewLink extends Component {
             showCancelButton: false,
             allowOutsideClick: false,
             allowEnterKey: false,
-            showConfirmButton: true,
-            confirmButtonText: "Close",
-            showCloseButton: true,
+            showConfirmButton: false,
+            showCancelButton: true,
+            cancelButtonText: "Close",
             width: '90%',
             customClass: 'swalPopup'
         })
         .then((value) => {
-            
+            if (value.isDismissed) {
+                this.frameElement.src = '';
+            }
         });
     }
 
     getViewLinkModalContent = () => {
         return (
-            <iframe src={this.props.url} name="extLinkFrame"></iframe>
+            <iframe src={this.state.article.articleUrl} 
+                    name="extLinkFrame"
+                    ref={el => this.frameElement = el}>
+            </iframe>
         );
     }
 

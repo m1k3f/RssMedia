@@ -44,7 +44,7 @@ export class Article extends Component {
     renderViewLinkModal = (show) => {
         let content = '';
         if (show) {
-            content = <ViewLink url = {this.props.data.articleUrl} />
+            content = <ViewLink article = {this.props.data} />
         }
 
         return content;
