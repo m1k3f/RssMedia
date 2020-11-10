@@ -4,15 +4,11 @@ import withReactContent from 'sweetalert2-react-content'
 
 export class ViewLink extends Component {
 
-    state = {
-        article: this.props.article
-    }
-
     showViewLinkModal = () => {
         const ReactSwal = withReactContent(swal);
 
         ReactSwal.fire({
-            title: 'External Link',
+            title: '',
             html: this.getViewLinkModalContent(),
             showCancelButton: false,
             allowOutsideClick: false,
@@ -31,11 +27,17 @@ export class ViewLink extends Component {
     }
 
     getViewLinkModalContent = () => {
+        
         return (
-            <iframe src={this.state.article.articleUrl} 
-                    name="extLinkFrame"
-                    ref={el => this.frameElement = el}>
-            </iframe>
+            <div className="divViewLink">
+                <a href={this.props.article.articleUrl} target="_blank">
+                    <p className="truncate">{this.props.article.articleUrl}</p>
+                </a>
+                <iframe src={this.props.article.articleUrl} 
+                        name="extLinkFrame"
+                        ref={el => this.frameElement = el}>
+                </iframe>
+            </div>
         );
     }
 

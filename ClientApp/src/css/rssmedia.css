@@ -14,6 +14,13 @@
     cursor: pointer;
 }
 
+.truncate {
+    width: 80vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 body {    
     margin: auto;    
     width: 95%;
@@ -291,7 +298,17 @@ article[name="feedArticle"] section p {
     background-color: #fafafa;
 }
 
-iframe[name="extLinkFrame"] {
+.divViewLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divViewLink a > p {
+    font-size: 13px;
+}
+
+.divViewLink iframe[name="extLinkFrame"] {
     width: 100%;
     height: 80vh;
 }
