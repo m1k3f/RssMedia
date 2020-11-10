@@ -16,21 +16,21 @@ export class FeedLinkAdd extends Component {
     }    
 
     handleNewFeedCallback = (feedLinkData) => {
-        if (feedLinkData.length > 1) {
+        if (feedLinkData.length == 1) {
+            this.setState({
+                showNewFeedModal: false,
+                showMultiFeedModal: false
+            }, 
+            this.feedBarCallback(feedLinkData[0])
+            );
+        }
+        else if (feedLinkData.length > 1) {
             //Multiple RSS feeds found for url
             this.setState({
                 showNewFeedModal: false,
                 showMultiFeedModal: true,
                 feedLinkData: feedLinkData
             });
-        }
-        else {
-            this.setState({
-                showNewFeedModal: false,
-                showMultiFeedModal: false
-            }, 
-            this.feedBarCallback(feedLinkData)
-            );
         }
         
     }
