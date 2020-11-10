@@ -10,7 +10,6 @@ export class ViewLink extends Component {
         ReactSwal.fire({
             title: '',
             html: this.getViewLinkModalContent(),
-            showCancelButton: false,
             allowOutsideClick: false,
             allowEnterKey: false,
             showConfirmButton: false,
@@ -30,10 +29,11 @@ export class ViewLink extends Component {
         
         return (
             <div className="divViewLink">
-                <a href={this.props.article.articleUrl} target="_blank">
+                <a href={this.props.article.articleUrl} target="_blank" rel="noopener noreferrer">
                     <p className="truncate">{this.props.article.articleUrl}</p>
                 </a>
-                <iframe src={this.props.article.articleUrl} 
+                <iframe title="View Link Modal"
+                        src={this.props.article.articleUrl} 
                         name="extLinkFrame"
                         ref={el => this.frameElement = el}>
                 </iframe>
