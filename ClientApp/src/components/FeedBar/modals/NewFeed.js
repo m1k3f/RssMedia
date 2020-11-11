@@ -19,12 +19,9 @@ export class NewFeed extends Component {
         })
         .then(async (value) => {
             if (value.isConfirmed) {                
-                let feedName = document.querySelector('#textFeedName').value;
-                let textFeedUrl = document.querySelector('#textFeedUrl').value;
-
                 let feedLink = {
-                    name: feedName,
-                    addurl: encodeURIComponent(textFeedUrl)
+                    name: this.feedName.value,
+                    addurl: encodeURIComponent(this.feedUrl.value)
                 };
 
                 //send entered values to service
@@ -36,14 +33,13 @@ export class NewFeed extends Component {
     getNewFeedModalContent = () => {
         return (
             <div className="addButtonModal">
-                <h3>New Feed</h3>
                 <div>
                     <label>Name: </label>
-                    <input id="textFeedName" type="text" />
+                    <input type="text" ref={el => this.feedName = el} />
                 </div>
                 <div>
                     <label>Url: </label>
-                    <input id="textFeedUrl" type="text" />
+                    <input type="text" ref={el => this.feedUrl = el} />
                 </div>
             </div>
         );
@@ -75,12 +71,10 @@ export class NewFeed extends Component {
     }    
 
     render() {
-        let content = this.showNewFeedModal();
-
         return(
-            <div>
-                {content}
-            </div>
+            <React.Fragment>
+                {this.showNewFeedModal()}
+            </React.Fragment>
         );
     }
 }
