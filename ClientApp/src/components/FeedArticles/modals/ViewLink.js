@@ -15,6 +15,8 @@ export class ViewLink extends Component {
             showConfirmButton: false,
             showCancelButton: true,
             cancelButtonText: "Close",
+            showCloseButton: true,
+            focusCancel: true,
             width: '90%',
             customClass: 'swalPopup'
         })

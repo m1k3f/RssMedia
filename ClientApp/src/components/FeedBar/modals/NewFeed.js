@@ -12,7 +12,8 @@ export class NewFeed extends Component {
             html: this.getNewFeedModalContent(),
             showConfirmButton: true,
             confirmButtonText: "Save",
-            showCancelButton: false,
+            showCancelButton: true,
+            focusCancel: true,
             allowOutsideClick: false,
             allowEnterKey: false,            
             showCloseButton: true
@@ -34,12 +35,10 @@ export class NewFeed extends Component {
         return (
             <div className="addButtonModal">
                 <div>
-                    <label>Name: </label>
-                    <input type="text" ref={el => this.feedName = el} />
+                    <input placeholder="Name..." type="text" ref={el => this.feedName = el} />
                 </div>
                 <div>
-                    <label>Url: </label>
-                    <input type="text" ref={el => this.feedUrl = el} />
+                    <input placeholder="Url..." type="text" ref={el => this.feedUrl = el} />
                 </div>
             </div>
         );
