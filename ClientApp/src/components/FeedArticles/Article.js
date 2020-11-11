@@ -79,7 +79,7 @@ export class Article extends Component {
                     <div>
                         <p>{author}</p>
                         <button onClick={this.handleArticleLink}>
-                            <i class="fas fa-link"></i>
+                            <i className="fas fa-link"></i>
                         </button>
                     </div>
                     <div>
