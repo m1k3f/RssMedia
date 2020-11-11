@@ -193,7 +193,7 @@ main {
     flex-direction: row;
 }
 
-.divFeedArticles section > div:first-child {
+.divFeedArticles > section > div:first-child {
     margin-right: 20px;
 }
 
@@ -291,7 +291,19 @@ article[name="feedArticle"] section {
 
 article[name="feedArticle"] section > * {
     background-color: #fafafa;
-    padding: 10px;
+    padding: 4px;
+}
+
+article[name="feedArticle"] section > div:first-child {
+    display: flex;
+    justify-content: flex-start;    
+}
+
+article[name="feedArticle"] section > div:first-child > button {
+    cursor: pointer;
+    outline: hidden;
+    border: none;
+    background-color: #fafafa;
 }
 
 article[name="feedArticle"] section p {

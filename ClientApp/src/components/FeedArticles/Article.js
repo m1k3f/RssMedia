@@ -52,6 +52,10 @@ export class Article extends Component {
 
     render() {
         let article = this.props.data;
+
+        let author = (article.articleAuthor !== null) ? 
+                        `by ${article.articleAuthor}` : 
+                        '';
         let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
         let formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
 
@@ -71,13 +75,16 @@ export class Article extends Component {
                         </div>
                     </div>
                 </button>
-                <section style={sectionStyle}>                    
+                <section style={sectionStyle}>
+                    <div>
+                        <p>{author}</p>
+                        <button onClick={this.handleArticleLink}>
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
                     <div>
                         {ReactHtmlParser(article.articleDescription)}
-                    </div>
-                    <a href="#" onClick={this.handleArticleLink}>
-                        Link
-                    </a>
+                    </div>                    
                     {this.renderViewLinkModal(this.state.showViewLink)}
                 </section>
             </article>
