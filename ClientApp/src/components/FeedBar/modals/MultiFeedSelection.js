@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
-import swal from '@sweetalert/with-react';
+import swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 
 export class MultiFeedSelection extends Component {
     
     showMultiFeedModal = (feedLinks) => {
-        swal({
-            content: this.getMultiFeedModalContent(feedLinks),
-            buttons: {
-                confirm: {
-                    text: 'Add',
-                    value: true,
-                    visible: true
-                },
-                cancel: {
-                    text: 'Cancel',
-                    value: null,
-                    visible: true
-                }
-            }
+        const ReactSwal = withReactContent(swal);
+        ReactSwal.fire({
+            title: 'Multiple Feeds',
+            html: this.getMultiFeedModalContent(feedLinks),
+            showConfirmButton: true,
+            confirmButtonText: 'Add',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            allowOutsideClick: false,
+            allowEnterKey: false            
         }).then((value) => {
-            if (value) {
+            if (value.isConfirmed) {
                 //get feed link from value
                 let selectedLinkId = document.querySelector('input[name="rbFeedLink"]:checked').value;
                 let link = feedLinks.find(link => link.id === selectedLinkId);
 
-                //get feed data for link
-                //this.getFeedData(link, 0, 20);
                 this.selectedFeedCallback(link);
             }
         });
@@ -39,7 +34,7 @@ export class MultiFeedSelection extends Component {
             return (
                 <div key={link.id}>
                     <input type="radio" id={feedLinkId} name="rbFeedLink" value={link.id} />
-                    <label htmlFor={feedLinkId}>{link.title}</label>
+                    <label htmlFor={feedLinkId}>{decodeURIComponent(link.title)}</label>
                 </div>
             );
         });
