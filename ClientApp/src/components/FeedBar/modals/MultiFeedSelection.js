@@ -14,7 +14,7 @@ export class MultiFeedSelection extends Component {
             showCancelButton: true,
             cancelButtonText: 'Cancel',
             allowOutsideClick: false,
-            allowEnterKey: false            
+            allowEnterKey: false
         }).then((value) => {
             if (value.isConfirmed) {
                 //get feed link from value
@@ -34,7 +34,10 @@ export class MultiFeedSelection extends Component {
             return (
                 <div key={link.id}>
                     <input type="radio" id={feedLinkId} name="rbFeedLink" value={link.id} />
-                    <label htmlFor={feedLinkId}>{decodeURIComponent(link.title)}</label>
+                    <label htmlFor={feedLinkId}>
+                        <p>{link.title}</p>
+                        <p>{decodeURIComponent(link.url)}</p>
+                    </label>
                 </div>
             );
         });
