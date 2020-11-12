@@ -240,7 +240,7 @@ main {
     flex-direction: column;
     /* padding-top: 2px; */
     overflow: visible;
-    max-height: 550px;
+    max-height: 60vh;
 }
 
 .divFeedArticles article {
@@ -262,10 +262,6 @@ article[name="feedArticle"] > button {
     transition: 0.4s;
 }
 
-article[name="feedArticle"] > button > div > p {
-    overflow: hidden;
-}
-
 article[name="feedArticle"] > button > div {
     display:flex;
     flex-direction: row;
@@ -275,10 +271,23 @@ article[name="feedArticle"] > button > div {
     color: #ffffff;
 }
 
+article[name="feedArticle"] > button > div > p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    width: 65vw;
+}
+
 article[name="feedArticle"] > button > div div {
     display:flex;
     flex-direction: row;
     align-items: center;
+}
+
+article[name="feedArticle"] > button > div div p {
+    text-align: right;
+    white-space: nowrap;
 }
 
 article[name="feedArticle"] > button > div i {
