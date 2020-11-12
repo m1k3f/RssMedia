@@ -61,7 +61,7 @@ export class Article extends Component {
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
-            maxHeight: (this.state.opened) ? '200px' : '0'
+            maxHeight: (this.state.opened) ? '50vh' : '0'
         }
 
         return(
