@@ -36,39 +36,39 @@ namespace RssMedia.Controllers {
             catch(Exception ex)
             {
                 var errorMessage = ex.Message;
-                return null;
+                return new List<Models.FeedLink>();
             }            
         }
 
-        [HttpPost]
-        [ActionName("FeedLinks")]
-        public async Task<IEnumerable<Models.FeedLink>> FeedLinks([FromBody]Models.FeedLink feedLink)
-        {            
-            try
-            {
-                var feedLinkList = new List<Models.FeedLink>();
-                var decodedBaseUrl = WebUtility.UrlDecode(feedLink.BaseUrl);
+        // [HttpPost]
+        // [ActionName("FeedLinks")]
+        // public async Task<IEnumerable<Models.FeedLink>> FeedLinks([FromBody]Models.FeedLink feedLink)
+        // {            
+        //     try
+        //     {
+        //         var feedLinkList = new List<Models.FeedLink>();
+        //         var decodedBaseUrl = WebUtility.UrlDecode(feedLink.BaseUrl);
 
-                var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(decodedBaseUrl).ConfigureAwait(false);
-                foreach (var link in urlList)
-                {
-                    var guidId = (feedLink.Id == null || feedLink.Id == Guid.Empty) ? Guid.NewGuid() : feedLink.Id;
-                    feedLinkList.Add(new FeedLink() {
-                        Id = guidId,
-                        Title = link.Title,
-                        Url = WebUtility.UrlEncode(link.Url),
-                        Name = feedLink.Name,
-                        BaseUrl = feedLink.BaseUrl
-                    });
-                }
+        //         var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(decodedBaseUrl).ConfigureAwait(false);
+        //         foreach (var link in urlList)
+        //         {
+        //             var guidId = (feedLink.Id == null || feedLink.Id == Guid.Empty) ? Guid.NewGuid() : feedLink.Id;
+        //             feedLinkList.Add(new FeedLink() {
+        //                 Id = guidId,
+        //                 Title = link.Title,
+        //                 Url = WebUtility.UrlEncode(link.Url),
+        //                 Name = feedLink.Name,
+        //                 BaseUrl = feedLink.BaseUrl
+        //             });
+        //         }
 
-                return feedLinkList;
-            }
-            catch(Exception)
-            {
-                return null;
-            }
-        }
+        //         return feedLinkList;
+        //     }
+        //     catch(Exception)
+        //     {
+        //         return null;
+        //     }
+        // }
 
         [HttpPost]
         [ActionName("Feed")]

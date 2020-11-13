@@ -58,10 +58,19 @@ export class NewFeed extends Component {
         });
 
         await fetch(request)
-        .then((response) => response.json())
-        .then((data) => {                    
-            //pass data back to FeedLinkAdd
-            this.feedLinkAddCallback(data);
+        .then((response) => {
+            if (response !== null) {
+                return response.json()
+            }
+            else {
+                return response;
+            }
+        })
+        .then((data) => {       
+            if (data !== null) {             
+                //pass data back to FeedLinkAdd
+                this.feedLinkAddCallback(data);
+            }
         }); 
     }
 

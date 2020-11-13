@@ -40,7 +40,7 @@ namespace RssMedia.RSS
                 }
                 else
                 {
-                    return null;
+                    return new List<Models.FeedLink>();
                 }
                 // else
                 // {
