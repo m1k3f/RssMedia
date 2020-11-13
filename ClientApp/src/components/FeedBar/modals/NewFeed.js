@@ -59,18 +59,13 @@ export class NewFeed extends Component {
 
         await fetch(request)
         .then((response) => {
-            if (response !== null) {
+            if (response.status === 200) {
                 return response.json()
-            }
-            else {
-                return response;
             }
         })
         .then((data) => {       
-            if (data !== null) {             
-                //pass data back to FeedLinkAdd
-                this.feedLinkAddCallback(data);
-            }
+            //pass data back to FeedLinkAdd
+            this.feedLinkAddCallback(data);            
         }); 
     }
 
