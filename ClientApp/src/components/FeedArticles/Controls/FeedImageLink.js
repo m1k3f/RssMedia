@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
 
 export class FeedImageLink extends Component {
 
     render() {
         //let homepageLink = this.props.feed.;
-        let imageUrl = (this.props.selectedFeed.feedImageUrl != '') 
+        let imageUrl = (this.props.selectedFeed.feedImageUrl !== '') 
                         ? decodeURIComponent(this.props.selectedFeed.feedImageUrl) 
                         : '';
 
@@ -12,7 +12,7 @@ export class FeedImageLink extends Component {
             // <a href={homepageLink}>
             //     <img src={imageUrl} />
             // </a>
-            <img src={imageUrl} />
+            <img src={imageUrl} alt="" />
         );
     }
 }

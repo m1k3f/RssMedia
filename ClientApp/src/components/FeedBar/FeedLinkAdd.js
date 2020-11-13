@@ -86,7 +86,7 @@ export class FeedLinkAdd extends Component {
         if (showErrorModal) {
             content = (
                 <MessageDisplay isError={false}>
-                    No feed was found for the URL.
+                    No feeds could be found for the given URL.
                 </MessageDisplay>
             )
         }

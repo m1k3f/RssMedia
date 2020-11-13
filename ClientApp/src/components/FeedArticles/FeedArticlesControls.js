@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
 import { SyncButton } from './Controls/SyncButton';
 import { EditButton } from './Controls/EditButton';
 import { DeleteButton } from './Controls/DeleteButton';

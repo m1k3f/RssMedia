@@ -4,7 +4,6 @@ import { Spinner } from './Controls/Spinner';
 import { Article } from './Article';
 import { FeedArticlesControls } from './FeedArticlesControls';
 import { FeedTitle } from './Controls/FeedTitle';
-import { ViewLink } from './modals/ViewLink';
 
 export class FeedArticles extends Component {
 
@@ -29,13 +28,7 @@ export class FeedArticles extends Component {
         }
 
         this.props.contentCallback(feed, option);
-    }    
-
-    // handleArticleLinkClickCallback = () => {
-    //     this.setState({
-    //         showLinkFrame: true
-    //     })
-    // }
+    }
 
     renderSpinner = () => {
         return (<Spinner hide={this.state.hideSpinner} />);
