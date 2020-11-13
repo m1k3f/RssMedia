@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import { NewFeed } from './modals/NewFeed';
 import { MultiFeedSelection } from './modals/MultiFeedSelection';
+import { MessageDisplay } from '../modals/MessageDisplay';
 
 export class FeedLinkAdd extends Component {
     state = {
         showNewFeedModal: false,
         showMultiFeedModal: false,
+        showErrorModal: false,
         feedLinkData: []
     }
 
     handleAddButton = (e) => {
         this.setState({
-            showNewFeedModal: true
+            showNewFeedModal: true,
+            showMultiFeedModal: false,
+            showErrorModal: false
         });
     }    
 
     handleNewFeedCallback = (feedLinkData) => {
-        if (feedLinkData.length == 1) {
+        if (feedLinkData.length === 1) {
+            //1 RSS feed found for url
             this.setState({
                 showNewFeedModal: false,
-                showMultiFeedModal: false
+                showMultiFeedModal: false,
+                showErrorModal: false
             }, 
             this.feedBarCallback(feedLinkData[0])
             );
@@ -29,8 +35,16 @@ export class FeedLinkAdd extends Component {
             this.setState({
                 showNewFeedModal: false,
                 showMultiFeedModal: true,
+                showErrorModal: false,
                 feedLinkData: feedLinkData
             });
+        }
+        else {
+            this.setState({
+                showNewFeedModal: false,
+                showMultiFeedModal: false,
+                showErrorModal: true
+            })
         }
         
     }
@@ -38,7 +52,8 @@ export class FeedLinkAdd extends Component {
     handleMultiFeedCallback = (feedLink) => {
         this.setState({
             showNewFeedModal: false,
-            showMultiFeedModal: false
+            showMultiFeedModal: false,
+            showErrorModal: false
         }, 
         this.feedBarCallback(feedLink)
         );
@@ -66,6 +81,19 @@ export class FeedLinkAdd extends Component {
         return (content);
     }
 
+    renderMessageModal = ({showErrorModal}) => {
+        let content = '';
+        if (showErrorModal) {
+            content = (
+                <MessageDisplay isError={false}>
+                    No feed was found for the URL.
+                </MessageDisplay>
+            )
+        }
+
+        return content;
+    }
+
     render() {
         return(
             <div className="divAdd">
@@ -74,6 +102,7 @@ export class FeedLinkAdd extends Component {
                 </a>
                 {this.renderNewFeedModal(this.state.showNewFeedModal)}
                 {this.renderMultiFeedModal(this.state)}
+                {this.renderMessageModal(this.state)}
             </div>
         );
     }
