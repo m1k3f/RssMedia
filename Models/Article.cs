@@ -13,5 +13,6 @@ namespace RssMedia.Models
         public string ArticleTitle {get; set;}
         public string ArticleDescription { get; set; }
         public string ArticleContent {get; set;}
+        public string ArticleEnclosureUrl {get; set;}
     }
 }

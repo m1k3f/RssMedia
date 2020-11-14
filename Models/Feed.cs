@@ -13,7 +13,7 @@ namespace RssMedia.Models
         public string FeedImageUrl {get; set;}  
         public byte[] FeedImageBytes {get; set;}
         public string FeedImageFileType {get; set;}
-        public IEnumerable<Article> FeedArticles {get; set;}
+        public IEnumerable<Article> FeedArticles {get; set;}        
         public FeedError FeedError {get; set;}
     }
 }

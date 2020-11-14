@@ -86,14 +86,10 @@ namespace RssMedia.Controllers {
                     feed.Id = Guid.NewGuid();
                     feed.FeedTitle = rssFeed.Title;
                     feed.FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty;
-                    //feed.FeedImageBytes = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? await GetImageData(rssFeed.ImageUrl) : null;
-                    //feed.FeedImageFileType = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? GetImageFileType(rssFeed.ImageUrl) : string.Empty;
-
-                    var articleList = GetArticles(rssFeed.Items);
-
-                    var articleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
-                    feed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);
                     
+                    var articleList = GetArticles(rssFeed);
+                    var articleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
+                    feed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                      
                 }
                 else 
                 {
@@ -126,7 +122,7 @@ namespace RssMedia.Controllers {
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
                     var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                    var feedArticles = GetArticles(rssFeed.Items);
+                    var feedArticles = GetArticles(rssFeed);
                     articleList.AddRange(feedArticles);
                 }
 
@@ -155,17 +151,27 @@ namespace RssMedia.Controllers {
 
         private async Task<CodeHollow.FeedReader.Feed> GetRssFeed(string url)
         {
-            var readerTask = FeedReader.ReadAsync(url);
-            await readerTask.ConfigureAwait(false);
-            return readerTask.Result;
+            var rssFeed = await FeedReader.ReadAsync(url);
+            var specifiedFeed = rssFeed;
+            
+            if (rssFeed.Type == FeedType.Rss_2_0)
+            {
+                specifiedFeed = ((CodeHollow.FeedReader.Feeds.Rss20Feed)rssFeed.SpecificFeed).ToFeed();
+            }
+            else if (rssFeed.Type == FeedType.MediaRss)
+            {
+                specifiedFeed = ((CodeHollow.FeedReader.Feeds.MediaRssFeed)rssFeed.SpecificFeed).ToFeed();
+            }
+
+            return specifiedFeed;
         }
 
-        private List<Models.Article> GetArticles(ICollection<CodeHollow.FeedReader.FeedItem> rssArticles)
+        private List<Models.Article> GetArticles(CodeHollow.FeedReader.Feed rssFeed)
         {
             var articleList = new List<Models.Article>();
-            foreach (var rssArticle in rssArticles)
+            foreach (var rssArticle in rssFeed.Items)
             {
-                articleList.Add(new Models.Article()
+                var article = new Models.Article()
                 {
                     Id = Guid.NewGuid(),
                     ArticleId = rssArticle.Id,
@@ -175,7 +181,11 @@ namespace RssMedia.Controllers {
                     ArticleDescription = rssArticle.Description,
                     ArticleTitle = rssArticle.Title,
                     ArticleContent = rssArticle.Content
-                });              
+                };
+
+                article.ArticleEnclosureUrl = GetArticleEnclosureUrl(rssArticle, rssFeed.Type);
+
+                articleList.Add(article);
             }
             return articleList;
         }
@@ -187,6 +197,24 @@ namespace RssMedia.Controllers {
             var filteredArticles = orderedArticles.GetRange(articleOffset, articleCount);
 
             return filteredArticles;
+        }
+
+        private string GetArticleEnclosureUrl(CodeHollow.FeedReader.FeedItem rssArticle, CodeHollow.FeedReader.FeedType feedType)
+        {
+            var enclosureUrl = string.Empty;
+
+            if (feedType == FeedType.MediaRss)
+            {
+                var item = (CodeHollow.FeedReader.Feeds.MediaRssFeedItem)rssArticle.SpecificItem;
+                enclosureUrl = item.Enclosure.Url;
+            }
+            else if (feedType == FeedType.MediaRss)
+            {
+                var item = (CodeHollow.FeedReader.Feeds.Rss20FeedItem)rssArticle.SpecificItem;
+                enclosureUrl = item.Enclosure.Url;
+            }
+
+            return enclosureUrl;
         }
 
         // private async Task<byte[]> GetImageData(string imageUrl)
