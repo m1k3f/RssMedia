@@ -14,12 +14,16 @@ export class Article extends Component {
     handleHeaderClick = (e) => {
         if (this.state.opened) {
             this.setState({
-                opened: false
+                opened: false,
+                showViewLink: false,
+                showEnclosureModal: false
             });
         }
         else {
             this.setState({
-                opened: true
+                opened: true,
+                showViewLink: false,
+                showEnclosureModal: false
             });
         }
     }
