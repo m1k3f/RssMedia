@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import { EnclosureLink } from './modals/EnclosureLink';
 import { ViewLink } from './modals/ViewLink';
 
 export class Article extends Component {  
 
     state = {
         opened: false,
-        showViewLink: false
+        showViewLink: false,
+        showEnclosureModal: false
     }
 
     handleHeaderClick = (e) => {
@@ -24,11 +26,17 @@ export class Article extends Component {
 
     handleArticleLink = (e) => {
         this.setState({
-            showViewLink: true
+            showViewLink: true,
+            showEnclosureModal: false
         });
     }
 
-
+    handleEnclosureClick = (e) => {
+        this.setState({
+            showViewLink: false,
+            showEnclosureModal: true
+        })
+    }
 
     getFormattedDateTime = (dateTimeValue) => {
         let currentMonth = dateTimeValue.getMonth() + 1;
@@ -41,10 +49,27 @@ export class Article extends Component {
         );
     }
 
-    renderViewLinkModal = (show) => {
+    renderEnclosureButton = () => {
         let content = '';
-        if (show) {
+        let article = this.props.data;
+        if (article.articleEnclosureUrl != null && article.articleEnclosureUrl.length > 0) {
+            content = (
+                <button onClick={this.handleEnclosureClick}>
+                    <i className="fas fa-paperclip"></i>
+                </button>
+            );
+        }
+        
+        return (content);
+    }
+
+    renderModal = () => {
+        let content = '';
+        if (this.state.showViewLink) {
             content = <ViewLink article = {this.props.data} />
+        }
+        else if (this.state.showEnclosureModal) {
+            content = <EnclosureLink article = {this.props.data} />
         }
 
         return content;
@@ -81,11 +106,12 @@ export class Article extends Component {
                         <button onClick={this.handleArticleLink}>
                             <i className="fas fa-link"></i>
                         </button>
+                        {this.renderEnclosureButton()}
                     </div>
                     <div>
                         {ReactHtmlParser(article.articleDescription)}
                     </div>                    
-                    {this.renderViewLinkModal(this.state.showViewLink)}
+                    {this.renderModal()}
                 </section>
             </article>
         );
