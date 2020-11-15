@@ -1,7 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Segoe UI',Arial,sans-serif;    
-    /* background:#ccc none repeat scroll 0 0; */
+    font-family: 'Segoe UI',Arial,sans-serif;
     background-color: #ffffff;
 }
 
@@ -63,17 +62,9 @@ main {
 .divFeedBar {
     border: 3px solid #333333;
     border-radius: 5px;
-    /* border-radius: 10px; */
     padding: 10px;
-    display: flex;    
-    /* z-index: 10;
-    position: fixed;
-    width: 90%; */
+    display: flex;
 }
-
-/* .divFeedBar div {
-    margin-right: 5px;
-} */
 
 .divAdd {
     display: flex;
@@ -230,15 +221,12 @@ main {
 }
 
 .divFeedArticles .divFeedArticlesControls > a > i {
-    /* padding-left: 20px; */
     font-size: 40px;
 }
 
 .divFeedArticles .divFeedArticlesList {
-    /* border: 1px solid #333333; */
     display: flex;
     flex-direction: column;
-    /* padding-top: 2px; */
     overflow: visible;
     max-height: 60vh;
 }
@@ -320,7 +308,7 @@ article[name="feedArticle"] section > * {
 
 article[name="feedArticle"] section > div:first-child {
     display: flex;
-    justify-content: flex-start;    
+    justify-content: flex-start;
 }
 
 article[name="feedArticle"] section > div:first-child > button {
@@ -332,6 +320,7 @@ article[name="feedArticle"] section > div:first-child > button {
 
 article[name="feedArticle"] section p {
     background-color: #fafafa;
+    padding-right: 2px;
 }
 
 .divViewLink {
@@ -351,4 +340,8 @@ article[name="feedArticle"] section p {
 
 .swalPopup {
     height: 100%;
+}
+
+.divEnclosure > p {
+    font-size: 13px;
 }

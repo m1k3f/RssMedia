@@ -29,7 +29,7 @@ export class EnclosureLink extends Component {
         let {article} = this.props;
 
         return (
-            <div>
+            <div class="divEnclosure">
                 <p>{article.articleTitle}</p>
                 <audio controls 
                         src={article.articleEnclosureUrl}
