@@ -40,36 +40,6 @@ namespace RssMedia.Controllers {
             }            
         }
 
-        // [HttpPost]
-        // [ActionName("FeedLinks")]
-        // public async Task<IEnumerable<Models.FeedLink>> FeedLinks([FromBody]Models.FeedLink feedLink)
-        // {            
-        //     try
-        //     {
-        //         var feedLinkList = new List<Models.FeedLink>();
-        //         var decodedBaseUrl = WebUtility.UrlDecode(feedLink.BaseUrl);
-
-        //         var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(decodedBaseUrl).ConfigureAwait(false);
-        //         foreach (var link in urlList)
-        //         {
-        //             var guidId = (feedLink.Id == null || feedLink.Id == Guid.Empty) ? Guid.NewGuid() : feedLink.Id;
-        //             feedLinkList.Add(new FeedLink() {
-        //                 Id = guidId,
-        //                 Title = link.Title,
-        //                 Url = WebUtility.UrlEncode(link.Url),
-        //                 Name = feedLink.Name,
-        //                 BaseUrl = feedLink.BaseUrl
-        //             });
-        //         }
-
-        //         return feedLinkList;
-        //     }
-        //     catch(Exception)
-        //     {
-        //         return null;
-        //     }
-        // }
-
         [HttpPost]
         [ActionName("Feed")]
         public async Task<Models.Feed> Feed([FromBody]Models.Feeds feeds)
@@ -82,14 +52,15 @@ namespace RssMedia.Controllers {
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feed.FeedRssUrl);
                     var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
+                    var feedData = new RSS.FeedData(rssFeed);
 
                     feed.Id = Guid.NewGuid();
                     feed.FeedTitle = rssFeed.Title;
                     feed.FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty;
                     
-                    var articleList = GetArticles(rssFeed);
+                    var articleList = feedData.GetArticles();
                     var articleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
-                    feed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                      
+                    feed.FeedArticles = feedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                      
                 }
                 else 
                 {
@@ -104,37 +75,37 @@ namespace RssMedia.Controllers {
             }
         }
 
-        [HttpPost]
-        [ActionName("AllFeeds")]
-        public async Task<Models.Feed> AllFeeds(Models.Feeds feeds) 
-        {
-            Models.Feed allFeed = null;            
-            try
-            {
-                allFeed = new Models.Feed() 
-                {
-                    Id = new Guid(),
-                    FeedName = "All Feeds"
-                };
+        // [HttpPost]
+        // [ActionName("AllFeeds")]
+        // public async Task<Models.Feed> AllFeeds(Models.Feeds feeds) 
+        // {
+        //     Models.Feed allFeed = null;            
+        //     try
+        //     {
+        //         allFeed = new Models.Feed() 
+        //         {
+        //             Id = new Guid(),
+        //             FeedName = "All Feeds"
+        //         };
 
-                var articleList = new List<Models.Article>();
-                foreach (var feedItem in feeds.FeedList)
-                {
-                    var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
-                    var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                    var feedArticles = GetArticles(rssFeed);
-                    articleList.AddRange(feedArticles);
-                }
+        //         var articleList = new List<Models.Article>();
+        //         foreach (var feedItem in feeds.FeedList)
+        //         {
+        //             var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
+        //             var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
+        //             var feedArticles = GetArticles(rssFeed);
+        //             articleList.AddRange(feedArticles);
+        //         }
 
-                allFeed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, feeds.FeedArticleCount);
+        //         allFeed.FeedArticles = GetFilteredArticles(articleList, feeds.FeedArticleOffset, feeds.FeedArticleCount);
 
-                return allFeed;
-            }
-            catch(Exception ex) 
-            {
-                return GetFeedWithError(allFeed, ex);
-            }
-        }
+        //         return allFeed;
+        //     }
+        //     catch(Exception ex) 
+        //     {
+        //         return GetFeedWithError(allFeed, ex);
+        //     }
+        // }
 
         #region Private Methods
 
@@ -164,79 +135,7 @@ namespace RssMedia.Controllers {
             }
 
             return specifiedFeed;
-        }
-
-        private List<Models.Article> GetArticles(CodeHollow.FeedReader.Feed rssFeed)
-        {
-            var articleList = new List<Models.Article>();
-            foreach (var rssArticle in rssFeed.Items)
-            {
-                var article = new Models.Article()
-                {
-                    Id = Guid.NewGuid(),
-                    ArticleId = rssArticle.Id,
-                    ArticleUrl = rssArticle.Link,
-                    ArticleAuthor = rssArticle.Author,
-                    ArticlePublishingDate = rssArticle.PublishingDate,
-                    ArticleDescription = rssArticle.Description,
-                    ArticleTitle = rssArticle.Title,
-                    ArticleContent = rssArticle.Content
-                };
-
-                article.ArticleEnclosureUrl = GetArticleEnclosureUrl(rssArticle, rssFeed.Type);
-
-                articleList.Add(article);
-            }
-            return articleList;
-        }
-
-        private List<Models.Article> GetFilteredArticles(List<Models.Article> articles, int articleOffset, int articleCount)
-        {
-            //Order list of articles by publish date, filter list by articleOffset and articleCount
-            var orderedArticles = articles.OrderByDescending(a => a.ArticlePublishingDate).ToList();            
-            var filteredArticles = orderedArticles.GetRange(articleOffset, articleCount);
-
-            return filteredArticles;
-        }
-
-        private string GetArticleEnclosureUrl(CodeHollow.FeedReader.FeedItem rssArticle, CodeHollow.FeedReader.FeedType feedType)
-        {
-            var enclosureUrl = string.Empty;
-
-            if (feedType == FeedType.MediaRss)
-            {
-                var item = (CodeHollow.FeedReader.Feeds.MediaRssFeedItem)rssArticle.SpecificItem;
-                enclosureUrl = item.Enclosure.Url;
-            }
-            else if (feedType == FeedType.MediaRss)
-            {
-                var item = (CodeHollow.FeedReader.Feeds.Rss20FeedItem)rssArticle.SpecificItem;
-                enclosureUrl = item.Enclosure.Url;
-            }
-
-            return enclosureUrl;
-        }
-
-        // private async Task<byte[]> GetImageData(string imageUrl)
-        // {
-        //     HttpResponseMessage response = await _client.GetAsync(imageUrl);
-        //     response.EnsureSuccessStatusCode();
-        //     var imageBytes = await response.Content.ReadAsByteArrayAsync();
-
-        //     return imageBytes;
-        // }
-
-        // private string GetImageFileType(string imageUrl)
-        // {
-        //     var type = Path.GetExtension(imageUrl);
-
-        //     if (type.Length > 0) {
-        //         return type;
-        //     }
-        //     else {
-        //         return null;
-        //     }
-        // }
+        }        
 
         #endregion
     }
