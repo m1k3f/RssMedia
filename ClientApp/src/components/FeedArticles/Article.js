@@ -67,6 +67,18 @@ export class Article extends Component {
         return (content);
     }
 
+    renderArticleImage = () => {
+        let content = '';
+        let article = this.props.data;
+        if (article.articleImageUrl != null && article.articleImageUrl.length > 0) {
+            content = (
+                <img src={article.articleImageUrl} />
+            );
+        }
+
+        return (content);
+    }
+
     renderModal = () => {
         let content = '';
         if (this.state.showViewLink) {
@@ -113,7 +125,8 @@ export class Article extends Component {
                         {this.renderEnclosureButton()}
                     </div>
                     <div>
-                        {ReactHtmlParser(article.articleDescription)}
+                        <p>{ReactHtmlParser(article.articleDescription)}</p>
+                        {this.renderArticleImage()}
                     </div>                    
                     {this.renderModal()}
                 </section>

@@ -297,13 +297,13 @@ article[name="feedArticle"] section {
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    overflow: hidden;
+    overflow: auto;
     transition: max-height 0.2s ease-out;
 }
 
 article[name="feedArticle"] section > * {
     background-color: #fafafa;
-    padding: 4px;
+    padding: 2px;
 }
 
 article[name="feedArticle"] section > div:first-child {
