@@ -75,13 +75,16 @@ namespace RssMedia.RSS
             else 
             {
                 SetXmlDocumentData();
-                var articleXml = rssArticle.SpecificItem.Element;
-                var mediaDescriptionElementName = _xmlMediaNamespace + "description";
-                if (articleXml.Descendants().Any(x => x.Name.Equals(mediaDescriptionElementName)))
+                if (_xmlMediaNamespace != null)
                 {
-                    description = articleXml.Descendants()
-                                            .First(x => x.Name.Equals(mediaDescriptionElementName))
-                                            .Value;
+                    var articleXml = rssArticle.SpecificItem.Element;
+                    var mediaDescriptionElementName = _xmlMediaNamespace + "description";
+                    if (articleXml.Descendants().Any(x => x.Name.Equals(mediaDescriptionElementName)))
+                    {
+                        description = articleXml.Descendants()
+                                                .First(x => x.Name.Equals(mediaDescriptionElementName))
+                                                .Value;
+                    }
                 }
             }
 
@@ -110,13 +113,16 @@ namespace RssMedia.RSS
         {
             string imageUrl = null;
             SetXmlDocumentData();
-            var articleXml = rssArticle.SpecificItem.Element;
-            var mediaImageElementName = _xmlMediaNamespace + "thumbnail";
-            if (articleXml.Descendants().Any(x => x.Name.Equals(mediaImageElementName)))
+            if (_xmlMediaNamespace != null)
             {
-                imageUrl = articleXml.Descendants()
-                                        .First(x => x.Name.Equals(mediaImageElementName))
-                                        .Attribute("url").Value;
+                var articleXml = rssArticle.SpecificItem.Element;
+                var mediaImageElementName = _xmlMediaNamespace + "thumbnail";
+                if (articleXml.Descendants().Any(x => x.Name.Equals(mediaImageElementName)))
+                {
+                    imageUrl = articleXml.Descendants()
+                                            .First(x => x.Name.Equals(mediaImageElementName))
+                                            .Attribute("url").Value;
+                }
             }
 
             return imageUrl;
