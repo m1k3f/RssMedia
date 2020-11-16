@@ -28,19 +28,37 @@ export class ViewLink extends Component {
     }
 
     getViewLinkModalContent = () => {
-        
+        let frameUrl = this.getFrameUrl();
+
         return (
             <div className="divViewLink">
                 <a href={this.props.article.articleUrl} target="_blank" rel="noopener noreferrer">
                     <p className="truncate">{this.props.article.articleUrl}</p>
                 </a>
                 <iframe title="View Link Modal"
-                        src={this.props.article.articleUrl} 
+                        src={frameUrl} 
                         name="extLinkFrame"
                         ref={el => this.frameElement = el}>
                 </iframe>
             </div>
         );
+    }
+
+    getFrameUrl = () => {
+        let articleUrl = this.props.article.articleUrl;
+        let frameUrl = '';
+        if (articleUrl.includes("youtube.com")) {
+            let urlArray = articleUrl.split('/');
+            let protocol = urlArray[0];
+            let host = urlArray[2];
+            let page = (urlArray.length > 3) ? urlArray[3] : '';
+            frameUrl = `${protocol}//${host}/${page.replace("watch", "embed")}`;
+        }
+        else {
+            frameUrl = articleUrl;
+        }
+
+        return frameUrl;
     }
 
     render() {
