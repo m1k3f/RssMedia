@@ -220,6 +220,11 @@ main {
     height: 64px;
 }
 
+.divFeedArticles .divFeedArticlesControls > i {
+    font-size: 40px;
+    color: #e60000;
+}
+
 .divFeedArticles .divFeedArticlesControls > a > i {
     font-size: 40px;
 }
