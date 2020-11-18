@@ -7,6 +7,7 @@ import { FeedImageLink } from './Controls/FeedImageLink';
 export class FeedArticlesControls extends Component {
     
     handleButtonClick = (option) => {
+        option.selectedFeed = this.props.feed;
         this.props.feedArticlesCallback(option);
     }
 

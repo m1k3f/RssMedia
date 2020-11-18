@@ -20,14 +20,13 @@ export class FeedArticles extends Component {
     static contextType = FeedContext;    
 
     handleContentCallback = (option) => {
-        let feed = this.context.selectedFeed;
-
-        if (option === 'delete') {
+        if (option.type === 'delete') {
+            // Clear displayed articles
             const {setFeed} = this.context;
             setFeed(null);
         }
 
-        this.props.contentCallback(feed, option);
+        this.props.contentCallback(option);
     }
 
     renderSpinner = () => {

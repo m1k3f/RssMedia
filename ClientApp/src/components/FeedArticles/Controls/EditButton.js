@@ -11,21 +11,25 @@ export class EditButton extends Component {
         this.setState({
             showEditModal: true
         });
-        //this.props.controlsCallback("edit");
     }
 
     handleEditFeedCallback = (updatedFeedLink) => {
-        if (updatedFeedLink != null) {
-            
-        }
-
         this.setState({
             showEditModal: false
         });
+        
+        if (updatedFeedLink != null) {
+            let editOption = {
+                type: 'edit',
+                feedLink: updatedFeedLink
+            }
+
+            this.props.controlsCallback(editOption);
+        }        
     }
 
-    renderEditModal = (show) => {
-        if (show) {
+    renderEditModal = () => {
+        if (this.state.showEditModal) {
             return (
                 <EditFeed feed = {this.props.selectedFeed}
                             editFeedCallback = {this.handleEditFeedCallback} />
@@ -39,7 +43,7 @@ export class EditButton extends Component {
                 <a className="clickable" onClick={this.handleEditClick}>
                     <i className="fas fa-edit fa-lg"></i>
                 </a>
-                {this.renderEditModal(this.state.showEditModal)}
+                {this.renderEditModal()}
             </React.Fragment>
         );
     }

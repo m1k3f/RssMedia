@@ -88,11 +88,13 @@ main {
 .addEditButtonModal {
     display: flex;
     flex-direction: column;
+    text-align: left;
     /* margin: 5px; */
 }
 
 .addEditButtonModal > * {
     margin: 2px;
+    font-size: 13px;
 }
 
 .multiFeedModal {

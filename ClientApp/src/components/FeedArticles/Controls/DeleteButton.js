@@ -5,7 +5,13 @@ export class DeleteButton extends Component {
     handleDeleteClick = (e) => {
         //TODO: modal popup: Are you sure you want to to delete?
         // if true, then do call back.
-        this.props.controlsCallback("delete");
+
+        let option = {
+            type: 'delete',
+            feedLink: null
+        };
+
+        this.props.controlsCallback(option);
     }
 
     render() {

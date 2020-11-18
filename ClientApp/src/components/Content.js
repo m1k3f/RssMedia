@@ -25,7 +25,23 @@ export class Content extends Component {
             }
         }
         return feedLinks;
-    }    
+    }
+
+    editFeedLink = (feedLink) => {
+        let savedfeedLinks = this.state.feedLinks;
+        let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLink.feedLinkId);
+        if (linkIndex > -1) {
+            savedfeedLinks.feedLinks[linkIndex].name = feedLink.name;
+
+            if (window.localStorage) {
+                localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
+            }
+
+            this.setState({
+                feedLinks: this.getFeedLinksStorage()
+            });
+        }
+    }
 
     removeFeedLink = (feedLinkId) => {
         let savedfeedLinks = this.state.feedLinks;
@@ -51,15 +67,15 @@ export class Content extends Component {
         });
     }
 
-    handleFeedArticlesCallback = (feed, option) => {
-        if (option === 'sync') {
+    handleFeedArticlesCallback = (option) => {
+        if (option.type === 'sync') {
             
         }
-        else if (option === 'edit') {
-
+        else if (option.type === 'edit') {
+            this.editFeedLink(option.feedLink);
         }
-        else if (option === 'delete') {
-            this.removeFeedLink(feed.feedLinkId);
+        else if (option.type === 'delete') {
+            this.removeFeedLink(option.selectedFeed.feedLinkId);
         }
     }
 

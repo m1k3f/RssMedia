@@ -22,7 +22,9 @@ export class EditFeed extends Component {
             if (value.isConfirmed) {
                 // Save data to local storage
                 let feedLink = {
-
+                    feedLinkId: this.props.feed.feedLinkId,
+                    name: this.feedLinkName.value,
+                    url: this.props.feed.feedRssUrl
                 }
                 
                 this.props.editFeedCallback(feedLink);
@@ -33,14 +35,16 @@ export class EditFeed extends Component {
         });
     }
 
-    getEditFeedModalContent = () => {
+    getEditFeedModalContent = () => {        
         let feedName = this.props.feed.feedName;
         let feedUrl = decodeURIComponent(this.props.feed.feedRssUrl);
+        let feedUrlDisplay = (feedUrl.length > 50) ? `${feedUrl.substring(0, 50)}...` : feedUrl;
 
         return (
             <div className="addEditButtonModal">                
-                <input placeholder="Name..." type="text" defaultValue={feedName} />
-                <input placeholder="URL..." type="text" defaultValue={feedUrl} />
+                <input placeholder="Name..." type="text" 
+                        defaultValue={feedName} ref={el => this.feedLinkName = el} />
+                <a href={feedUrl}>{feedUrlDisplay}</a>
             </div>
         );
     }
