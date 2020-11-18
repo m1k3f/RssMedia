@@ -7,7 +7,7 @@ export class Content extends Component {
     constructor() {
         super();
         this.state = {
-            feedLinks: null
+            feedLinks: this.getFeedLinksStorage()
         }
     }
     
@@ -76,13 +76,11 @@ export class Content extends Component {
     }
 
     render() {
-        let storageFeedLinks = this.getFeedLinksStorage();
-
         return (
             <main>
                 <FeedProvider>
                     <FeedBar 
-                        feedLinks = {storageFeedLinks}
+                        feedLinks = {this.state.feedLinks}
                         contentCallback = {this.handleFeedbarCallback} />
                     <FeedArticles contentCallback = {this.handleFeedArticlesCallback} />
                 </FeedProvider>
