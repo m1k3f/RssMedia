@@ -17,7 +17,7 @@ export class FeedLinks extends Component {
 
     render() {
         return(
-            <div className="divFeeds">
+            <div className="divFeeds fade-in">
                 {this.renderFeedLinks()}
             </div>
         );
