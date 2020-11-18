@@ -28,16 +28,16 @@ export class FeedLink extends Component {
                 //document.querySelector('.divFeedArticles').hidden = false;               
 
                 //TODO: change logic to hide spinner
-                //document.querySelector('.divSpinner').hidden = true;
-
-                //add feed to context
-                const {setFeed} = this.context;
-                setFeed(feed); 
+                //document.querySelector('.divSpinner').hidden = true;                
             }
             else {
                 //TODO: change logic to hide spinner
                 //document.querySelector('.divSpinner').hidden = true;
             }
+
+            //add feed to context
+            const {setFeed} = this.context;
+            setFeed(feed); 
         }
         else {
             //TODO: change logic to hide spinner

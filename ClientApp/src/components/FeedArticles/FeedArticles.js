@@ -29,6 +29,20 @@ export class FeedArticles extends Component {
         this.props.contentCallback(option);
     }
 
+    getFeedTitle = () => {
+        let feedTitle = '';
+        if (this.context != null && this.context.selectedFeed != null) {
+            if (this.context.selectedFeed.feedTitle != null) {
+                feedTitle = this.context.selectedFeed.feedTitle
+            }
+            else if (this.context.selectedFeed.feedName != null) {
+                feedTitle = this.context.selectedFeed.feedName;
+            }
+        }
+
+        return (feedTitle);
+    }
+
     renderSpinner = () => {
         return (<Spinner hide={this.state.hideSpinner} />);
     }
@@ -37,7 +51,8 @@ export class FeedArticles extends Component {
         let content = '';
         const feedContext = this.context;
 
-        if (feedContext != null && feedContext.selectedFeed != null) {           
+        if (feedContext != null && feedContext.selectedFeed != null && 
+            feedContext.selectedFeed.feedArticles != null) {           
 
             let articleCount = 0;
             content = feedContext.selectedFeed.feedArticles.map((article) => {
@@ -60,9 +75,7 @@ export class FeedArticles extends Component {
     }
 
     render() {
-        let feedTitle = (this.context != null && this.context.selectedFeed != null) 
-                        ? this.context.selectedFeed.feedTitle 
-                        : '';
+        let feedTitle = this.getFeedTitle();
 
         return (
             <div className="divFeedArticles">

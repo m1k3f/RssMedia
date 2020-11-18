@@ -18,14 +18,6 @@ export class FeedArticlesControls extends Component {
             // let imageUrl = (this.props.feed.feedImageUrl != '') ? decodeURIComponent(this.props.feed.feedImageUrl) : '';
             content = (
                 <div className="divFeedArticlesControls">
-                    {/* 
-                        Feed Image Link
-                        Sync Feed button 
-                        Edit Feed button 
-                        Delete Feed button 
-                    */}
-                    {/* <p>{this.props.feed.feedTitle}</p> */}
-                    {/* <img src={imageUrl} /> */}
                     <FeedImageLink selectedFeed = {this.props.feed} />
                     <SyncButton controlsCallback = {this.handleButtonClick} />
                     <EditButton controlsCallback = {this.handleButtonClick} 

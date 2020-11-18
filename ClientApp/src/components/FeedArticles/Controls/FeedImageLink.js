@@ -4,7 +4,12 @@ export class FeedImageLink extends Component {
 
     renderImage = () => {
         let image = '';
-        if (this.props.selectedFeed.feedRssUrl.includes("youtube.com")) {
+        if (this.props.selectedFeed === null) {
+            image = (
+                <i className="fas fa-rss-square"></i>
+            ); 
+        }
+        else if (this.props.selectedFeed.feedRssUrl.includes("youtube.com")) {
             image = (
                 <i className="fab fa-youtube"></i>
             );            
