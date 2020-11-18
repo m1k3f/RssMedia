@@ -125,7 +125,7 @@ export class Article extends Component {
                         {this.renderEnclosureButton()}
                     </div>
                     <div>
-                        <p>{ReactHtmlParser(article.articleDescription)}</p>
+                        <div>{ReactHtmlParser(article.articleDescription)}</div>
                         {this.renderArticleImage()}
                     </div>                    
                     {this.renderModal()}
