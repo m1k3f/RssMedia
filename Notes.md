@@ -1,5 +1,19 @@
 # RSS Media App
 
+## Remaining Items
+
+- Issue: New Feed modal pops up after saving feed details
+- Article Controls Sync button logic
+- Article Controls Edit button logic
+- All Feeds button functionality
+- Remove all feeds button & modal: modal to verify delete
+- Save feeds to file button
+- When no feeds saved, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
+- Display content when no feed button selected (no articles showing)
+- Question mark button & modal: app description, how to use
+- Settings button: # articles
+- Drag and drop feed buttons for reorganizing
+
 ## Requirements
 
 - Simple, minimal RSS feed reader.
