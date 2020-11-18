@@ -7,7 +7,7 @@ export class Content extends Component {
     constructor() {
         super();
         this.state = {
-            feedLinks: this.getFeedLinksStorage()
+            feedLinks: null
         }
     }
     
@@ -32,14 +32,7 @@ export class Content extends Component {
         let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLink.feedLinkId);
         if (linkIndex > -1) {
             savedfeedLinks.feedLinks[linkIndex].name = feedLink.name;
-
-            if (window.localStorage) {
-                localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
-            }
-
-            this.setState({
-                feedLinks: this.getFeedLinksStorage()
-            });
+            this.saveAndRefreshFeedLinks(savedfeedLinks);
         }
     }
 
@@ -50,15 +43,18 @@ export class Content extends Component {
         let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLinkId);
         if (linkIndex > -1) {
             savedfeedLinks.feedLinks.splice(linkIndex, 1);
-
-            if (window.localStorage) {
-                localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
-            }
-
-            this.setState({
-                feedLinks: this.getFeedLinksStorage()
-            });
+            this.saveAndRefreshFeedLinks(savedfeedLinks);
         }
+    }
+
+    saveAndRefreshFeedLinks = (feedLinks) => {
+        if (window.localStorage) {
+            localStorage.setItem("rmFeeds", JSON.stringify(feedLinks));
+        }
+
+        this.setState({
+            feedLinks: this.getFeedLinksStorage()
+        });
     }
 
     handleFeedbarCallback = () => {
@@ -80,11 +76,13 @@ export class Content extends Component {
     }
 
     render() {
+        let storageFeedLinks = this.getFeedLinksStorage();
+
         return (
             <main>
                 <FeedProvider>
                     <FeedBar 
-                        feedLinks = {this.state.feedLinks}
+                        feedLinks = {storageFeedLinks}
                         contentCallback = {this.handleFeedbarCallback} />
                     <FeedArticles contentCallback = {this.handleFeedArticlesCallback} />
                 </FeedProvider>
