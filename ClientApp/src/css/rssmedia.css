@@ -85,8 +85,14 @@ main {
     transform: scale(1.5);
 }
 
-.addButtonModal div {
-    margin: 5px;
+.addButtonModal {
+    display: flex;
+    flex-direction: column;
+    /* margin: 5px; */
+}
+
+.addButtonModal > * {
+    margin: 2px;
 }
 
 .multiFeedModal {
