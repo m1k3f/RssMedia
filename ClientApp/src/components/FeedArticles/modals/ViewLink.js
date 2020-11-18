@@ -45,17 +45,21 @@ export class ViewLink extends Component {
     }
 
     getFrameUrl = () => {
+        let articleId = this.props.article.articleId;
         let articleUrl = this.props.article.articleUrl;
         let frameUrl = '';
+                
         if (articleUrl.includes("youtube.com")) {
-            let urlArray = articleUrl.split('/');
-            let protocol = urlArray[0];
-            let host = urlArray[2];
-            let page = (urlArray.length > 3) ? urlArray[3] : '';
-            frameUrl = `${protocol}//${host}/${page.replace("watch", "embed")}`;
+            frameUrl = articleUrl.replace('watch', 'embed');
         }
         else {
-            frameUrl = articleUrl;
+            if ((articleId.includes('http://') || articleId.includes('https://')) &&
+                (articleId != articleUrl)) {
+                frameUrl = articleId;
+            }
+            else {
+                frameUrl = articleUrl;
+            }
         }
 
         return frameUrl;
