@@ -14,9 +14,22 @@ export class EditButton extends Component {
         //this.props.controlsCallback("edit");
     }
 
+    handleEditFeedCallback = (updatedFeedLink) => {
+        if (updatedFeedLink != null) {
+            
+        }
+
+        this.setState({
+            showEditModal: false
+        });
+    }
+
     renderEditModal = (show) => {
         if (show) {
-            return (<EditFeed feed = {this.props.selectedFeed} />);
+            return (
+                <EditFeed feed = {this.props.selectedFeed}
+                            editFeedCallback = {this.handleEditFeedCallback} />
+            );
         }
     }
 

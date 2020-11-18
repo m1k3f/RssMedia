@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
-import swal from '@sweetalert/with-react';
+import swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 
 export class EditFeed extends Component {
     
     showEditFeedModal = () => {
-        swal({
-            content: this.getEditFeedModalContent(),
-            buttons: {
-                confirm: {
-                    text: 'Save',
-                    value: true,
-                    visible: true
-                },
-                cancel: {
-                    text: 'Cancel',
-                    value: null,
-                    visible: true
-                }
-            }
+        const ReactSwal = withReactContent(swal);
+
+        ReactSwal.fire({
+            title: 'Edit Feed',
+            html: this.getEditFeedModalContent(),
+            showConfirmButton: true,
+            confirmButtonText: "Save",
+            showCancelButton: true,
+            focusCancel: true,
+            allowOutsideClick: false,
+            allowEnterKey: false,            
+            showCloseButton: true
         })
         .then((value) => {
+            if (value.isConfirmed) {
+                // Save data to local storage
+                let feedLink = {
 
+                }
+                
+                this.props.editFeedCallback(feedLink);
+            }
+            else {
+                this.props.editFeedCallback(null);
+            }            
         });
     }
 
@@ -29,16 +38,9 @@ export class EditFeed extends Component {
         let feedUrl = decodeURIComponent(this.props.feed.feedRssUrl);
 
         return (
-            <div className="editButtonModal">
-                <h3>Edit Feed</h3>
-                <div>
-                    <label>Name: </label>
-                    <input id="textFeedName" type="text" value={feedName} />
-                </div>
-                <div>
-                    <label>Url: </label>
-                    <input id="textFeedUrl" type="text" value={feedUrl} />
-                </div>
+            <div className="addEditButtonModal">                
+                <input placeholder="Name..." type="text" defaultValue={feedName} />
+                <input placeholder="URL..." type="text" defaultValue={feedUrl} />
             </div>
         );
     }

@@ -33,7 +33,7 @@ export class NewFeed extends Component {
 
     getNewFeedModalContent = () => {
         return (
-            <div className="addButtonModal">                
+            <div className="addEditButtonModal">                
                 <input placeholder="Name..." type="text" ref={el => this.feedName = el} />
                 <input placeholder="URL..." type="text" ref={el => this.feedUrl = el} />
             </div>

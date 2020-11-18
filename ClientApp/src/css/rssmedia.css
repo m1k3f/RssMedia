@@ -85,13 +85,13 @@ main {
     transform: scale(1.5);
 }
 
-.addButtonModal {
+.addEditButtonModal {
     display: flex;
     flex-direction: column;
     /* margin: 5px; */
 }
 
-.addButtonModal > * {
+.addEditButtonModal > * {
     margin: 2px;
 }
 

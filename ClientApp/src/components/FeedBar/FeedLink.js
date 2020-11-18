@@ -17,7 +17,7 @@ export class FeedLink extends Component {
             let feedObject = {
                 feedlinkid: feedLinkId,
                 feedrssurl: feedUrl,
-                feedname: ''
+                feedname: eventTarget.innerText
             }
             let feed = await this.getFeed(feedObject, 0, 20);
 
