@@ -3,15 +3,19 @@
 ## Remaining Items
 
 - Issue: New Feed modal pops up after saving feed details
+- Issue: Show feed article section even if no articles were found
 - Article Controls Sync button logic
-- Article Controls Edit button logic
+- ~~Article Controls Edit button logic~~
 - All Feeds button functionality
 - Remove all feeds button & modal: modal to verify delete
 - Save feeds to file button
+- Show spinner when articles are loading
+- ~~Fade in feedbar feedlinks on load & refresh~~
 - When no feeds saved, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
+- Article View Link: resolve article url in service before showing iframe
 - Display content when no feed button selected (no articles showing)
 - Question mark button & modal: app description, how to use
-- Settings button: # articles
+- Settings button: # articles displayed, sort feedbar buttons alphabetically
 - Drag and drop feed buttons for reorganizing
 
 ## Requirements
