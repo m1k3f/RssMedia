@@ -120,7 +120,7 @@ export class Article extends Component {
                     <div>
                         <p>{author}</p>
                         <button onClick={this.handleArticleLink}>
-                            <i className="fas fa-link"></i>
+                            <i className="fas fa-link fa-lg"></i>
                         </button>
                         {this.renderEnclosureButton()}
                     </div>
