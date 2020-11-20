@@ -7,7 +7,6 @@ export class FeedLinkAll extends Component {
 
         this.clearActiveFeed();        
         e.target.classList.add('divFeedsActive');
-        //document.querySelector('.divFeedArticles').hidden = false;
     }
 
     render() {

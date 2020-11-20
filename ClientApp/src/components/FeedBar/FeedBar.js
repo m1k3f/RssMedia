@@ -27,18 +27,26 @@ export class FeedBar extends Component {
         }
     }
 
-    render() {
+    renderFeedLinkButtons = () => {
+        let content = '';
         let feedLinksExist = (this.props.feedLinks.feedLinks.length > 0);
+        if (feedLinksExist) {
+            content = (
+                <React.Fragment>
+                    <FeedLinkAll />
+                    <FeedLinks links = {this.props.feedLinks} />
+                </React.Fragment>
+            );
+        }
 
+        return (content);
+    }
+
+    render() {
         return (
             <div className="divFeedBar">                
                 <FeedLinkAdd feedBarCallback = {this.handleFeedLinkAddCallback} />
-                <div hidden={!feedLinksExist}>
-                    <FeedLinkAll />
-                </div>
-                <div hidden={!feedLinksExist}>
-                    <FeedLinks links = {this.props.feedLinks} />
-                </div>
+                {this.renderFeedLinkButtons()}
             </div>
         );
     }
