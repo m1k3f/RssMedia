@@ -42,9 +42,25 @@ export class FeedLink extends Component {
         else {
             //TODO: change logic to hide spinner
             //document.querySelector('.divSpinner').hidden = true;
-        }
+        }        
+    }
 
+    handleDragStart = (e) =>  {
+        let feedLink = this.props.linkData;
+        e.dataTransfer.setData('text/plain', JSON.stringify(feedLink));
+    }
+
+    handleDrop = (e) => {
+        e.preventDefault();
+
+        let feedLink = this.props.linkData;
+
+        //get feedlink
+        let data = e.dataTransfer.getData("text");
+        let droppedFeedLink = JSON.parse(data);
         
+        // pass feedLink and draggedFeedLink to Content
+        this.props.feedLinksCallback(feedLink, droppedFeedLink);        
     }
 
     getFeed = async (feedObject, articleOffset, articleCount) => {
@@ -70,6 +86,7 @@ export class FeedLink extends Component {
     }
 
     clearActiveFeed = () => {
+        //TODO: rewrite this to not use querySelectorAll
         let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
         feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
     }
@@ -81,7 +98,12 @@ export class FeedLink extends Component {
         return (            
             <a name="btnFeeds" onClick={this.handleFeedButton} 
                 data-feedid={feedLink.id} 
-                data-url={feedUrl}>
+                data-url={feedUrl}
+                draggable
+                onDragStart={(e) => this.handleDragStart(e, this.props.linkOrder)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => this.handleDrop(e)}
+            >
                 {feedLink.name}
             </a>                
         );

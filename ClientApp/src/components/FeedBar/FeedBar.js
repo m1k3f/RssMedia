@@ -5,26 +5,26 @@ import { FeedLinks } from './FeedLinks';
 
 export class FeedBar extends Component {
 
-    saveFeedLink = (newFeedLink) => {
-        let savedfeedLinks = this.props.feedLinks;
-        savedfeedLinks.feedLinks.push(newFeedLink);
-
-        if (window.localStorage) {
-            localStorage.setItem("rmFeeds", JSON.stringify(savedfeedLinks));
+    handleFeedLinkAddCallback = (newFeedLink) => {
+        if (Object.entries(newFeedLink).length > 0 && newFeedLink != null) {
+            //save new feed link to storage
+            let option = {
+                type: 'saveFeedLink',
+                newFeedLink: newFeedLink
+            }
+    
+            this.props.contentCallback(option);
         }
-
-        // this.setState({
-        //     feedLinks: this.getFeedLinksStorage()
-        // });
-
-        this.props.contentCallback();
     }
 
-    handleFeedLinkAddCallback = (feedLink) => {
-        if (Object.entries(feedLink).length > 0 && feedLink != null) {
-            //save new feed link to storage
-            this.saveFeedLink(feedLink);
+    handleFeedLinksCallback = (existingFeedLink, droppedFeedLink) => {
+        let option = {
+            type: 'reorderFeedLink',
+            existingFeedLink: existingFeedLink,
+            droppedFeedLink: droppedFeedLink
         }
+
+        this.props.contentCallback(option);
     }
 
     renderFeedLinkButtons = () => {
@@ -34,7 +34,10 @@ export class FeedBar extends Component {
             content = (
                 <React.Fragment>
                     <FeedLinkAll />
-                    <FeedLinks links = {this.props.feedLinks} />
+                    <FeedLinks 
+                        links = {this.props.feedLinks} 
+                        feedBarCallback = {this.handleFeedLinksCallback}
+                    />
                 </React.Fragment>
             );
         }
