@@ -62,15 +62,19 @@ export class Content extends Component {
         let existingFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
         let droppedFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
         
+        let dropLeft = (droppedFeedLinkIndex > existingFeedLinkIndex) ? true : false;
         let newArray = savedfeedLinks.feedLinks.map((savedLink, index) =>  {
             if (index === droppedFeedLinkIndex) {
                 savedLink.position = originalFeedLink.position;
             }
             else if (index === existingFeedLinkIndex) {
-                savedLink.position = originalFeedLink.position + 1;                
+                savedLink.position = (dropLeft) ? originalFeedLink.position + 1 : originalFeedLink.position - 1;                
             }            
-            else if (index === (existingFeedLinkIndex + 1)) {
+            else if (dropLeft && (index > existingFeedLinkIndex && index < droppedFeedLinkIndex)) {
                 savedLink.position = savedLink.position + 1;
+            }
+            else if (!dropLeft && (index < existingFeedLinkIndex && index > droppedFeedLinkIndex)) {
+                savedLink.position = savedLink.position - 1;
             }
 
             return savedLink;
