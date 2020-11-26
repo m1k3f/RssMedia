@@ -22,17 +22,7 @@ export class Content extends Component {
             }
             else {
                 feedLinks = JSON.parse(feedLinks);
-                feedLinks.feedLinks.sort(function(a, b) {
-                    let aName = a.name.toLowerCase();
-                    let bName = b.name.toLowerCase();
-                    if (aName < bName) {
-                        return -1;
-                    }
-                    if (aName > bName) {
-                        return 1;
-                    }
-                    return 0;
-                });
+                feedLinks.feedLinks.sort((a, b) => this.feedLinksSort(a, b));
             }
         }
         return feedLinks;
@@ -49,13 +39,46 @@ export class Content extends Component {
 
     removeFeedLink = (feedLinkId) => {
         let savedfeedLinks = this.state.feedLinks;
-        
-        //remove feedlink from feedlinks array
         let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLinkId);
         if (linkIndex > -1) {
             savedfeedLinks.feedLinks.splice(linkIndex, 1);
             this.saveAndRefreshFeedLinks(savedfeedLinks);
         }
+    }
+
+    saveNewFeedLink = (newFeedLink) => {
+        let savedfeedLinks = this.state.feedLinks;
+        
+        newFeedLink.position = (savedfeedLinks.feedLinks.length > 0) ? savedfeedLinks.feedLinks.length : 0;        
+        savedfeedLinks.feedLinks.push(newFeedLink);
+
+        this.saveAndRefreshFeedLinks(savedfeedLinks);
+    }
+
+    reorderFeedLinks = (existingFeedLink, droppedFeedLink) => {
+        const originalFeedLink = {...existingFeedLink};
+        let savedfeedLinks = this.state.feedLinks;  
+
+        let existingFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
+        let droppedFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
+        
+        let newArray = savedfeedLinks.feedLinks.map((savedLink, index) =>  {
+            if (index === droppedFeedLinkIndex) {
+                savedLink.position = originalFeedLink.position;
+            }
+            else if (index === existingFeedLinkIndex) {
+                savedLink.position = originalFeedLink.position + 1;                
+            }            
+            else if (index === (existingFeedLinkIndex + 1)) {
+                savedLink.position = savedLink.position + 1;
+            }
+
+            return savedLink;
+        });
+
+        savedfeedLinks.feedLinks = newArray;
+
+        this.saveAndRefreshFeedLinks(savedfeedLinks);
     }
 
     saveAndRefreshFeedLinks = (feedLinks) => {
@@ -68,10 +91,13 @@ export class Content extends Component {
         });
     }
 
-    handleFeedbarCallback = () => {
-        this.setState({
-            feedLinks: this.getFeedLinksStorage()
-        });
+    handleFeedbarCallback = (option) => {
+        if (option.type === 'saveFeedLink') {
+            this.saveNewFeedLink(option.newFeedLink);
+        }
+        else if (option.type === 'reorderFeedLink') {
+            this.reorderFeedLinks(option.existingFeedLink, option.droppedFeedLink);
+        }        
     }
 
     handleFeedArticlesCallback = (option) => {
@@ -84,6 +110,28 @@ export class Content extends Component {
         else if (option.type === 'delete') {
             this.removeFeedLink(option.selectedFeed.feedLinkId);
         }
+    }
+
+    // feedLinksSort = (a, b) => {
+    //     let aName = a.name.toLowerCase();
+    //     let bName = b.name.toLowerCase();
+    //     if (aName < bName) {
+    //         return -1;
+    //     }
+    //     if (aName > bName) {
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
+
+    feedLinksSort = (a, b) => {
+        if (a.position < b.position) {
+            return -1;
+        }
+        if (a.position > b.position) {
+            return 1;
+        }
+        return 0;
     }
 
     render() {

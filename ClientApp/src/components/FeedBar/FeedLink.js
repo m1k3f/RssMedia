@@ -53,13 +53,11 @@ export class FeedLink extends Component {
     handleDrop = (e) => {
         e.preventDefault();
 
-        let feedLink = this.props.linkData;
+        const feedLink = this.props.linkData;
 
-        //get feedlink
         let data = e.dataTransfer.getData("text");
-        let droppedFeedLink = JSON.parse(data);
+        const droppedFeedLink = JSON.parse(data);
         
-        // pass feedLink and draggedFeedLink to Content
         this.props.feedLinksCallback(feedLink, droppedFeedLink);        
     }
 
