@@ -3,6 +3,7 @@
 ## Remaining Items
 
 - Issue: New Feed modal pops up after saving feed details
+- Issue: Multi Feed modal popus up again after selecting feed
 - ~~Issue: Show feed article section even if no articles were found~~
 - Article Controls Sync button logic
 - ~~Article Controls Edit button logic~~
@@ -10,7 +11,7 @@
 - ~~Sort feed links alphabetically~~
 - Remove all feeds button & modal: modal to verify delete
 - Save feeds to file button: file in OPML format
-- Add Home button to article controls
+- Add Home button to article controls that links to baseUrl
 - Show spinner when articles are loading
 - ~~Fade in feedbar feedlinks on load & refresh~~
 - When no feeds saved, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
@@ -18,7 +19,8 @@
 - Display content when no feed button selected (no articles showing): default to all feeds?
 - Question mark button & modal: app description, how to use
 - Settings button: # articles displayed, sort feedbar buttons alphabetically/createDate/custom drag, export feeds to file?, remove all feeds?
-- Drag and drop feed buttons for reorganizing: draggable feedlinks, add feedlink order property
+- ~~Drag and drop feed buttons for reorganizing: draggable feedlinks, add feedlink position property~~
+- Style feed header bars based on read/unread: feedLink lastAccessed datetime property
 
 ## Requirements
 
