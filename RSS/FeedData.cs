@@ -10,11 +10,18 @@ namespace RssMedia.RSS
     {
 
         private CodeHollow.FeedReader.Feed _rssFeed;
+        private string _feedName;
         private XDocument _xmlDocument;
         private XNamespace _xmlMediaNamespace;
         public FeedData(CodeHollow.FeedReader.Feed rssFeed)
         {
             _rssFeed = rssFeed;
+            _feedName = null;
+        }
+        public FeedData(CodeHollow.FeedReader.Feed rssFeed, string feedName)
+        {
+            _rssFeed = rssFeed;
+            _feedName = feedName;
         }
 
         public List<Models.Article> GetArticles()
@@ -30,11 +37,16 @@ namespace RssMedia.RSS
                     ArticleAuthor = rssArticle.Author,
                     ArticlePublishingDate = rssArticle.PublishingDate,
                     ArticleDescription = GetArticleDescription(rssArticle),
-                    ArticleTitle = rssArticle.Title,
+                    ArticleTitle = rssArticle.Title,                    
                     ArticleContent = rssArticle.Content,
                     ArticleEnclosureUrl = GetArticleEnclosureUrl(rssArticle),
                     ArticleImageUrl = GetArticleImageUrl(rssArticle)
                 };
+
+                if (!string.IsNullOrEmpty(_feedName))
+                {
+                    article.ArticleFullTitle = $"{_feedName}: {rssArticle.Title}";
+                }
 
                 articleList.Add(article);
             }

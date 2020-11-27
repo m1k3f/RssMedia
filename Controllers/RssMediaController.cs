@@ -93,11 +93,12 @@ namespace RssMedia.Controllers {
                 };
 
                 var articleList = new List<Models.Article>();
+                RSS.FeedData feedData = null;
                 foreach (var feedItem in feeds.FeedList)
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
                     var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                    var feedData = new RSS.FeedData(rssFeed);
+                    feedData = new RSS.FeedData(rssFeed, feedItem.FeedName);
 
                     var articles = feedData.GetArticles();
                     var articleCount = (articles.Count < 10) ? articles.Count : 10; //max 10 articles from feed

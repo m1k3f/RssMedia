@@ -94,6 +94,7 @@ export class Article extends Component {
     render() {
         let article = this.props.data;
 
+        let articleTitle = (article.articleFullTitle !== null) ? article.articleFullTitle : article.articleTitle;
         let author = (article.articleAuthor !== null) ? 
                         `by ${article.articleAuthor}` : 
                         '';
@@ -109,7 +110,7 @@ export class Article extends Component {
             <article name="feedArticle">
                 <button onClick={this.handleHeaderClick}>
                     <div>
-                        <p>{article.articleTitle}</p>
+                        <p>{articleTitle}</p>
                         <div>
                             <p>{formattedPublishDateTime}</p>
                             <i className={angleIcon}></i>
