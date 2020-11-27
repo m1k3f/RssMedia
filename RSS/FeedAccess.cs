@@ -59,26 +59,26 @@ namespace RssMedia.RSS
 
         #region Private Methods
 
-        private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrl()
-        {
-            var feedLinkList = new List<Models.FeedLink>();
-            //var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(_decodedUrl).ConfigureAwait(false);
-            var urlList = await FeedReader.ParseFeedUrlsAsStringAsync(_decodedUrl);
+        // private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrl()
+        // {
+        //     var feedLinkList = new List<Models.FeedLink>();
+        //     //var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(_decodedUrl).ConfigureAwait(false);
+        //     var urlList = await FeedReader.ParseFeedUrlsAsStringAsync(_decodedUrl);
 
-            // foreach (var link in urlList)
-            // {
-            //     var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-            //     feedLinkList.Add(new Models.FeedLink() {
-            //         Id = guidId,
-            //         Title = link.Title,
-            //         Url = WebUtility.UrlEncode(_decodedUrl),
-            //         Name = _originalfeedLink.Name,
-            //         AddUrl = _originalfeedLink.AddUrl
-            //     });
-            // }
+        //     foreach (var link in urlList)
+        //     {
+        //         var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
+        //         feedLinkList.Add(new Models.FeedLink() {
+        //             Id = guidId,
+        //             Title = link.Title,
+        //             Url = WebUtility.UrlEncode(_decodedUrl),
+        //             Name = _originalfeedLink.Name,
+        //             AddUrl = _originalfeedLink.AddUrl
+        //         });
+        //     }
 
-            return feedLinkList;
-        }
+        //     return feedLinkList;
+        // }
 
         private async Task<IEnumerable<Models.FeedLink>> GetFeedFromFeedUrl()
         {

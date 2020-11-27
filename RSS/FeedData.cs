@@ -41,7 +41,7 @@ namespace RssMedia.RSS
             return articleList;
         }
 
-        public List<Models.Article> GetFilteredArticles(List<Models.Article> articles, int articleOffset, int articleCount)
+        public static List<Models.Article> GetFilteredArticles(List<Models.Article> articles, int articleOffset, int articleCount)
         {
             //Order list of articles by publish date, filter list by articleOffset and articleCount
             var orderedArticles = articles.OrderByDescending(a => a.ArticlePublishingDate).ToList();            
