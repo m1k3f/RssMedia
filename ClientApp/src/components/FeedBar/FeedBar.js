@@ -33,7 +33,7 @@ export class FeedBar extends Component {
         if (feedLinksExist) {
             content = (
                 <React.Fragment>
-                    <FeedLinkAll />
+                    <FeedLinkAll links = {this.props.feedLinks} />
                     <FeedLinks 
                         links = {this.props.feedLinks} 
                         feedBarCallback = {this.handleFeedLinksCallback}
