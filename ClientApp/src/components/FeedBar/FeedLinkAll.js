@@ -8,7 +8,7 @@ export class FeedLinkAll extends Component {
     handleAllFeedsButton = async (e) => {
         const eventTarget = e.target;
         
-        let feedLinkObjectArray = this.props.feedLinks.feedLinks.map((link) => {
+        let feedLinkObjectArray = this.props.links.feedLinks.map((link) => {
             let feedObject = {
                 feedlinkid: link.id,
                 feedrssurl: link.url,
