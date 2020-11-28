@@ -145,9 +145,10 @@ main {
 .divAllFeeds a {
     cursor: pointer;
     padding: 10px;
-    border: 2px solid #f2f2f2;
+    border: 2px solid #4d4d4d;
     border-radius: 30px;
     min-width: 80px;
+    font-weight: 600;
     transition: transform .2s;
 }
 
@@ -172,11 +173,12 @@ main {
     cursor: pointer;
     padding: 10px;
     margin: 2px;
-    border: 2px solid #f0f0f0;
+    border: 2px solid #4d4d4d;
     border-radius: 30px;
     min-width: 80px;
     transition: transform .2s;
     text-align: center;
+    font-weight: 600;
 }
 
 .divFeeds a:hover {
@@ -193,14 +195,14 @@ main {
 }
 
 .divFeedArticles {
-    margin-top: 8px;
     width: 100%;
 }
 
 .divFeedArticles .divFeedTitle {
     font-size: 24px;
     font-weight: 600;
-    margin-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px
 }
 
 .divFeedArticles > section {
@@ -209,7 +211,7 @@ main {
 }
 
 .divFeedArticles > section > div:first-child {
-    margin-right: 20px;
+    margin-right: 30px;
 }
 
 .divFeedArticles .divFeedArticlesControls {
@@ -225,8 +227,8 @@ main {
 }
 
 .divFeedArticles .divFeedArticlesControls > img {
-    width: 64px;
-    height: 64px;
+    width: 50px;
+    height: 50px;
 }
 
 .divFeedArticles .divFeedArticlesControls > i {
