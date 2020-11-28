@@ -5,9 +5,33 @@ export class FeedLinkAll extends Component {
     
     static contextType = FeedContext;
 
-    handleAllFeedsButton = async (e) => {
-        const eventTarget = e.target;
+    async componentDidMount() {
+        let responseFeed = await this.getAllFeeds();
         
+        if (responseFeed.feedError === null) {
+            this.allFeedsButton.classList.add('divFeedsActive');
+        }
+
+        const {setFeed} = this.context;
+        setFeed(responseFeed);
+    }
+
+    handleAllFeedsButton = async (e) => {
+        //const eventTarget = e.target;
+        
+        let responseFeed = await this.getAllFeeds();
+
+        if (responseFeed.feedError === null) {
+            this.clearActiveFeed();        
+            this.allFeedsButton.classList.add('divFeedsActive');
+        }
+
+        //add feed to context
+        const {setFeed} = this.context;
+        setFeed(responseFeed);
+    }
+
+    getAllFeeds = async () => {
         let feedLinkObjectArray = this.props.links.feedLinks.map((link) => {
             let feedObject = {
                 feedlinkid: link.id,
@@ -23,22 +47,6 @@ export class FeedLinkAll extends Component {
             feedarticlecount: 50
         };
 
-        let responseFeed = await this.getAllFeeds(feeds);
-
-        if (responseFeed.feedError === null) {
-            this.clearActiveFeed();        
-            eventTarget.classList.add('divFeedsActive');
-        }
-        else {
-
-        }
-
-        //add feed to context
-        const {setFeed} = this.context;
-        setFeed(responseFeed);
-    }
-
-    getAllFeeds = async (feeds) => {
         let request = new Request('api/rssmedia/allfeeds', {
             method: 'POST',
             headers: {
@@ -61,7 +69,9 @@ export class FeedLinkAll extends Component {
     render() {
         return (
             <div className="divAllFeeds">
-                <a name="btnFeeds" onClick={this.handleAllFeedsButton}>
+                <a name="btnFeeds" 
+                    onClick={this.handleAllFeedsButton}
+                    ref={el => this.allFeedsButton = el}>
                     All Feeds
                 </a>
             </div>
