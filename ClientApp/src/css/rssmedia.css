@@ -223,12 +223,12 @@ main {
 
 .divFeedArticles .divFeedArticlesControls > * {
     display: block;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .divFeedArticles .divFeedArticlesControls > img {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
 }
 
 .divFeedArticles .divFeedArticlesControls > i {
@@ -237,7 +237,7 @@ main {
 }
 
 .divFeedArticles .divFeedArticlesControls > a > i {
-    font-size: 35px;
+    font-size: 40px;
 }
 
 .divFeedArticles .divFeedArticlesList {
@@ -248,7 +248,8 @@ main {
 }
 
 .divFeedArticles article {
-    margin-bottom: 1px;
+    /* border: 2px solid #4d4d4d; */
+    margin-bottom: 2px;
 }
 
 article[name="feedArticle"] > button {    
@@ -268,9 +269,7 @@ article[name="feedArticle"] > button > div {
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%; 
-    background-color: #404040;
-    color: #ffffff;
+    width: 100%;
 }
 
 article[name="feedArticle"] > button > div > p {
@@ -297,11 +296,14 @@ article[name="feedArticle"] > button > div i {
 }
 
 article[name="feedArticle"] > button,
+article[name="feedArticle"] > button > div,
 article[name="feedArticle"] > button > div p,
 article[name="feedArticle"] > button > div div,
 article[name="feedArticle"] > button > div i {
     background-color: #404040;
     color: #ffffff;
+    /* background-color: white;
+    color: black; */
     font-size: 14px;
     font-weight: 600;
 }
