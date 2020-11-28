@@ -33,7 +33,8 @@ export class Content extends Component {
         let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLink.feedLinkId);
         if (linkIndex > -1) {
             savedfeedLinks.feedLinks[linkIndex].name = feedLink.name;
-            this.saveAndRefreshFeedLinks(savedfeedLinks);
+            savedfeedLinks.feedLinks[linkIndex].title = feedLink.title;
+            this.saveAndRefreshFeedLinks(savedfeedLinks);            
         }
     }
 

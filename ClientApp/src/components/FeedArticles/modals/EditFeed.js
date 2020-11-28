@@ -24,6 +24,7 @@ export class EditFeed extends Component {
                 let feedLink = {
                     feedLinkId: this.props.feed.feedLinkId,
                     name: this.feedLinkName.value,
+                    title: this.feedTitle.value,
                     url: this.props.feed.feedRssUrl
                 }
                 
@@ -37,13 +38,20 @@ export class EditFeed extends Component {
 
     getEditFeedModalContent = () => {        
         let feedName = this.props.feed.feedName;
+        let feedTitle = this.props.feed.feedTitle;
         let feedUrl = decodeURIComponent(this.props.feed.feedRssUrl);
         let feedUrlDisplay = (feedUrl.length > 50) ? `${feedUrl.substring(0, 50)}...` : feedUrl;
 
         return (
             <div className="addEditButtonModal">                
-                <input placeholder="Name..." type="text" 
-                        defaultValue={feedName} ref={el => this.feedLinkName = el} />
+                <input placeholder="Name..." 
+                        type="text" 
+                        defaultValue={feedName} 
+                        ref={el => this.feedLinkName = el} />
+                <input placeholder="Title..." 
+                        type="text"
+                        defaultValue={feedTitle}
+                        ref={el => this.feedTitle = el} />
                 <a href={feedUrl}>{feedUrlDisplay}</a>
             </div>
         );

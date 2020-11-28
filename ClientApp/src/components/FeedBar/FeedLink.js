@@ -17,7 +17,8 @@ export class FeedLink extends Component {
             let feedObject = {
                 feedlinkid: feedLinkId,
                 feedrssurl: feedUrl,
-                feedname: eventTarget.innerText
+                feedname: eventTarget.innerText,
+                feedTitle: this.props.linkData.title
             }
             let feed = await this.getFeed(feedObject, 0, 20);
 
@@ -98,7 +99,7 @@ export class FeedLink extends Component {
                 data-feedid={feedLink.id} 
                 data-url={feedUrl}
                 draggable
-                onDragStart={(e) => this.handleDragStart(e, this.props.linkOrder)}
+                onDragStart={(e) => this.handleDragStart(e)}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => this.handleDrop(e)}
             >
