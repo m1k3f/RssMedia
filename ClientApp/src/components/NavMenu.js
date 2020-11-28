@@ -8,7 +8,7 @@ export class NavMenu extends Component {
       <header>
         <div>
           <i className="fas fa-rss-square fa-lg"></i>
-          <p>RSS Reader</p>
+          <p>Feed Reader</p>
         </div>
         <div>
           <a href="https://github.com/m1k3f/RssMedia" target="_blank" rel="noopener noreferrer">
