@@ -118,6 +118,19 @@ namespace RssMedia.Controllers {
             }
         }
 
+        [HttpPost]
+        [ActionName("DownloadFeeds")]
+        public async Task<IActionResult> DownloadFeeds(Models.Feeds feeds)
+        {
+            Stream fileStream = await RSS.FileDownload.GetFeedFileStream(feeds);
+            string mimeType = "application/xml";
+
+            return new FileStreamResult(fileStream, mimeType)
+            {
+                FileDownloadName = "Feeds.opml"
+            };
+        }
+
         #region Private Methods
 
         private Models.Feed GetFeedWithError(Models.Feed feed, Exception exception)
