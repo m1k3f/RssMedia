@@ -53,13 +53,27 @@ export class Article extends Component {
         );
     }
 
+    renderViewLinkButton = () => {
+        let content = '';
+        let article = this.props.data;
+        if (article.articleUrl !== null && article.articleUrl.length > 0) {
+            content = (
+                <button onClick={this.handleArticleLink}>
+                    <i className="fas fa-link fa-lg"></i>
+                </button>
+            );
+        }
+
+        return content;
+    }
+
     renderEnclosureButton = () => {
         let content = '';
         let article = this.props.data;
-        if (article.articleEnclosureUrl != null && article.articleEnclosureUrl.length > 0) {
+        if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0) {
             content = (
                 <button onClick={this.handleEnclosureClick}>
-                    <i className="fas fa-paperclip"></i>
+                    <i className="fas fa-paperclip fa-lg"></i>
                 </button>
             );
         }
@@ -96,8 +110,8 @@ export class Article extends Component {
 
         let articleTitle = (article.articleFullTitle !== null) ? article.articleFullTitle : article.articleTitle;
         let author = (article.articleAuthor !== null) ? 
-                        `by ${article.articleAuthor}` : 
-                        '';
+                        <div><p>by {article.articleAuthor}</p></div> : 
+                        null;
         let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
         let formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
 
@@ -119,12 +133,13 @@ export class Article extends Component {
                 </button>
                 <section style={sectionStyle}>
                     <div>
-                        <p>{author}</p>
-                        <button onClick={this.handleArticleLink}>
-                            <i className="fas fa-link fa-lg"></i>
-                        </button>
-                        {this.renderEnclosureButton()}
+                        <h3>{article.articleTitle}</h3>
+                        <div>
+                            {this.renderViewLinkButton()}
+                            {this.renderEnclosureButton()}
+                        </div>
                     </div>
+                    {author}
                     <div>
                         <div>{ReactHtmlParser(article.articleDescription)}</div>
                         {this.renderArticleImage()}

@@ -319,24 +319,29 @@ article[name="feedArticle"] section {
 
 article[name="feedArticle"] section > * {
     background-color: #fafafa;
-    padding: 2px;
+    /* padding: 2px; */
 }
 
 article[name="feedArticle"] section > div:first-child {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-article[name="feedArticle"] section > div:first-child > button {
+article[name="feedArticle"] section > div:first-child button {
     cursor: pointer;
     outline: hidden;
     border: none;
     background-color: #fafafa;
 }
 
+article[name="feedArticle"] section > div:first-child i {
+    color: #0033cc;
+}
+
 article[name="feedArticle"] section p {
     background-color: #fafafa;
-    padding-right: 2px;
+    padding: 0;
 }
 
 .divViewLink {

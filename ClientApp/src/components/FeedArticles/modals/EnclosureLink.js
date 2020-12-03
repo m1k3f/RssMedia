@@ -13,8 +13,8 @@ export class EnclosureLink extends Component {
             allowOutsideClick: false,
             allowEnterKey: false,
             showConfirmButton: false,
-            showCancelButton: true,
-            cancelButtonText: "Close",
+            showCancelButton: false,
+            // cancelButtonText: "Close",
             showCloseButton: true,
             focusCancel: true
         })
