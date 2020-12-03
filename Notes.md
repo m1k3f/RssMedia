@@ -1,24 +1,39 @@
 # RSS Media App
 
+## Deployment
+
+- https://www.youtube.com/watch?v=WUAhKhWgsIg
+- https://github.com/charlesbill/TheSolutionArchitect/tree/linuxbasics-dev
+- https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-5.0
+- dotnet build, dotnet run
+- publish self-contained for RPi: dotnet publish -r linux-arm
+
 ## Remaining Items
 
 - Issue: New Feed modal pops up after saving feed details
 - Issue: Multi Feed modal popus up again after selecting feed
+- Issue: When article enclosure exists, page link and enclosure spaced apart
+- Issue: open article enclosure link, close, reorder feed links -> enclosure pops up again
+- ~~Remove HTMLAgilityPack package~~
 - Article Controls Sync button logic
-- ~~All Feeds: Show feed name in each article title~~
-- Article: show full title in contents
+- ~~Article: show full title in contents~~
 - Feed Title: ~~use FeedLink title, allow for changing on feed edit,~~ refresh Title
 - ~~Display content when no feed button selected (no articles showing): default to all feeds?~~
-- Remove all feeds button & modal?: modal to verify delete
-- Save feeds to file button: file in OPML format
-- Add Home button to article controls that links to baseUrl
-- Show spinner when articles are loading: use spinning sync button or articles spinner
-- When no feeds saved, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
-- Article View Link: resolve article url in service before showing iframe
 - Question mark/info button & modal: app description, how to use
-- Settings button: # articles displayed, sort feedbar buttons alphabetically/createDate/custom drag, export feeds to file?, remove all feeds?
-- Style feed header bars based on read/unread: feedLink lastAccessed datetime property
+- Settings button:
+  - Number articles displayed
+  - sort feedbar buttons alphabetically/createDate/custom drag
+  - export feeds to file: opml file or JSON with settings
+  - remove all feeds: hide button and warning with expand/collapse
+  - toggle between dark and light theme
+- Feed Controls: Add Home button that links to baseUrl
+- Show spinner when articles are loading: use spinning sync button or articles spinner
+- When no feeds exist, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
+- Article View Link: resolve article url in service before showing iframe
 - FeedLinks: option to show folder/container to hold multiple feeds
+- FeedLinks: option to show feed group to show all feed articles in group, show when click on container?
+- Feed Controls Edit: checkbox to make default feed to show on start
+- Feed Controls Image: enlarge on hover
 
 ## Requirements
 
