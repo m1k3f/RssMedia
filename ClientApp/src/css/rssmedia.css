@@ -229,11 +229,16 @@ main {
 .divFeedArticles .divFeedArticlesControls > img {
     width: 42px;
     height: 42px;
+    transition: transform .2s;
+}
+
+.divFeedArticles .divFeedArticlesControls > img:hover {
+    transform: scale(1.7);
 }
 
 .divFeedArticles .divFeedArticlesControls > i {
     font-size: 40px;
-    color: #e60000;
+    color: #fc0505;
 }
 
 .divFeedArticles .divFeedArticlesControls > a > i {
@@ -336,7 +341,7 @@ article[name="feedArticle"] section > div:first-child button {
 }
 
 article[name="feedArticle"] section > div:first-child i {
-    color: #0033cc;
+    color: #0275d8;
 }
 
 article[name="feedArticle"] section p {
@@ -363,6 +368,19 @@ article[name="feedArticle"] section p {
     height: 100%;
 }
 
+.divEnclosure {
+    display: flex;
+    flex-direction: column;    
+}
+
+.divEnclosure > * {
+    padding-bottom: 6px;
+}
+
 .divEnclosure > p {
+    font-size: 13px;
+}
+
+.divEnclosure > a {
     font-size: 13px;
 }
