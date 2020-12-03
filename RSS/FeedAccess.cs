@@ -42,43 +42,10 @@ namespace RssMedia.RSS
                 {
                     return new List<Models.FeedLink>();
                 }
-                // else
-                // {
-                //     var feedsByUrlManual = await GetFeedsFromPageUrlManual();
-                //     if (feedsByUrlManual.Count() > 0)
-                //     {
-                //         return feedsByUrlManual;
-                //     }
-                //     else
-                //     {
-                //         return null;
-                //     }
-                // }
             }
         }
 
         #region Private Methods
-
-        // private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrl()
-        // {
-        //     var feedLinkList = new List<Models.FeedLink>();
-        //     //var urlList = await FeedReader.GetFeedUrlsFromUrlAsync(_decodedUrl).ConfigureAwait(false);
-        //     var urlList = await FeedReader.ParseFeedUrlsAsStringAsync(_decodedUrl);
-
-        //     foreach (var link in urlList)
-        //     {
-        //         var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-        //         feedLinkList.Add(new Models.FeedLink() {
-        //             Id = guidId,
-        //             Title = link.Title,
-        //             Url = WebUtility.UrlEncode(_decodedUrl),
-        //             Name = _originalfeedLink.Name,
-        //             AddUrl = _originalfeedLink.AddUrl
-        //         });
-        //     }
-
-        //     return feedLinkList;
-        // }
 
         private async Task<IEnumerable<Models.FeedLink>> GetFeedFromFeedUrl()
         {
@@ -86,7 +53,6 @@ namespace RssMedia.RSS
 
             if (_decodedUrl != null)
             {
-                //var rssFeed = await FeedReader.ReadAsync(_decodedUrl);
                 var rssFeed = await GetFeedReaderFeed();
                 
                 if (rssFeed != null)
@@ -120,52 +86,6 @@ namespace RssMedia.RSS
             return feed;
         }
 
-        // private IEnumerable<Models.FeedLink> GetFeedFromUrl()
-        // {
-        //     var feedLinkList = new List<Models.FeedLink>();
-        //     var reader = new SimpleFeedReader.FeedReader();
-        //     var items = reader.RetrieveFeed(_decodedUrl);
-        //     if (items != null && items.Count() > 0)
-        //     {
-        //         var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-        //         feedLinkList.Add(new Models.FeedLink() {
-        //             Id = guidId,
-        //             Title = rssFeed.Title,
-        //             Url = WebUtility.UrlEncode(_decodedUrl),
-        //             Name = _originalfeedLink.Name,
-        //             AddUrl = _originalfeedLink.AddUrl
-        //         });
-        //     }
-        // }
-
-        // private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrlManual()
-        // {
-        //     var feedLinkList = new List<Models.FeedLink>();
-
-        //     //Do a manual search through page to find feed(s)
-        //     var web = new HtmlAgilityPack.HtmlWeb();
-        //     var pageDoc = await web.LoadFromWebAsync(_decodedUrl);
-        //     var rssFeedXpath = "//link[(@type='application/rss+xml' or @type='application/atom+xml') and @rel='alternate']";
-        //     var rssFeeds = pageDoc.DocumentNode.SelectNodes(rssFeedXpath);
-
-        //     if (rssFeeds != null)
-        //     {
-        //         foreach (var feed in rssFeeds)
-        //         {
-        //             var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-        //             feedLinkList.Add(new Models.FeedLink() {
-        //                 Id = guidId,
-        //                 Title = feed.Attributes["title"].Value,
-        //                 Url = WebUtility.UrlEncode(feed.Attributes["href"].Value),
-        //                 Name = _originalfeedLink.Name,
-        //                 AddUrl = _originalfeedLink.AddUrl
-        //             });
-        //         }
-        //     }
-
-        //     return feedLinkList;
-        // }
-
         private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrlManual()
         {
             var feedLinkList = new List<Models.FeedLink>();
@@ -173,7 +93,6 @@ namespace RssMedia.RSS
             //TODO: don't get source as string; use stream instead
             var contentString = await GetPageSource(_decodedUrl);
 
-            // Regex rex = new Regex("<link.*rel=\"alternate\".*>");
             Regex rex = new Regex("<link[^>]*>");
             var matches = rex.Matches(contentString);
             foreach (var match in matches)
