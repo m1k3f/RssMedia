@@ -34,6 +34,9 @@ export class EnclosureLink extends Component {
                 <audio controls 
                         src={article.articleEnclosureUrl}
                         ref={el => this.audioElement = el} />
+                <a href={article.articleEnclosureUrl}>
+                    Download
+                </a>
             </div>
         );
     }
