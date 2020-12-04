@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
 namespace RssMedia.RSS
@@ -119,7 +118,7 @@ namespace RssMedia.RSS
             }
 
             return enclosureUrl;
-        }
+        }        
 
         private string GetArticleImageUrl(CodeHollow.FeedReader.FeedItem rssArticle)
         {

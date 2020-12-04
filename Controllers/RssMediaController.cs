@@ -131,6 +131,31 @@ namespace RssMedia.Controllers {
             };
         }
 
+        [HttpPost]
+        [ActionName("ResolvedUrl")]
+        public async Task<string> ResolvedUrl([FromBody]Dictionary<string, string> originalUrl)
+        {
+            try 
+            {
+                //var originalUrlDeserialized = JsonSerializer.Deserialize<string>(originalUrl.ToString());
+                var originalUrlValue = originalUrl["originalUrl"].ToString();
+                if (!string.IsNullOrEmpty(originalUrlValue))
+                {
+                    var decodedOriginalUrl = WebUtility.UrlDecode(originalUrlValue);
+                    var resolvedUrl = await RSS.Utilities.GetRedirectedUrl(decodedOriginalUrl);
+                    return resolvedUrl;
+                }
+                else 
+                {
+                    return string.Empty;
+                }
+            }
+            catch(Exception ex)
+            {
+                return string.Empty;
+            }            
+        }
+
         #region Private Methods
 
         private Models.Feed GetFeedWithError(Models.Feed feed, Exception exception)
