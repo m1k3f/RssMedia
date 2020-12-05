@@ -12,14 +12,14 @@
 
 - Issue: New Feed modal pops up after saving feed details
 - Issue: Multi Feed modal popus up again after selecting feed
-- Issue: When article enclosure exists, page link and enclosure spaced apart
-- Issue: open article enclosure link, close, reorder feed links -> enclosure pops up again
-- ~~Remove HTMLAgilityPack package~~
+- ~~Issue: CBC Feed publishingDate is null~~
+- Issue: Article View Link - url not final url; resolve article url in service before showing modal
+- ~~Issue: Article Enclosure Link - url not final url; resolve url before showing modal~~
+- Issue: open article enclosure link, close, reorder feed links -> enclosure modal pops up again
 - Article Controls Sync button logic
-- ~~Article: show full title in contents~~
 - Feed Title: ~~use FeedLink title, allow for changing on feed edit,~~ refresh Title
 - ~~Display content when no feed button selected (no articles showing): default to all feeds?~~
-- Question mark/info button & modal: app description, how to use
+- App info: info button & modal, or help box shown on app start; shows app description, how to use
 - Settings button:
   - Number articles displayed
   - sort feedbar buttons alphabetically/createDate/custom drag
@@ -29,11 +29,12 @@
 - Feed Controls: Add Home button that links to baseUrl
 - Show spinner when articles are loading: use spinning sync button or articles spinner
 - When no feeds exist, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
-- Article View Link: resolve article url in service before showing iframe
-- FeedLinks: option to show folder/container to hold multiple feeds
-- FeedLinks: option to show feed group to show all feed articles in group, show when click on container?
+- FeedLinks: option to show feed group to show all feed articles in group
+  - show feed articles when group is clicked
+  - article controls edit - show/add feeds in group
 - Feed Controls Edit: checkbox to make default feed to show on start
 - Feed Controls Image: enlarge on hover
+- Feed Controls Sync: sync on a timer every X minutes
 
 ## Requirements
 
