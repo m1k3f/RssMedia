@@ -4,27 +4,41 @@ import withReactContent from 'sweetalert2-react-content'
 
 export class ViewLink extends Component {
 
-    showViewLinkModal = () => {
-        const ReactSwal = withReactContent(swal);
+    state = {
+        article: null
+    }
 
-        ReactSwal.fire({
-            title: '',
-            html: this.getViewLinkModalContent(),
-            allowOutsideClick: false,
-            allowEnterKey: false,
-            showConfirmButton: false,
-            showCancelButton: false,
-            // cancelButtonText: "Close",
-            showCloseButton: true,
-            // focusCancel: true,
-            width: '90%',
-            customClass: 'swalPopup'
-        })
-        .then((value) => {
-            if (value.isDismissed) {
-                this.frameElement.src = '';
-            }
+    async componentDidMount() {
+        let {article} = this.props;
+        let resolvedArticleUrl = await this.getResolvedUrl(article.articleUrl);
+        article.articleUrl = resolvedArticleUrl;
+
+        this.setState({
+            article: article
         });
+    }
+
+    showViewLinkModal = () => {
+        if (this.state.article !== null) {
+            const ReactSwal = withReactContent(swal);
+
+            ReactSwal.fire({
+                title: '',
+                html: this.getViewLinkModalContent(),
+                allowOutsideClick: false,
+                allowEnterKey: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                showCloseButton: true,
+                width: '90%',
+                customClass: 'swalPopup'
+            })
+            .then((value) => {
+                if (value.isDismissed) {
+                    this.frameElement.src = '';
+                }
+            });
+        }
     }
 
     getViewLinkModalContent = () => {
@@ -32,8 +46,8 @@ export class ViewLink extends Component {
 
         return (
             <div className="divViewLink">
-                <a href={this.props.article.articleUrl} target="_blank" rel="noopener noreferrer">
-                    <p className="truncate">{this.props.article.articleUrl}</p>
+                <a href={this.state.article.articleUrl} target="_blank" rel="noopener noreferrer">
+                    <p className="truncate">{this.state.article.articleUrl}</p>
                 </a>
                 <iframe title="View Link Modal"
                         src={frameUrl} 
@@ -45,8 +59,8 @@ export class ViewLink extends Component {
     }
 
     getFrameUrl = () => {
-        let articleId = this.props.article.articleId;
-        let articleUrl = this.props.article.articleUrl;
+        let articleId = this.state.article.articleId;
+        let articleUrl = this.state.article.articleUrl;
         let frameUrl = '';
                 
         if (articleUrl.includes("youtube.com")) {
@@ -65,12 +79,31 @@ export class ViewLink extends Component {
         return frameUrl;
     }
 
-    render() {
-        let content = this.showViewLinkModal();
+    getResolvedUrl = async (enclosureUrl) => {        
+        let encodedUrl = encodeURIComponent(enclosureUrl);
+        let urlObject = {
+            originalUrl: encodedUrl
+        };
 
+        let request = new Request('api/rssmedia/resolvedurl', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },                    
+            body: JSON.stringify(urlObject)
+        });
+
+        let responseJson = await fetch(request).then((response) => 
+            response.json()
+        );
+
+        return responseJson.resolvedUrl;
+    }
+
+    render() {
         return(
             <div>
-                {content}
+                {this.showViewLinkModal()}
             </div>
         );
     }
