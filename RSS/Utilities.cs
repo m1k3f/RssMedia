@@ -13,15 +13,16 @@ namespace RssMedia.RSS
         {
             var resolvedUrl = url;
             var clientHandler = new HttpClientHandler() {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = true,
+                MaxAutomaticRedirections = 3
             };
 
             using (var client = new HttpClient(clientHandler, true))
             {
                 var response = await client.GetAsync(url);
-                var headerLocation = response.Headers.GetValues("Location").FirstOrDefault();
-                if (!string.IsNullOrEmpty(headerLocation))
-                    resolvedUrl = headerLocation;
+                var finalUrl = response.RequestMessage.RequestUri.ToString();
+                if (!string.IsNullOrEmpty(finalUrl))
+                    resolvedUrl = finalUrl;
             }
 
             return resolvedUrl.ToString();

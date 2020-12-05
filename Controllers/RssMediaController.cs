@@ -133,7 +133,7 @@ namespace RssMedia.Controllers {
 
         [HttpPost]
         [ActionName("ResolvedUrl")]
-        public async Task<string> ResolvedUrl([FromBody]Dictionary<string, string> originalUrl)
+        public async Task<Dictionary<string, string>> ResolvedUrl([FromBody]Dictionary<string, string> originalUrl)
         {
             try 
             {
@@ -143,16 +143,25 @@ namespace RssMedia.Controllers {
                 {
                     var decodedOriginalUrl = WebUtility.UrlDecode(originalUrlValue);
                     var resolvedUrl = await RSS.Utilities.GetRedirectedUrl(decodedOriginalUrl);
-                    return resolvedUrl;
+                    return new Dictionary<string, string>()
+                    {
+                        {"resolvedUrl", resolvedUrl}
+                    };
                 }
                 else 
                 {
-                    return string.Empty;
+                    return new Dictionary<string, string>()
+                    {
+                        {"resolvedUrl", string.Empty}
+                    };
                 }
             }
             catch(Exception ex)
             {
-                return string.Empty;
+                return new Dictionary<string, string>()
+                {
+                    {"resolvedUrl", string.Empty}
+                };
             }            
         }
 
