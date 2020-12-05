@@ -113,8 +113,11 @@ export class Article extends Component {
                         <div><p>by {article.articleAuthor}</p></div> : 
                         null;
         
-        let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
-        let formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
+        let formattedPublishDateTime = null;
+        if (article.articlePublishingDate !== null) {
+            let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
+            formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
+        }
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
