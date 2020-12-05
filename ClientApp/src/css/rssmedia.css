@@ -147,7 +147,7 @@ main {
     padding: 8px;
     border: 2px solid #4d4d4d;
     border-radius: 30px;
-    min-width: 70px;
+    min-width: 80px;
     font-weight: 600;
     transition: transform .2s;
 }
@@ -233,7 +233,7 @@ main {
 }
 
 .divFeedArticles .divFeedArticlesControls > img:hover {
-    transform: scale(1.7);
+    transform: scale(1.5);
 }
 
 .divFeedArticles .divFeedArticlesControls > i {
@@ -341,7 +341,7 @@ article[name="feedArticle"] section > div:first-child button {
 }
 
 article[name="feedArticle"] section > div:first-child i {
-    color: #0275d8;
+    color: #4d4d4d;
 }
 
 article[name="feedArticle"] section p {

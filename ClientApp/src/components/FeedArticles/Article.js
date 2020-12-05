@@ -112,6 +112,7 @@ export class Article extends Component {
         let author = (article.articleAuthor !== null) ? 
                         <div><p>by {article.articleAuthor}</p></div> : 
                         null;
+        
         let publishDateTime = new Date(article.articlePublishingDate.toLocaleString());
         let formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
 
@@ -133,7 +134,7 @@ export class Article extends Component {
                 </button>
                 <section style={sectionStyle}>
                     <div>
-                        <h3>{article.articleTitle}</h3>
+                        <h4>{article.articleTitle}</h4>
                         <div>
                             {this.renderViewLinkButton()}
                             {this.renderEnclosureButton()}
