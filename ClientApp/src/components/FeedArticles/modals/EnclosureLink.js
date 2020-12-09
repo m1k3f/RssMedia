@@ -4,25 +4,19 @@ import withReactContent from 'sweetalert2-react-content'
 
 export class EnclosureLink extends Component {
 
+    constructor() {
+        super();
+        this.ReactSwal = withReactContent(swal);
+    }
+
     state = {
         article: null
-    }
-
-    async componentDidMount() {
-        let {article} = this.props;
-        let resolvedEnclosureUrl = await this.getResolvedUrl(article.articleEnclosureUrl);
-        article.articleEnclosureUrl = resolvedEnclosureUrl;
-
-        this.setState({
-            article: article
-        });
-    }
+    }    
 
     showEnclosureLinkModal = () => {
-        if (this.state.article !== null) {
-            const ReactSwal = withReactContent(swal);
+        if (this.props.article !== null) {
 
-            ReactSwal.fire({
+            this.ReactSwal.fire({
                 title: '',
                 html: this.getEnclosureModalContent(),
                 allowOutsideClick: false,
@@ -45,13 +39,13 @@ export class EnclosureLink extends Component {
     getEnclosureModalContent = () => {
         return (
             <div className="divEnclosure">
-                <p>{this.state.article.articleTitle}</p>
+                <p>{this.props.article.articleTitle}</p>
                 <audio controls 
-                        src={this.state.article.articleEnclosureUrl}
+                        onPlay={this.handlePlayButton}
                         ref={el => this.audioElement = el} />
-                <a href={this.state.article.articleEnclosureUrl}>
-                    Download
-                </a>
+                <button onClick={this.handleDownloadButton}>
+                    <i className="fas fa-download fa-lg"></i>&nbsp;Download
+                </button>
             </div>
         );
         
@@ -76,6 +70,28 @@ export class EnclosureLink extends Component {
         );
 
         return responseJson.resolvedUrl;
+    }
+
+    handlePlayButton = async (e) => {
+        const audioElement = e.target;
+        let {article} = this.props;
+        let resolvedEnclosureUrl = await this.getResolvedUrl(article.articleEnclosureUrl);
+        audioElement.src = resolvedEnclosureUrl;
+        //audioElement.play();
+    }
+
+    handleDownloadButton = async (e) => {
+        let {article} = this.props;
+        
+        fetch(article.articleEnclosureUrl).then(response => {
+            response.blob().then(blob => {
+                let downloadLink = document.createElement('a');
+                let url = window.URL.createObjectURL(blob);
+                downloadLink.href = url;
+                downloadLink.download = 'download';        
+                downloadLink.click();
+            });
+        });        
     }
 
     render() {        
