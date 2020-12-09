@@ -37,6 +37,8 @@ export class ViewLink extends Component {
                 if (value.isDismissed) {
                     this.frameElement.src = '';
                 }
+
+                this.props.articleCallback();
             });
         }
     }

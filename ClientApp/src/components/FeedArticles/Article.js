@@ -30,13 +30,23 @@ export class Article extends Component {
 
     handleArticleLink = (e) => {
         this.setState({
+            opened: true,
             showViewLink: true,
+            showEnclosureModal: false
+        });
+    }
+
+    handleModalsCallback = () => {
+        this.setState({
+            opened: true,
+            showViewLink: false,
             showEnclosureModal: false
         });
     }
 
     handleEnclosureClick = (e) => {
         this.setState({
+            opened: true,
             showViewLink: false,
             showEnclosureModal: true
         })
@@ -96,10 +106,10 @@ export class Article extends Component {
     renderModal = () => {
         let content = '';
         if (this.state.showViewLink) {
-            content = <ViewLink article = {this.props.data} />
+            content = <ViewLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
         }
         else if (this.state.showEnclosureModal) {
-            content = <EnclosureLink article = {this.props.data} />
+            content = <EnclosureLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
         }
 
         return content;

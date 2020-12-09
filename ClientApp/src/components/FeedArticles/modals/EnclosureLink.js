@@ -34,8 +34,10 @@ export class EnclosureLink extends Component {
             })
             .then((value) => {
                 if (value.isDismissed) {
-                    this.audioElement.src = '';
+                    this.audioElement.src = '';                    
                 }
+
+                this.props.articleCallback();
             });
         }
     }
