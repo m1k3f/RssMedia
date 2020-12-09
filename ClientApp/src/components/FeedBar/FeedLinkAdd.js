@@ -15,7 +15,8 @@ export class FeedLinkAdd extends Component {
         this.setState({
             showNewFeedModal: true,
             showMultiFeedModal: false,
-            showErrorModal: false
+            showErrorModal: false,
+            feedLinkData: [] 
         });
     }    
 
@@ -25,10 +26,11 @@ export class FeedLinkAdd extends Component {
             this.setState({
                 showNewFeedModal: false,
                 showMultiFeedModal: false,
-                showErrorModal: false
-            }, 
-            this.feedBarCallback(feedLinkData[0])
-            );
+                showErrorModal: false,
+                feedLinkData: []
+            });
+
+            this.feedBarCallback(feedLinkData[0]);
         }
         else if (feedLinkData.length > 1) {
             //Multiple RSS feeds found for url
@@ -43,7 +45,8 @@ export class FeedLinkAdd extends Component {
             this.setState({
                 showNewFeedModal: false,
                 showMultiFeedModal: false,
-                showErrorModal: true
+                showErrorModal: true,
+                feedLinkData: []
             })
         }
         
@@ -53,10 +56,11 @@ export class FeedLinkAdd extends Component {
         this.setState({
             showNewFeedModal: false,
             showMultiFeedModal: false,
-            showErrorModal: false
-        }, 
-        this.feedBarCallback(feedLink)
-        );
+            showErrorModal: false,
+            feedLinkData: []
+        });
+
+        this.feedBarCallback(feedLink);
     }
 
     feedBarCallback = (feedLink) => {
