@@ -69,13 +69,14 @@ export class ViewLink extends Component {
             frameUrl = articleUrl.replace('watch', 'embed');
         }
         else {
-            if ((articleId.includes('http://') || articleId.includes('https://')) &&
-                (articleId != articleUrl)) {
-                frameUrl = articleId;
-            }
-            else {
-                frameUrl = articleUrl;
-            }
+            // if ((articleId.includes('http://') || articleId.includes('https://')) &&
+            //     (articleId != articleUrl)) {
+            //     frameUrl = articleId;
+            // }
+            // else {
+            //     frameUrl = articleUrl;
+            // }
+            frameUrl = articleUrl;
         }
 
         return frameUrl;
