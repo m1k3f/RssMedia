@@ -74,10 +74,13 @@ export class EnclosureLink extends Component {
 
     handlePlayButton = async (e) => {
         const audioElement = e.target;
-        let {article} = this.props;
-        let resolvedEnclosureUrl = await this.getResolvedUrl(article.articleEnclosureUrl);
-        audioElement.src = resolvedEnclosureUrl;
-        //audioElement.play();
+        if (!audioElement.paused && audioElement.currentTime === 0)
+        {
+            let {article} = this.props;
+            let resolvedEnclosureUrl = await this.getResolvedUrl(article.articleEnclosureUrl);
+            audioElement.src = resolvedEnclosureUrl;
+            //audioElement.play();
+        }
     }
 
     handleDownloadButton = async (e) => {
