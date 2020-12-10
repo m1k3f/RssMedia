@@ -30,10 +30,10 @@ export class Content extends Component {
 
     editFeedLink = (feedLink) => {
         let savedfeedLinks = this.state.feedLinks;
-        let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === feedLink.feedLinkId);
+        let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => 
+                            link.id === feedLink.feedLinkId || link.id === feedLink.id);
         if (linkIndex > -1) {
-            savedfeedLinks.feedLinks[linkIndex].name = feedLink.name;
-            savedfeedLinks.feedLinks[linkIndex].title = feedLink.title;
+            savedfeedLinks.feedLinks[linkIndex] = feedLink;
             this.saveAndRefreshFeedLinks(savedfeedLinks);            
         }
     }
@@ -102,7 +102,10 @@ export class Content extends Component {
         }
         else if (option.type === 'reorderFeedLink') {
             this.reorderFeedLinks(option.existingFeedLink, option.droppedFeedLink);
-        }        
+        }
+        else if (option.type === 'editFeedLink') {
+            this.editFeedLink(option.updatedFeedLink);
+        }
     }
 
     handleFeedArticlesCallback = (option) => {

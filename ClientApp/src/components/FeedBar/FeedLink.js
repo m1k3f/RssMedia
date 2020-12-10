@@ -38,7 +38,10 @@ export class FeedLink extends Component {
 
             //add feed to context
             const {setFeed} = this.context;
-            setFeed(feed); 
+            setFeed(feed);
+
+            this.props.linkData.lastAccessed = new Date();
+            this.props.feedLinksCallback(this.props.linkData, null);
         }
         else {
             //TODO: change logic to hide spinner

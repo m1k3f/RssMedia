@@ -18,11 +18,20 @@ export class FeedBar extends Component {
     }
 
     handleFeedLinksCallback = (existingFeedLink, droppedFeedLink) => {
-        let option = {
-            type: 'reorderFeedLink',
-            existingFeedLink: existingFeedLink,
-            droppedFeedLink: droppedFeedLink
+        let option = null;
+        if (droppedFeedLink !== null) {
+            option = {
+                type: 'reorderFeedLink',
+                existingFeedLink: existingFeedLink,
+                droppedFeedLink: droppedFeedLink
+            }
         }
+        else {
+            option = {
+                type: 'editFeedLink',
+                updatedFeedLink: existingFeedLink
+            }
+        }        
 
         this.props.contentCallback(option);
     }
