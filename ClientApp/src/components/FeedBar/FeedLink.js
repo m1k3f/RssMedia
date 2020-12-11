@@ -35,12 +35,18 @@ export class FeedLink extends Component {
                 //TODO: change logic to hide spinner
                 //document.querySelector('.divSpinner').hidden = true;
             }
+                       
+            let nowDateTime = new Date();
 
-            //add feed to context
+            feed.lastAccessed = this.props.linkData.lastAccessed !== undefined ? 
+                                this.props.linkData.lastAccessed : 
+                                nowDateTime;
+            feed.firstAccess = this.props.linkData.lastAccessed !== undefined ? false : true;
+
             const {setFeed} = this.context;
             setFeed(feed);
-
-            this.props.linkData.lastAccessed = new Date();
+             
+            this.props.linkData.lastAccessed = nowDateTime;
             this.props.feedLinksCallback(this.props.linkData, null);
         }
         else {

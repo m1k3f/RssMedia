@@ -129,6 +129,21 @@ export class Article extends Component {
             formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
         }
 
+        let headerButtonStyle = {
+            backgroundColor: '#546e7a' //default to unread color
+        };
+        
+        if (article.articlePublishingDate != null) {
+            let publishDate = new Date(article.articlePublishingDate);
+            let lastAccessedDate = new Date(this.props.feedLastAccessed);
+            let firstAccess = this.props.feedFirstAccess;
+            if (publishDate < lastAccessedDate && !firstAccess) {
+                headerButtonStyle = {
+                    backgroundColor: '#37474f' //read color
+                };
+            }
+        }
+
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
             maxHeight: (this.state.opened) ? '50vh' : '0'
@@ -136,12 +151,12 @@ export class Article extends Component {
 
         return(
             <article name="feedArticle">
-                <button onClick={this.handleHeaderClick}>
-                    <div>
-                        <p>{articleTitle}</p>
-                        <div>
-                            <p>{formattedPublishDateTime}</p>
-                            <i className={angleIcon}></i>
+                <button style={headerButtonStyle} onClick={this.handleHeaderClick}>
+                    <div style={headerButtonStyle}>
+                        <p style={headerButtonStyle}>{articleTitle}</p>
+                        <div style={headerButtonStyle}>
+                            <p style={headerButtonStyle}>{formattedPublishDateTime}</p>
+                            <i style={headerButtonStyle} className={angleIcon}></i>
                         </div>
                     </div>
                 </button>

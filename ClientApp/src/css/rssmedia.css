@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Segoe UI',Arial,sans-serif;
-    background-color: #ffffff;
+    background-color: #fbfbfb;
 }
 
 .flexrow {
@@ -145,7 +145,7 @@ main {
 .divAllFeeds a {
     cursor: pointer;
     padding: 8px;
-    border: 2px solid #4d4d4d;
+    border: 2px solid #37474f;
     border-radius: 30px;
     min-width: 80px;
     font-weight: 600;
@@ -173,7 +173,7 @@ main {
     cursor: pointer;
     padding: 8px;
     margin: 2px;
-    border: 2px solid #4d4d4d;
+    border: 2px solid #37474f;
     border-radius: 30px;
     min-width: 70px;
     transition: transform .2s;
@@ -190,8 +190,8 @@ main {
 } */
 
 .divFeedsActive {
-    background-color: #4d4d4d;
-    color: white;
+    background-color: #37474f;
+    color: #fbfbfb;
 }
 
 .divFeedArticles {
@@ -305,10 +305,7 @@ article[name="feedArticle"] > button > div,
 article[name="feedArticle"] > button > div p,
 article[name="feedArticle"] > button > div div,
 article[name="feedArticle"] > button > div i {
-    background-color: #404040;
-    color: #ffffff;
-    /* background-color: white;
-    color: black; */
+    color: #fbfbfb;
     font-size: 14px;
     font-weight: 600;
 }

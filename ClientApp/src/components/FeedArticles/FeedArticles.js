@@ -54,14 +54,13 @@ export class FeedArticles extends Component {
         if (feedContext != null && feedContext.selectedFeed != null && 
             feedContext.selectedFeed.feedArticles != null) {           
 
-            let articleCount = 0;
-            content = feedContext.selectedFeed.feedArticles.map((article) => {
-                articleCount++;            
+            content = feedContext.selectedFeed.feedArticles.map((article) => {                           
                 return (
                     <Article 
-                        key = {article.id} 
-                        count = {articleCount} 
+                        key = {article.id}  
                         data = {article} 
+                        feedLastAccessed = {feedContext.selectedFeed.lastAccessed}
+                        feedFirstAccess = {feedContext.selectedFeed.firstAccess}
                     />
                 );
             });
