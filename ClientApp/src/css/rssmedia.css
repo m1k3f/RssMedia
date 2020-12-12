@@ -51,7 +51,13 @@ header > div:last-child {
     align-items: center;
 }
 
-header > div:last-child > i {
+header > div:last-child > button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+header > div:last-child i {
     color: black;
 }
 
