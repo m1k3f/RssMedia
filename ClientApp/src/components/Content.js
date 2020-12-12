@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FeedProvider } from './context/FeedContext';
 import { FeedBar } from './FeedBar/FeedBar';
 import { FeedArticles } from './FeedArticles/FeedArticles';
 
@@ -119,18 +118,6 @@ export class Content extends Component {
             this.removeFeedLink(option.selectedFeed.feedLinkId);
         }
     }
-
-    // feedLinksSort = (a, b) => {
-    //     let aName = a.name.toLowerCase();
-    //     let bName = b.name.toLowerCase();
-    //     if (aName < bName) {
-    //         return -1;
-    //     }
-    //     if (aName > bName) {
-    //         return 1;
-    //     }
-    //     return 0;
-    // }
 
     feedLinksSort = (a, b) => {
         if (a.position < b.position) {
