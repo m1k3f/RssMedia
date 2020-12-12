@@ -10,15 +10,17 @@
 
 ## Remaining Items
 
-- Issue: New Feed modal pops up after saving feed details
-- Issue: Multi Feed modal popus up again after selecting feed
-- ~~Issue: CBC Feed publishingDate is null~~
-- Issue: Article View Link - url not final url; resolve article url in service before showing modal
+- ~~Issue: Article View Link - url not final url; resolve article url in service before showing modal~~
 - ~~Issue: Article Enclosure Link - url not final url; resolve url before showing modal~~
-- Issue: open article enclosure link, close, reorder feed links -> enclosure modal pops up again
+- Issue: added Reason feed, delete feed, add Reason feed again -> shows in FeedBar 2nd to last instead of last
+- Issue: added NPR feed with npr.org, no feed found; added NPR feed with http://npr.org, feed found
+- ~~Issue: resolve Enclosure url on play instead of on Enclosure mount~~
+- Issue: fix service HttpClient to use correctly
 - Article Controls Sync button logic
 - Feed Title: ~~use FeedLink title, allow for changing on feed edit,~~ refresh Title
 - ~~Display content when no feed button selected (no articles showing): default to all feeds?~~
+- ~~Add LastAccessed datetime to JSON for each feedlink, highlight new articles published after that datetime~~
+- Add LastAccessed datetime to JSON for all feeds
 - App info: info button & modal, or help box shown on app start; shows app description, how to use
 - Settings button:
   - Number articles displayed
@@ -33,7 +35,7 @@
   - show feed articles when group is clicked
   - article controls edit - show/add feeds in group
 - Feed Controls Edit: checkbox to make default feed to show on start
-- Feed Controls Image: enlarge on hover
+- ~~Feed Controls Image: enlarge on hover~~
 - Feed Controls Sync: sync on a timer every X minutes
 
 ## Requirements
