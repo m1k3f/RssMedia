@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavMenu } from './components/NavMenu';
+import { NavMenu } from './components/NavMenu/NavMenu';
 import { Content } from './components/Content';
 import './css/rssmedia.css';
 import './css/animation.css'
