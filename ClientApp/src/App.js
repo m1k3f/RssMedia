@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FeedProvider } from './components/context/FeedContext';
 import { NavMenu } from './components/NavMenu/NavMenu';
 import { Content } from './components/Content';
 import './css/rssmedia.css';
@@ -9,9 +10,11 @@ export default class App extends Component {
 
   render () {
     return (
-      <div className="fade-in">        
+      <div className="fade-in">
+        <FeedProvider>
           <NavMenu />
           <Content />
+        </FeedProvider>
       </div>
     );
   }

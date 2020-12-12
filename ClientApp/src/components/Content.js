@@ -144,13 +144,11 @@ export class Content extends Component {
 
     render() {
         return (
-            <main>
-                <FeedProvider>
-                    <FeedBar 
-                        feedLinks = {this.state.feedLinks}
-                        contentCallback = {this.handleFeedbarCallback} />
-                    <FeedArticles contentCallback = {this.handleFeedArticlesCallback} />
-                </FeedProvider>
+            <main>                
+                <FeedBar 
+                    feedLinks = {this.state.feedLinks}
+                    contentCallback = {this.handleFeedbarCallback} />
+                <FeedArticles contentCallback = {this.handleFeedArticlesCallback} />
             </main>
         );
     }
