@@ -29,8 +29,18 @@ export class Settings extends Component  {
     getSettingsModalContent = () => {
         return(
             <div className="settingsModal">
-                <FeedImportButton />
-                <FeedExportButton />
+                <div>
+                    <p>Feed File Backup:</p>
+                    <FeedImportButton />                
+                    <FeedExportButton />
+                </div>
+                <div>
+                    <button onClick="">Delete All Feeds</button>
+                </div>
+                <div>
+                    <p>Max articles:</p>
+                    <input type="text" />
+                </div>
             </div>
         );
     }       
