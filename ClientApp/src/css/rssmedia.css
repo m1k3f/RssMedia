@@ -22,7 +22,7 @@
 
 body {    
     margin: auto;    
-    width: 95%;
+    width: 90%;
 }
 
 header {
@@ -64,7 +64,7 @@ header > div:last-child i {
 .settingsModal {
     display: flex;
     flex-direction: column;
-    border: 2px solid #b0bec5;
+    border: 1px solid #b0bec5;
     border-radius:4px;
     padding: 10px;
 }
@@ -78,16 +78,17 @@ header > div:last-child i {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .settingsModal > div * {
     font-size: 14px;
-    margin-right: 6px;
 }
 
-.settingsModal > input[type="text"] {
-    line-height: 13px;
+.settingsModal button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
 }
 
 main {
@@ -254,6 +255,7 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    padding-top: 2px;
 }
 
 .divFeedArticles .divFeedArticlesControls > * {

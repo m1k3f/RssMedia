@@ -7,9 +7,11 @@ export class FeedImportButton extends Component {
 
     render() {
         return(
-            <button onClick={this.handleFeedsImport}>
-                Import Feeds
-            </button>
+            <React.Fragment>                
+                <button onClick={this.handleFeedsImport} title="Import">                
+                    <i className="fas fa-file-upload fa-2x"></i>
+                </button>
+            </React.Fragment>
         );
     }
 }

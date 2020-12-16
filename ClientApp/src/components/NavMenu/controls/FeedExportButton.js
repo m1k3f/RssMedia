@@ -9,10 +9,12 @@ export class FeedExportButton extends Component {
     }
 
     render() {
-        return(
-            <button onClick={this.handleFeedsExport}>
-                Export Feeds
-            </button>
+        return(            
+            <React.Fragment>
+                <button onClick={this.handleFeedsExport} title="Export">
+                    <i className="fas fa-file-download fa-2x"></i>
+                </button>
+            </React.Fragment>
         );
     }
 }

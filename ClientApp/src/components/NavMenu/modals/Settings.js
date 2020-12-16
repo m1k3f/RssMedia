@@ -31,8 +31,9 @@ export class Settings extends Component  {
             <div className="settingsModal">
                 <div>
                     <MaxArticlesOptions />
-                </div>
+                </div>                
                 <div>
+                    <p>Feeds:</p>
                     <FeedImportButton />                
                     <FeedExportButton />
                     <DeleteFeedsButton />

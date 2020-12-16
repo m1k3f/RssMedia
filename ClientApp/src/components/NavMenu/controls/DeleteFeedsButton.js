@@ -8,9 +8,11 @@ export class DeleteFeedsButton extends Component {
 
     render() {
         return (
-            <button onClick={this.handleDeleteButtonClick}>
-                Delete All Feeds
-            </button>
+            <React.Fragment>
+                <button onClick={this.handleDeleteButtonClick} title="Delete">
+                    <i className="fas fa-trash fa-2x"></i>
+                </button>
+            </React.Fragment>
         );
     }
 }
