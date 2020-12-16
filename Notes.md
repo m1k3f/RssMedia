@@ -16,6 +16,7 @@
 - Issue: added NPR feed with npr.org, no feed found; added NPR feed with http://npr.org, feed found
 - ~~Issue: resolve Enclosure url on play instead of on Enclosure mount~~
 - Issue: fix service HttpClient to use correctly
+- Issue: Enclosure button shows in article, but it is not audio -> check enclosure to see if audio/video
 - Article Controls Sync button logic
 - Feed Title: ~~use FeedLink title, allow for changing on feed edit,~~ refresh Title
 - ~~Display content when no feed button selected (no articles showing): default to all feeds?~~
@@ -25,7 +26,8 @@
 - Settings button:
   - Number articles displayed
   - sort feedbar buttons alphabetically/createDate/custom drag
-  - export feeds to file: opml file or JSON with settings
+  - import feeds from opml file to UI & web storage
+  - export feeds from UI & web storage to opml file
   - remove all feeds: hide button and warning with expand/collapse
   - toggle between dark and light theme
 - Feed Controls: Add Home button that links to baseUrl
