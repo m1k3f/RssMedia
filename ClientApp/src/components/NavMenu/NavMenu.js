@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import FeedContext from '../context/FeedContext';
 import { Settings } from './modals/Settings';
 
 export class NavMenu extends Component {
   
+  static contextType = FeedContext;
+
   state = {
-    showSettingsModal: false
+    showSettingsModal: false,
+    settings: {}
   }
 
   handleSettingsButtonClick = (e) => {
@@ -13,11 +17,25 @@ export class NavMenu extends Component {
     });
   }
 
+  handleSettingsCallback = (savedSettings) => {
+    this.setState({
+      showSettingsModal: false
+    });
+
+    const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+    setSettings(savedSettings);
+    saveAndRefreshFeedLinks(feedLinksSettings);
+  }
+
   renderSettingsModal = (show) => {
     let content = '';
     if (show) {
+      const feedContext = this.context;
+      let { settings } = feedContext.feedLinksSettings;
       content = (
-        <Settings />
+        <Settings 
+          defaultSettings = {settings}
+          navMenuCallback = {this.handleSettingsCallback} />
       );
     }
 

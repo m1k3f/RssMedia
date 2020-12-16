@@ -7,6 +7,12 @@ import { DeleteFeedsButton } from '../controls/DeleteFeedsButton';
 import { MaxArticlesOptions } from '../controls/MaxArticlesOptions';
 
 export class Settings extends Component  {
+    constructor() {
+        super();
+        this.Settings = null;
+        this.IsChanged = false;
+    }
+
     showSettingsModal = () => {
         const ReactSwal = withReactContent(swal);
 
@@ -22,15 +28,23 @@ export class Settings extends Component  {
             showCloseButton: true
         })
         .then((value) => {
-            //Save all settings
+            if (this.IsChanged) {
+                this.props.navMenuCallback(this.Settings);
+            }
         });
     }
 
     getSettingsModalContent = () => {
+        let defaultMaxArticlesOption = (this.Settings === null) ? 
+                                        this.props.defaultSettings.maxArticles : 
+                                        this.Settings.maxArticles;
+
         return(
             <div className="settingsModal">
                 <div>
-                    <MaxArticlesOptions />
+                    <MaxArticlesOptions 
+                        defaultOption = {defaultMaxArticlesOption}
+                        settingsCallback = {this.handleMaxArticlesCallback}  />
                 </div>                
                 <div>
                     <p>Feeds:</p>
@@ -40,7 +54,17 @@ export class Settings extends Component  {
                 </div>                
             </div>
         );
-    }       
+    }
+
+    handleMaxArticlesCallback = (maxArticlesObject) => {
+        let propertyName = Object.keys(maxArticlesObject)[0];
+        let propertyValue = Object.values(maxArticlesObject)[0];
+        let settings = {};
+        settings[propertyName] = propertyValue;
+
+        this.Settings = settings;
+        this.IsChanged = true;
+    }
 
     render() {
         return(
