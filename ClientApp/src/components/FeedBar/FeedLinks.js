@@ -57,7 +57,8 @@ export class FeedLinks extends Component {
     }
 
     saveRefreshFeedLinks = (feedLinks) => {
-        const { saveAndRefreshFeedLinks } = this.context;
+        const { setFeedLinks, saveAndRefreshFeedLinks } = this.context;
+        setFeedLinks(feedLinks);
         saveAndRefreshFeedLinks(feedLinks);
     }
 
