@@ -6,7 +6,8 @@ const FeedContext = React.createContext();
 
 class FeedProvider extends Component {
     state = {
-        selectedFeed: null
+        selectedFeed: null,
+        feedLinksSettings: null
     }
 
     setFeed = (feed) => {
@@ -15,17 +16,69 @@ class FeedProvider extends Component {
         });
     }
 
+    setFeedLinks = (feedLinks) => {
+        let feedLinksSettings = this.state.feedLinksSettings;
+        feedLinksSettings.feedLinks = feedLinks;
+
+        this.setState({
+            feedLinksSettings: feedLinksSettings
+        });
+    }
+
+    setSettings = (settings) => {
+        let feedLinksSettings = this.state.feedLinksSettings;
+        feedLinksSettings.settings = settings;
+
+        this.setState({
+            feedLinksSettings: feedLinksSettings
+        });
+    }
+
+    getFeedLinksStorage = () => {
+        let feedLinks = null;
+        if (window.localStorage) {
+            feedLinks = localStorage.getItem("rmFeeds");
+            if (feedLinks === undefined || feedLinks === null || feedLinks === '') {        
+                feedLinks = {
+                    settings: {
+                        maxArticles: 20
+                    },
+                    feedLinks: []
+                };
+            }
+            else {
+                feedLinks = JSON.parse(feedLinks);
+                feedLinks.feedLinks.sort((a, b) => this.feedLinksSort(a, b));
+            }
+        }
+        return feedLinks;
+    }
+
+    feedLinksSort = (a, b) => {
+        if (a.position < b.position) {
+            return -1;
+        }
+        if (a.position > b.position) {
+            return 1;
+        }
+        return 0;
+    }
+
     render() {
         const { children } = this.props
-        const { selectedFeed } = this.state
-        const { setFeed } = this
+        const { selectedFeed, feedLinksSettings } = this.state
+        const { setFeed, setFeedLinks, setSettings, getFeedLinksStorage } = this
 
         return (
             <FeedContext.Provider 
                 value={
                     {
                         selectedFeed,
-                        setFeed
+                        setFeed,
+                        feedLinksSettings,
+                        setFeedLinks,
+                        setSettings,
+                        getFeedLinksStorage
                     }
                 }
                 >
