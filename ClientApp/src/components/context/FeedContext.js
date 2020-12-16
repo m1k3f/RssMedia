@@ -5,10 +5,13 @@ const FeedContext = React.createContext();
 //export const FeedConsumer = FeedContext.Consumer;
 
 class FeedProvider extends Component {
-    state = {
-        selectedFeed: null,
-        feedLinksSettings: null
-    }
+    constructor() {
+        super();
+        this.state = {
+            selectedFeed: null,
+            feedLinksSettings: this.getFeedLinksStorage()
+        }
+    }    
 
     setFeed = (feed) => {
         this.setState({
@@ -64,10 +67,20 @@ class FeedProvider extends Component {
         return 0;
     }
 
+    saveAndRefreshFeedLinks = (feedLinks) => {
+        if (window.localStorage) {
+            localStorage.setItem("rmFeeds", JSON.stringify(feedLinks));
+        }
+
+        this.setState({
+            feedLinksSettings: this.getFeedLinksStorage()
+        });
+    }
+
     render() {
         const { children } = this.props
         const { selectedFeed, feedLinksSettings } = this.state
-        const { setFeed, setFeedLinks, setSettings, getFeedLinksStorage } = this
+        const { setFeed, setFeedLinks, setSettings, getFeedLinksStorage, saveAndRefreshFeedLinks } = this
 
         return (
             <FeedContext.Provider 
@@ -78,7 +91,8 @@ class FeedProvider extends Component {
                         feedLinksSettings,
                         setFeedLinks,
                         setSettings,
-                        getFeedLinksStorage
+                        getFeedLinksStorage,
+                        saveAndRefreshFeedLinks
                     }
                 }
                 >
