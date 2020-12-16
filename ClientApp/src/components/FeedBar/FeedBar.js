@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import FeedContext from '../context/FeedContext';
 import { FeedLinkAdd } from './FeedLinkAdd';
 import { FeedLinkAll } from './FeedLinkAll';
 import { FeedLinks } from './FeedLinks';
 
 export class FeedBar extends Component {
+
+    static contextType = FeedContext;
 
     handleFeedLinkAddCallback = (newFeedLink) => {
         if (Object.entries(newFeedLink).length > 0 && newFeedLink != null) {
@@ -17,35 +20,17 @@ export class FeedBar extends Component {
         }
     }
 
-    handleFeedLinksCallback = (existingFeedLink, droppedFeedLink) => {
-        let option = null;
-        if (droppedFeedLink !== null) {
-            option = {
-                type: 'reorderFeedLink',
-                existingFeedLink: existingFeedLink,
-                droppedFeedLink: droppedFeedLink
-            }
-        }
-        else {
-            option = {
-                type: 'editFeedLink',
-                updatedFeedLink: existingFeedLink
-            }
-        }        
-
-        this.props.contentCallback(option);
-    }
-
     renderFeedLinkButtons = () => {
         let content = '';
-        let feedLinksExist = (this.props.feedLinks.feedLinks.length > 0);
-        if (feedLinksExist) {
+        const feedContext = this.context;
+        let feedLinks = feedContext.feedLinksSettings.feedLinks;
+
+        if (feedLinks.length > 0) {
             content = (
                 <React.Fragment>
-                    <FeedLinkAll links = {this.props.feedLinks} />
+                    <FeedLinkAll links = {feedLinks} />
                     <FeedLinks 
                         links = {this.props.feedLinks} 
-                        feedBarCallback = {this.handleFeedLinksCallback}
                     />
                 </React.Fragment>
             );

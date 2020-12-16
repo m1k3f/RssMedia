@@ -16,6 +16,9 @@ export class Content extends Component {
             feedLinks = localStorage.getItem("rmFeeds");
             if (feedLinks === undefined || feedLinks === null || feedLinks === '') {        
                 feedLinks = {
+                    settings: {
+                        maxArticles: 20
+                    },
                     feedLinks: []
                 };
             }
@@ -100,10 +103,10 @@ export class Content extends Component {
             this.saveNewFeedLink(option.newFeedLink);
         }
         else if (option.type === 'reorderFeedLink') {
-            this.reorderFeedLinks(option.existingFeedLink, option.droppedFeedLink);
+            // this.reorderFeedLinks(option.existingFeedLink, option.droppedFeedLink);
         }
         else if (option.type === 'editFeedLink') {
-            this.editFeedLink(option.updatedFeedLink);
+            // this.editFeedLink(option.updatedFeedLink);
         }
     }
 
