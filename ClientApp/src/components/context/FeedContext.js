@@ -72,9 +72,9 @@ class FeedProvider extends Component {
             localStorage.setItem("rmFeeds", JSON.stringify(feedLinks));
         }
 
-        this.setState({
-            feedLinksSettings: this.getFeedLinksStorage()
-        });
+        // this.setState({
+        //     feedLinksSettings: this.getFeedLinksStorage()
+        // });
     }
 
     render() {
