@@ -7,7 +7,6 @@ export class FeedLinks extends Component {
     static contextType = FeedContext;
 
     handleFeedLinkCallback = (existingFeedLink, droppedFeedLink) => {
-        //this.props.feedBarCallback(existingFeedLink, droppedFeedLink);
         if (droppedFeedLink !== null) {
             this.reorderFeedLinks(existingFeedLink, droppedFeedLink);
         }
@@ -18,13 +17,14 @@ export class FeedLinks extends Component {
 
     reorderFeedLinks = (existingFeedLink, droppedFeedLink) => {
         const originalFeedLink = {...existingFeedLink};
-        let savedfeedLinks = this.state.feedLinks;  
+        let {feedLinksSettings} = this.context;
+        let savedFeedLinks = feedLinksSettings.feedLinks;  
 
-        let existingFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
-        let droppedFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
+        let existingFeedLinkIndex = savedFeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
+        let droppedFeedLinkIndex = savedFeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
         
         let dropLeft = (droppedFeedLinkIndex > existingFeedLinkIndex) ? true : false;
-        let newArray = savedfeedLinks.feedLinks.map((savedLink, index) =>  {
+        let newArray = savedFeedLinks.feedLinks.map((savedLink, index) =>  {
             if (index === droppedFeedLinkIndex) {
                 savedLink.position = originalFeedLink.position;
             }
@@ -41,18 +41,20 @@ export class FeedLinks extends Component {
             return savedLink;
         });
 
-        savedfeedLinks.feedLinks = newArray;
+        savedFeedLinks.feedLinks = newArray;
         
-        this.saveRefreshFeedLinks(savedfeedLinks);
+        this.saveRefreshFeedLinks(savedFeedLinks);
     }
 
     editFeedLink = (feedLink) => {
-        let savedfeedLinks = this.state.feedLinks;
-        let linkIndex = savedfeedLinks.feedLinks.findIndex((link) => 
+        let {feedLinksSettings} = this.context;
+        let savedFeedLinks = feedLinksSettings.feedLinks;
+
+        let linkIndex = savedFeedLinks.feedLinks.findIndex((link) => 
                             link.id === feedLink.feedLinkId || link.id === feedLink.id);
         if (linkIndex > -1) {
-            savedfeedLinks.feedLinks[linkIndex] = feedLink;
-            this.saveRefreshFeedLinks(savedfeedLinks);            
+            savedFeedLinks.feedLinks[linkIndex] = feedLink;
+            this.saveRefreshFeedLinks(savedFeedLinks);            
         }
     }
 
@@ -66,13 +68,13 @@ export class FeedLinks extends Component {
         let feedLinks = this.props.links.feedLinks;
         let content = '';        
         if (feedLinks.length > 0) {
-            let order = 0;
+            // let order = 0;
             content = feedLinks.map((link) => {
-                order++;
+                // order++;
                 return (
                     <FeedLink 
                         key = {link.id} 
-                        linkOrder = {order} 
+                        // linkOrder = {order} 
                         linkData = {link} 
                         feedLinksCallback = {this.handleFeedLinkCallback}
                     />
