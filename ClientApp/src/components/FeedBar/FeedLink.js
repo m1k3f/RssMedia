@@ -12,6 +12,7 @@ export class FeedLink extends Component {
         //document.querySelector('.divSpinner').hidden = false;
 
         if (eventTarget != null && eventTarget.dataset.url.length > 0) {
+            const { setFeed, feedLinksSettings } = this.context;
             const feedLinkId = eventTarget.dataset.feedid;
             const feedUrl = eventTarget.dataset.url;
             let feedObject = {
@@ -20,7 +21,9 @@ export class FeedLink extends Component {
                 feedname: eventTarget.innerText,
                 feedTitle: this.props.linkData.title
             }
-            let feed = await this.getFeed(feedObject, 0, 20);
+
+            let maxArticles = feedLinksSettings.settings.maxArticles;
+            let feed = await this.getFeed(feedObject, 0, maxArticles);
 
             if (feed.feedError === null) {
                 //show active feed in feedbar
@@ -41,9 +44,7 @@ export class FeedLink extends Component {
             feed.lastAccessed = this.props.linkData.lastAccessed !== undefined ? 
                                 this.props.linkData.lastAccessed : 
                                 nowDateTime;
-            feed.firstAccess = this.props.linkData.lastAccessed !== undefined ? false : true;
-
-            const {setFeed} = this.context;
+            feed.firstAccess = this.props.linkData.lastAccessed !== undefined ? false : true;            
             setFeed(feed);
              
             this.props.linkData.lastAccessed = nowDateTime;
