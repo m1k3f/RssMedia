@@ -9,15 +9,15 @@ export class FeedBar extends Component {
     static contextType = FeedContext;
 
     handleFeedLinkAddCallback = (newFeedLink) => {
-        if (Object.entries(newFeedLink).length > 0 && newFeedLink != null) {
-            //save new feed link to storage
-            let option = {
-                type: 'saveFeedLink',
-                newFeedLink: newFeedLink
-            }
+        // if (Object.entries(newFeedLink).length > 0 && newFeedLink != null) {
+        //     //save new feed link to storage
+        //     let option = {
+        //         type: 'saveFeedLink',
+        //         newFeedLink: newFeedLink
+        //     }
     
-            this.props.contentCallback(option);
-        }
+        //     this.props.contentCallback(option);
+        // }
     }
 
     renderFeedLinkButtons = () => {
@@ -42,7 +42,7 @@ export class FeedBar extends Component {
     render() {
         return (
             <div className="divFeedBar">                
-                <FeedLinkAdd feedBarCallback = {this.handleFeedLinkAddCallback} />
+                <FeedLinkAdd />
                 {this.renderFeedLinkButtons()}
             </div>
         );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FeedContext from '../context/FeedContext';
 import { NewFeed } from './modals/NewFeed';
 import { MultiFeedSelection } from './modals/MultiFeedSelection';
 import { MessageDisplay } from '../modals/MessageDisplay';
@@ -10,6 +11,8 @@ export class FeedLinkAdd extends Component {
         showErrorModal: false,
         feedLinkData: []
     }
+
+    static contextType = FeedContext;
 
     handleAddButton = (e) => {
         this.setState({
@@ -61,6 +64,22 @@ export class FeedLinkAdd extends Component {
         });
 
         this.feedBarCallback(feedLink);
+    }
+
+    saveNewFeedLink = (newFeedLink) => {
+        let {feedLinksSettings} = this.context;
+        let savedFeedLinks = feedLinksSettings.feedLinks;
+        
+        newFeedLink.position = (savedFeedLinks.feedLinks.length > 0) ? savedFeedLinks.feedLinks.length : 0;        
+        savedFeedLinks.feedLinks.push(newFeedLink);
+
+        this.saveRefreshFeedLinks(savedFeedLinks);
+    }
+
+    saveRefreshFeedLinks = (feedLinks) => {
+        const { setFeedLinks, saveAndRefreshFeedLinks } = this.context;
+        setFeedLinks(feedLinks);
+        saveAndRefreshFeedLinks(feedLinks);
     }
 
     feedBarCallback = (feedLink) => {
