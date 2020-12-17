@@ -47,14 +47,13 @@ export class FeedLinks extends Component {
     }
 
     editFeedLink = (feedLink) => {
-        let {feedLinksSettings} = this.context;
-        let savedFeedLinks = feedLinksSettings.feedLinks;
+        const {feedLinksSettings, saveAndRefreshFeedLinks} = this.context;
 
-        let linkIndex = savedFeedLinks.feedLinks.findIndex((link) => 
+        let linkIndex = feedLinksSettings.feedLinks.findIndex((link) => 
                             link.id === feedLink.feedLinkId || link.id === feedLink.id);
         if (linkIndex > -1) {
-            savedFeedLinks.feedLinks[linkIndex] = feedLink;
-            this.saveRefreshFeedLinks(savedFeedLinks);            
+            feedLinksSettings.feedLinks[linkIndex] = feedLink;
+            saveAndRefreshFeedLinks(feedLinksSettings);
         }
     }
 
@@ -65,7 +64,7 @@ export class FeedLinks extends Component {
     }
 
     renderFeedLinks = () => {
-        let feedLinks = this.props.links.feedLinks;
+        let feedLinks = this.props.links;
         let content = '';        
         if (feedLinks.length > 0) {
             // let order = 0;

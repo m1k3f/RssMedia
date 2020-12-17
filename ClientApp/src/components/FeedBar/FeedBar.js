@@ -23,14 +23,14 @@ export class FeedBar extends Component {
     renderFeedLinkButtons = () => {
         let content = '';
         const feedContext = this.context;
-        let feedLinks = feedContext.feedLinksSettings.feedLinks;
+        let feedLinks = [...feedContext.feedLinksSettings.feedLinks];
 
         if (feedLinks.length > 0) {
             content = (
                 <React.Fragment>
                     <FeedLinkAll links = {feedLinks} />
                     <FeedLinks 
-                        links = {this.props.feedLinks} 
+                        links = {feedLinks} 
                     />
                 </React.Fragment>
             );

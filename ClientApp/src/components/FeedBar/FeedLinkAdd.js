@@ -33,7 +33,7 @@ export class FeedLinkAdd extends Component {
                 feedLinkData: []
             });
 
-            this.feedBarCallback(feedLinkData[0]);
+            this.saveNewFeedLink(feedLinkData[0]);
         }
         else if (feedLinkData.length > 1) {
             //Multiple RSS feeds found for url
@@ -63,27 +63,16 @@ export class FeedLinkAdd extends Component {
             feedLinkData: []
         });
 
-        this.feedBarCallback(feedLink);
+        this.saveNewFeedLink(feedLink);
     }
 
     saveNewFeedLink = (newFeedLink) => {
-        let {feedLinksSettings} = this.context;
-        let savedFeedLinks = feedLinksSettings.feedLinks;
+        const { setFeedLinks, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
         
-        newFeedLink.position = (savedFeedLinks.feedLinks.length > 0) ? savedFeedLinks.feedLinks.length : 0;        
-        savedFeedLinks.feedLinks.push(newFeedLink);
-
-        this.saveRefreshFeedLinks(savedFeedLinks);
-    }
-
-    saveRefreshFeedLinks = (feedLinks) => {
-        const { setFeedLinks, saveAndRefreshFeedLinks } = this.context;
-        setFeedLinks(feedLinks);
-        saveAndRefreshFeedLinks(feedLinks);
-    }
-
-    feedBarCallback = (feedLink) => {
-        this.props.feedBarCallback(feedLink);
+        newFeedLink.position = (feedLinksSettings.feedLinks.length > 0) ? feedLinksSettings.feedLinks.length : 0;        
+        feedLinksSettings.feedLinks.push(newFeedLink);
+        
+        saveAndRefreshFeedLinks(feedLinksSettings);
     }
 
     renderNewFeedModal = (show) => {

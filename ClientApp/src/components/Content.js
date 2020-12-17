@@ -5,30 +5,30 @@ import { FeedArticles } from './FeedArticles/FeedArticles';
 export class Content extends Component {
     constructor() {
         super();
-        this.state = {
-            feedLinks: this.getFeedLinksStorage()
-        }
+        // this.state = {
+        //     feedLinks: this.getFeedLinksStorage()
+        // }
     }
     
-    getFeedLinksStorage = () => {
-        let feedLinks = null;
-        if (window.localStorage) {
-            feedLinks = localStorage.getItem("rmFeeds");
-            if (feedLinks === undefined || feedLinks === null || feedLinks === '') {        
-                feedLinks = {
-                    settings: {
-                        maxArticles: 20
-                    },
-                    feedLinks: []
-                };
-            }
-            else {
-                feedLinks = JSON.parse(feedLinks);
-                feedLinks.feedLinks.sort((a, b) => this.feedLinksSort(a, b));
-            }
-        }
-        return feedLinks;
-    }
+    // getFeedLinksStorage = () => {
+    //     let feedLinks = null;
+    //     if (window.localStorage) {
+    //         feedLinks = localStorage.getItem("rmFeeds");
+    //         if (feedLinks === undefined || feedLinks === null || feedLinks === '') {        
+    //             feedLinks = {
+    //                 settings: {
+    //                     maxArticles: 20
+    //                 },
+    //                 feedLinks: []
+    //             };
+    //         }
+    //         else {
+    //             feedLinks = JSON.parse(feedLinks);
+    //             feedLinks.feedLinks.sort((a, b) => this.feedLinksSort(a, b));
+    //         }
+    //     }
+    //     return feedLinks;
+    // }
 
     editFeedLink = (feedLink) => {
         let savedfeedLinks = this.state.feedLinks;
@@ -88,15 +88,15 @@ export class Content extends Component {
     //     this.saveAndRefreshFeedLinks(savedfeedLinks);
     // }
 
-    saveAndRefreshFeedLinks = (feedLinks) => {
-        if (window.localStorage) {
-            localStorage.setItem("rmFeeds", JSON.stringify(feedLinks));
-        }
+    // saveAndRefreshFeedLinks = (feedLinks) => {
+    //     if (window.localStorage) {
+    //         localStorage.setItem("rmFeeds", JSON.stringify(feedLinks));
+    //     }
 
-        this.setState({
-            feedLinks: this.getFeedLinksStorage()
-        });
-    }
+    //     this.setState({
+    //         feedLinks: this.getFeedLinksStorage()
+    //     });
+    // }
 
     handleFeedbarCallback = (option) => {
         if (option.type === 'saveFeedLink') {
@@ -115,29 +115,27 @@ export class Content extends Component {
             
         }
         else if (option.type === 'edit') {
-            this.editFeedLink(option.feedLink);
+            //this.editFeedLink(option.feedLink);
         }
         else if (option.type === 'delete') {
-            this.removeFeedLink(option.selectedFeed.feedLinkId);
+            //this.removeFeedLink(option.selectedFeed.feedLinkId);
         }
     }
 
-    feedLinksSort = (a, b) => {
-        if (a.position < b.position) {
-            return -1;
-        }
-        if (a.position > b.position) {
-            return 1;
-        }
-        return 0;
-    }
+    // feedLinksSort = (a, b) => {
+    //     if (a.position < b.position) {
+    //         return -1;
+    //     }
+    //     if (a.position > b.position) {
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
 
     render() {
         return (
             <main>                
-                <FeedBar 
-                    feedLinks = {this.state.feedLinks}
-                    contentCallback = {this.handleFeedbarCallback} />
+                <FeedBar />
                 <FeedArticles contentCallback = {this.handleFeedArticlesCallback} />
             </main>
         );
