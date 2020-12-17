@@ -49,44 +49,44 @@ export class Content extends Component {
         }
     }
 
-    saveNewFeedLink = (newFeedLink) => {
-        let savedfeedLinks = this.state.feedLinks;
+    // saveNewFeedLink = (newFeedLink) => {
+    //     let savedfeedLinks = this.state.feedLinks;
         
-        newFeedLink.position = (savedfeedLinks.feedLinks.length > 0) ? savedfeedLinks.feedLinks.length : 0;        
-        savedfeedLinks.feedLinks.push(newFeedLink);
+    //     newFeedLink.position = (savedfeedLinks.feedLinks.length > 0) ? savedfeedLinks.feedLinks.length : 0;        
+    //     savedfeedLinks.feedLinks.push(newFeedLink);
 
-        this.saveAndRefreshFeedLinks(savedfeedLinks);
-    }
+    //     this.saveAndRefreshFeedLinks(savedfeedLinks);
+    // }
 
-    reorderFeedLinks = (existingFeedLink, droppedFeedLink) => {
-        const originalFeedLink = {...existingFeedLink};
-        let savedfeedLinks = this.state.feedLinks;  
+    // reorderFeedLinks = (existingFeedLink, droppedFeedLink) => {
+    //     const originalFeedLink = {...existingFeedLink};
+    //     let savedfeedLinks = this.state.feedLinks;  
 
-        let existingFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
-        let droppedFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
+    //     let existingFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
+    //     let droppedFeedLinkIndex = savedfeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
         
-        let dropLeft = (droppedFeedLinkIndex > existingFeedLinkIndex) ? true : false;
-        let newArray = savedfeedLinks.feedLinks.map((savedLink, index) =>  {
-            if (index === droppedFeedLinkIndex) {
-                savedLink.position = originalFeedLink.position;
-            }
-            else if (index === existingFeedLinkIndex) {
-                savedLink.position = (dropLeft) ? originalFeedLink.position + 1 : originalFeedLink.position - 1;                
-            }            
-            else if (dropLeft && (index > existingFeedLinkIndex && index < droppedFeedLinkIndex)) {
-                savedLink.position = savedLink.position + 1;
-            }
-            else if (!dropLeft && (index < existingFeedLinkIndex && index > droppedFeedLinkIndex)) {
-                savedLink.position = savedLink.position - 1;
-            }
+    //     let dropLeft = (droppedFeedLinkIndex > existingFeedLinkIndex) ? true : false;
+    //     let newArray = savedfeedLinks.feedLinks.map((savedLink, index) =>  {
+    //         if (index === droppedFeedLinkIndex) {
+    //             savedLink.position = originalFeedLink.position;
+    //         }
+    //         else if (index === existingFeedLinkIndex) {
+    //             savedLink.position = (dropLeft) ? originalFeedLink.position + 1 : originalFeedLink.position - 1;                
+    //         }            
+    //         else if (dropLeft && (index > existingFeedLinkIndex && index < droppedFeedLinkIndex)) {
+    //             savedLink.position = savedLink.position + 1;
+    //         }
+    //         else if (!dropLeft && (index < existingFeedLinkIndex && index > droppedFeedLinkIndex)) {
+    //             savedLink.position = savedLink.position - 1;
+    //         }
 
-            return savedLink;
-        });
+    //         return savedLink;
+    //     });
 
-        savedfeedLinks.feedLinks = newArray;
+    //     savedfeedLinks.feedLinks = newArray;
 
-        this.saveAndRefreshFeedLinks(savedfeedLinks);
-    }
+    //     this.saveAndRefreshFeedLinks(savedfeedLinks);
+    // }
 
     saveAndRefreshFeedLinks = (feedLinks) => {
         if (window.localStorage) {
@@ -100,7 +100,7 @@ export class Content extends Component {
 
     handleFeedbarCallback = (option) => {
         if (option.type === 'saveFeedLink') {
-            this.saveNewFeedLink(option.newFeedLink);
+            //this.saveNewFeedLink(option.newFeedLink);
         }
         else if (option.type === 'reorderFeedLink') {
             // this.reorderFeedLinks(option.existingFeedLink, option.droppedFeedLink);
