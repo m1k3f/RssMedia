@@ -17,14 +17,13 @@ export class FeedLinks extends Component {
 
     reorderFeedLinks = (existingFeedLink, droppedFeedLink) => {
         const originalFeedLink = {...existingFeedLink};
-        let {feedLinksSettings} = this.context;
-        let savedFeedLinks = feedLinksSettings.feedLinks;  
+        let {feedLinksSettings, saveAndRefreshFeedLinks} = this.context;
 
-        let existingFeedLinkIndex = savedFeedLinks.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
-        let droppedFeedLinkIndex = savedFeedLinks.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
+        let existingFeedLinkIndex = feedLinksSettings.feedLinks.findIndex((link) => link.id === originalFeedLink.id);
+        let droppedFeedLinkIndex = feedLinksSettings.feedLinks.findIndex((link) => link.id === droppedFeedLink.id);
         
         let dropLeft = (droppedFeedLinkIndex > existingFeedLinkIndex) ? true : false;
-        let newArray = savedFeedLinks.feedLinks.map((savedLink, index) =>  {
+        let newArray = feedLinksSettings.feedLinks.map((savedLink, index) =>  {
             if (index === droppedFeedLinkIndex) {
                 savedLink.position = originalFeedLink.position;
             }
@@ -41,9 +40,9 @@ export class FeedLinks extends Component {
             return savedLink;
         });
 
-        savedFeedLinks.feedLinks = newArray;
+        feedLinksSettings.feedLinks = newArray;
         
-        this.saveRefreshFeedLinks(savedFeedLinks);
+        saveAndRefreshFeedLinks(feedLinksSettings);
     }
 
     editFeedLink = (feedLink) => {
@@ -55,12 +54,6 @@ export class FeedLinks extends Component {
             feedLinksSettings.feedLinks[linkIndex] = feedLink;
             saveAndRefreshFeedLinks(feedLinksSettings);
         }
-    }
-
-    saveRefreshFeedLinks = (feedLinks) => {
-        const { setFeedLinks, saveAndRefreshFeedLinks } = this.context;
-        setFeedLinks(feedLinks);
-        saveAndRefreshFeedLinks(feedLinks);
     }
 
     renderFeedLinks = () => {
