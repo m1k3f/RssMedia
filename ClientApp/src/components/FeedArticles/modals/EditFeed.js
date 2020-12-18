@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+import FeedContext from '../../context/FeedContext';
 
 export class EditFeed extends Component {
     
+    static contextType = FeedContext;
+
     showEditFeedModal = () => {
         const ReactSwal = withReactContent(swal);
 
@@ -19,20 +22,24 @@ export class EditFeed extends Component {
             showCloseButton: true
         })
         .then((value) => {
-            if (value.isConfirmed) {
-                // Save data to local storage
-                let feedLink = {
-                    feedLinkId: this.props.feed.feedLinkId,
-                    name: this.feedLinkName.value,
-                    title: this.feedTitle.value,
-                    url: this.props.feed.feedRssUrl
+            if (value.isConfirmed) {                
+                const {feedLinksSettings} = this.context;
+                let feedLinkId = this.props.feed.feedLinkId;
+
+                let linkIndex = feedLinksSettings.feedLinks.findIndex((link) => 
+                            link.id === feedLinkId);
+                let updatedFeedLink = null;
+                if (linkIndex > -1) {
+                    feedLinksSettings.feedLinks[linkIndex].name = this.feedLinkName.value;
+                    feedLinksSettings.feedLinks[linkIndex].title = this.feedTitle.value;
+                    updatedFeedLink = {...feedLinksSettings.feedLinks[linkIndex]};
                 }
-                
-                this.props.editFeedCallback(feedLink);
+
+                this.props.editFeedCallback(updatedFeedLink);
             }
             else {
-                this.props.editFeedCallback(null);
-            }            
+                this.props.editFeedCallback(null); 
+            }                       
         });
     }
 
@@ -44,11 +51,11 @@ export class EditFeed extends Component {
 
         return (
             <div className="addEditButtonModal">                
-                <input placeholder="Name..." 
+                <input placeholder="Feed Button Name..." 
                         type="text" 
                         defaultValue={feedName} 
                         ref={el => this.feedLinkName = el} />
-                <input placeholder="Title..." 
+                <input placeholder="Feed Title..." 
                         type="text"
                         defaultValue={feedTitle}
                         ref={el => this.feedTitle = el} />

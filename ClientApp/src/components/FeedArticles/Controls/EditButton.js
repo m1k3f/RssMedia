@@ -17,16 +17,16 @@ export class EditButton extends Component {
         this.setState({
             showEditModal: false
         });
-        
-        if (updatedFeedLink != null) {
-            let editOption = {
-                type: 'edit',
-                feedLink: updatedFeedLink
-            }
 
-            this.props.controlsCallback(editOption);
-        }        
-    }
+        if (updatedFeedLink !== null) {
+            let editObject = {
+                action: 'edit',
+                feedLink: updatedFeedLink
+            };
+
+            this.props.controlsCallback(editObject);
+        }
+    }    
 
     renderEditModal = () => {
         if (this.state.showEditModal) {
