@@ -22,9 +22,11 @@ export class NavMenu extends Component {
       showSettingsModal: false
     });
 
-    const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
-    setSettings(savedSettings);
-    saveAndRefreshFeedLinks(feedLinksSettings);
+    if (savedSettings !== null) {
+      const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+      setSettings(savedSettings);
+      saveAndRefreshFeedLinks(feedLinksSettings);
+    }
   }
 
   renderSettingsModal = (show) => {

@@ -31,6 +31,9 @@ export class Settings extends Component  {
             if (this.IsChanged) {
                 this.props.navMenuCallback(this.Settings);
             }
+            else {
+                this.props.navMenuCallback(null);
+            }
         });
     }
 
