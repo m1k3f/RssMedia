@@ -10,9 +10,6 @@ export class FeedArticlesControls extends Component {
     static contextType = FeedContext;
 
     handleButtonClick = (buttonObject) => {
-        // option.selectedFeed = this.props.feed;
-        // this.props.feedArticlesCallback(option);
-
         const {feedLinksSettings} = this.context;
         if (buttonObject.action === 'sync') {
             
@@ -22,56 +19,68 @@ export class FeedArticlesControls extends Component {
             let nowDateTime = new Date();
             buttonObject.feedLink.lastAccessed = nowDateTime;
 
-            this.editFeedLink(buttonObject.feedLink);
+            this.updateFeedLink(feedLinksSettings, buttonObject.feedLink);
             this.setSelectedFeed(buttonObject.feedLink, feedLinksSettings.settings);
         }
-        else if (buttonObject.action === 'delete') {
-
+        else if (buttonObject.action === 'delete') {            
+            this.setSelectedFeed(null, null);
+            this.saveFeedLinkUpdates(feedLinksSettings);            
         }
     }
 
-    editFeedLink = (feedLink) => {
-        const {feedLinksSettings, saveAndRefreshFeedLinks} = this.context;
-
+    updateFeedLink = (feedLinksSettings, feedLink) => {
         let linkIndex = feedLinksSettings.feedLinks.findIndex((link) => 
                             link.id === feedLink.id);
         if (linkIndex > -1) {
             feedLinksSettings.feedLinks[linkIndex].lastAccessed = feedLink.lastAccessed;
         }
 
-        saveAndRefreshFeedLinks(feedLinksSettings);
+        this.saveFeedLinkUpdates(feedLinksSettings);
+    }
+
+    saveFeedLinkUpdates = (feedLinksSettings) => {
+        const {saveAndRefreshFeedLinks} = this.context;
+        saveAndRefreshFeedLinks(feedLinksSettings);        
     }
 
     setSelectedFeed = async (feedLink, settings) => {
         const {setFeed} = this.context;
-        let maxArticles = settings.maxArticles;
 
-        let feedObject = {
-            feedlinkid: feedLink.id,
-            feedrssurl: feedLink.url,
-            feedname: feedLink.name,
-            feedTitle: feedLink.title
+        let selectedFeed = null;
+        if (feedLink !== null) {
+            let maxArticles = settings.maxArticles;
+
+            let feedObject = {
+                feedlinkid: feedLink.id,
+                feedrssurl: feedLink.url,
+                feedname: feedLink.name,
+                feedTitle: feedLink.title
+            }
+
+            let feeds = {
+                feedlist: [feedObject],
+                feedarticleoffset: 0,
+                feedarticlecount: maxArticles
+            };
+
+            let request = new Request('api/rssmedia/feed', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },                    
+                body: JSON.stringify(feeds)
+            });
+
+            let serviceFeedObject = await fetch(request).then((response) => response.json());
+            if (serviceFeedObject !== null && Object.entries(serviceFeedObject).length > 0) {
+                serviceFeedObject.lastAccessed = feedLink.lastAccessed;
+                serviceFeedObject.firstAccess = false;
+
+                selectedFeed = serviceFeedObject;
+            }
         }
 
-        let feeds = {
-            feedlist: [feedObject],
-            feedarticleoffset: 0,
-            feedarticlecount: maxArticles
-        };
-
-        let request = new Request('api/rssmedia/feed', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },                    
-            body: JSON.stringify(feeds)
-        });
-
-        let serviceFeedObject = await fetch(request).then((response) => response.json());
-
-        serviceFeedObject.lastAccessed = feedLink.lastAccessed;
-        serviceFeedObject.firstAccess = false;
-        setFeed(serviceFeedObject);
+        setFeed(selectedFeed);
     }
 
     renderControls = () => {
@@ -94,7 +103,8 @@ export class FeedArticlesControls extends Component {
                         <SyncButton controlsCallback = {this.handleButtonClick} />
                         <EditButton controlsCallback = {this.handleButtonClick} 
                                     selectedFeed = {this.props.feed} />
-                        <DeleteButton controlsCallback = {this.handleButtonClick} />
+                        <DeleteButton controlsCallback = {this.handleButtonClick}
+                                    selectedFeed = {this.props.feed} />
                     </div>
                 );
             }

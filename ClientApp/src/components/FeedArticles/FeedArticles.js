@@ -19,16 +19,6 @@ export class FeedArticles extends Component {
 
     static contextType = FeedContext;    
 
-    handleContentCallback = (option) => {
-        if (option.type === 'delete') {
-            // Clear displayed articles
-            const {setFeed} = this.context;
-            setFeed(null);
-        }
-
-        this.props.contentCallback(option);
-    }
-
     getFeedTitle = () => {
         let feedTitle = '';
         if (this.context != null && this.context.selectedFeed != null) {
@@ -74,18 +64,11 @@ export class FeedArticles extends Component {
     }
 
     render() {
-        let feedTitle = this.getFeedTitle();
-
         return (
             <div className="divFeedArticles">
-                {/* <div className="divSpinner" hidden>
-                    <i className="fas fa-spinner fa-spin fa-lg"></i>
-                </div> */}
-                <FeedTitle title={feedTitle} />
+                <FeedTitle title={this.getFeedTitle()} />
                 <section>
-                    <FeedArticlesControls
-                        feed = {this.context.selectedFeed}
-                        feedArticlesCallback = {this.handleContentCallback} />
+                    <FeedArticlesControls feed = {this.context.selectedFeed} />
                     {this.renderArticles()}
                 </section>
             </div>
