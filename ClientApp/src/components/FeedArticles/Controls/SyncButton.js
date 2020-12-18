@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FeedContext from '../../context/FeedContext';
 
 export class SyncButton extends Component {
 
@@ -6,9 +7,26 @@ export class SyncButton extends Component {
         spin: false
     }
 
+    static contextType = FeedContext;
+
     handleSyncClick = (e) => {
-        this.animateButton(true);
-        this.props.controlsCallback("sync");
+        const {feedLinksSettings} = this.context;
+        this.animateButton(true);        
+        
+        let feedLinkId = this.props.selectedFeed.feedLinkId;
+        let linkIndex = feedLinksSettings.feedLinks.findIndex((link) => link.id === feedLinkId);
+        let feedLink = null;
+        if (linkIndex > -1) {
+            feedLink = feedLinksSettings.feedLinks[linkIndex];
+        }
+
+        let option = {
+            action: 'sync',
+            feedLink: feedLink
+        };
+
+        this.props.controlsCallback(option);        
+        
         this.animateButton(false);
     }
 

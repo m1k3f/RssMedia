@@ -11,9 +11,8 @@ export class FeedArticlesControls extends Component {
 
     handleButtonClick = (buttonObject) => {
         const {feedLinksSettings} = this.context;
-        if (buttonObject.action === 'sync') {
-            
-            
+        if (buttonObject.action === 'sync') {            
+            this.setSelectedFeed(buttonObject.feedLink, feedLinksSettings.settings);
         }
         else if (buttonObject.action === 'edit') {
             let nowDateTime = new Date();
@@ -92,7 +91,8 @@ export class FeedArticlesControls extends Component {
                 content = (
                     <div className="divFeedArticlesControls">
                         <FeedImageLink selectedFeed = {this.props.feed} />
-                        <SyncButton controlsCallback = {this.handleButtonClick} />
+                        <SyncButton controlsCallback = {this.handleButtonClick}
+                                    selectedFeed = {this.props.feed} />
                     </div>
                 );
             }
@@ -100,7 +100,8 @@ export class FeedArticlesControls extends Component {
                 content = (
                     <div className="divFeedArticlesControls">
                         <FeedImageLink selectedFeed = {this.props.feed} />
-                        <SyncButton controlsCallback = {this.handleButtonClick} />
+                        <SyncButton controlsCallback = {this.handleButtonClick}
+                                    selectedFeed = {this.props.feed} />
                         <EditButton controlsCallback = {this.handleButtonClick} 
                                     selectedFeed = {this.props.feed} />
                         <DeleteButton controlsCallback = {this.handleButtonClick}
