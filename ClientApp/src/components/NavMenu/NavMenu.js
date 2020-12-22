@@ -17,14 +17,14 @@ export class NavMenu extends Component {
     });
   }
 
-  handleSettingsCallback = (savedSettings) => {
+  handleSettingsCallback = (settingsObject) => {
     this.setState({
       showSettingsModal: false
     });
 
-    if (savedSettings !== null) {
-      const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
-      setSettings(savedSettings);
+    if (settingsObject !== null) {
+      const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;      
+      setSettings(settingsObject.settings);
       saveAndRefreshFeedLinks(feedLinksSettings);
     }
   }

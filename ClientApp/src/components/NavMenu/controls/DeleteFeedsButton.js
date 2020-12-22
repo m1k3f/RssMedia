@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class DeleteFeedsButton extends Component {
 
     handleDeleteButtonClick = (e) => {
-
+        this.props.settingsCallback("feedsDelete");
     }
 
     render() {

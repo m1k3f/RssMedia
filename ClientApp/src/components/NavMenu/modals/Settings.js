@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+import FeedContext from '../../context/FeedContext';
 import { FeedExportButton } from '../controls/FeedExportButton';
 import { FeedImportButton } from '../controls/FeedImportButton';
 import { DeleteFeedsButton } from '../controls/DeleteFeedsButton';
@@ -9,9 +10,11 @@ import { MaxArticlesOptions } from '../controls/MaxArticlesOptions';
 export class Settings extends Component  {
     constructor() {
         super();
-        this.Settings = null;
+        this.SettingsObject = null;
         this.IsChanged = false;
     }
+
+    static contextType = FeedContext;
 
     showSettingsModal = () => {
         const ReactSwal = withReactContent(swal);
@@ -28,8 +31,8 @@ export class Settings extends Component  {
             showCloseButton: true
         })
         .then((value) => {
-            if (this.IsChanged) {
-                this.props.navMenuCallback(this.Settings);
+            if (this.IsChanged) {                
+                this.props.navMenuCallback(this.SettingsObject);
             }
             else {
                 this.props.navMenuCallback(null);
@@ -38,9 +41,9 @@ export class Settings extends Component  {
     }
 
     getSettingsModalContent = () => {
-        let defaultMaxArticlesOption = (this.Settings === null) ? 
+        let defaultMaxArticlesOption = (this.SettingsObject === null) ? 
                                         this.props.defaultSettings.maxArticles : 
-                                        this.Settings.maxArticles;
+                                        this.SettingsObject.settings.maxArticles;
 
         return(
             <div className="settingsModal">
@@ -51,9 +54,9 @@ export class Settings extends Component  {
                 </div>                
                 <div>
                     <p>Feeds:</p>
-                    <FeedImportButton />                
-                    <FeedExportButton />
-                    <DeleteFeedsButton />
+                    <FeedImportButton settingsCallback = {this.handleFeedButtonCallback} />                
+                    <FeedExportButton settingsCallback = {this.handleFeedButtonCallback} />
+                    <DeleteFeedsButton settingsCallback = {this.handleFeedButtonCallback} />
                 </div>                
             </div>
         );
@@ -65,8 +68,16 @@ export class Settings extends Component  {
         let settings = {};
         settings[propertyName] = propertyValue;
 
-        this.Settings = settings;
+        this.SettingsObject.settings = settings;
         this.IsChanged = true;
+    }
+
+    handleFeedButtonCallback = (action) => {
+        const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+        if (action === 'feedsDelete') {
+            feedLinksSettings.feedLinks.length = 0;
+            saveAndRefreshFeedLinks(feedLinksSettings);
+        }
     }
 
     render() {
