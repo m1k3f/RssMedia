@@ -9,6 +9,7 @@ export class ViewLink extends Component {
     }
 
     async componentDidMount() {
+        //TODO: use fetch instead of api?
         let {article} = this.props;
         let resolvedArticleUrl = await this.getResolvedUrl(article.articleUrl);
         article.articleUrl = resolvedArticleUrl;
@@ -88,17 +89,19 @@ export class ViewLink extends Component {
             originalUrl: encodedUrl
         };
 
-        let request = new Request('api/rssmedia/resolvedurl', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },                    
-            body: JSON.stringify(urlObject)
-        });
+        // let request = new Request('api/rssmedia/resolvedurl', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=utf-8'
+        //     },                    
+        //     body: JSON.stringify(urlObject)
+        // });
 
-        let responseJson = await fetch(request).then((response) => 
-            response.json()
-        );
+        let request = new Request(`api/rssmedia/resolvedurl/${encodedUrl}`); 
+
+        let responseJson = await fetch(request)
+                                .then((response) => response.json());
+                                
 
         return responseJson.resolvedUrl;
     }

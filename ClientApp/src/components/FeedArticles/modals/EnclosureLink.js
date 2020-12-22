@@ -52,18 +52,22 @@ export class EnclosureLink extends Component {
     }
 
     getResolvedUrl = async (enclosureUrl) => {        
+
+        //TODO: use fetch instead of api?
         let encodedUrl = encodeURIComponent(enclosureUrl);
         let urlObject = {
             originalUrl: encodedUrl
         };
 
-        let request = new Request('api/rssmedia/resolvedurl', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },                    
-            body: JSON.stringify(urlObject)
-        });
+        // let request = new Request('api/rssmedia/resolvedurl', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=utf-8'
+        //     },                    
+        //     body: JSON.stringify(urlObject)
+        // });
+
+        let request = new Request(`api/rssmedia/resolvedurl/${encodedUrl}`);
 
         let responseJson = await fetch(request).then((response) => 
             response.json()
@@ -73,6 +77,7 @@ export class EnclosureLink extends Component {
     }
 
     handlePlayButton = async (e) => {
+        //TODO: use fetch instead of api?
         const audioElement = e.target;
         if (!audioElement.paused && audioElement.currentTime === 0)
         {

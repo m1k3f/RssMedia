@@ -131,37 +131,40 @@ namespace RssMedia.Controllers {
             };
         }
 
-        [HttpPost]
+        [HttpGet("{originalUrl}")]
         [ActionName("ResolvedUrl")]
-        public async Task<Dictionary<string, string>> ResolvedUrl([FromBody]Dictionary<string, string> originalUrl)
-        {
+        public async Task<IActionResult> ResolvedUrl(string originalUrl)
+        {            
             try 
             {
                 //var originalUrlDeserialized = JsonSerializer.Deserialize<string>(originalUrl.ToString());
-                var originalUrlValue = originalUrl["originalUrl"].ToString();
-                if (!string.IsNullOrEmpty(originalUrlValue))
+                //var originalUrlValue = originalUrl["originalUrl"].ToString();
+                if (!string.IsNullOrEmpty(originalUrl))
                 {
-                    var decodedOriginalUrl = WebUtility.UrlDecode(originalUrlValue);
+                    var decodedOriginalUrl = WebUtility.UrlDecode(originalUrl);
                     var resolvedUrl = await RSS.Utilities.GetRedirectedUrl(decodedOriginalUrl);
-                    return new Dictionary<string, string>()
+                    var urlJson = new Dictionary<string, string>()
                     {
                         {"resolvedUrl", resolvedUrl}
                     };
+                    return Ok(urlJson);
                 }
                 else 
                 {
-                    return new Dictionary<string, string>()
+                    var urlJson = new Dictionary<string, string>()
                     {
                         {"resolvedUrl", string.Empty}
                     };
+                    return Ok(urlJson);
                 }
             }
             catch(Exception ex)
             {
-                return new Dictionary<string, string>()
-                {
-                    {"resolvedUrl", string.Empty}
-                };
+                // var urlJson = new Dictionary<string, string>()
+                // {
+                //     {"resolvedUrl", originalUrl}
+                // };
+                return StatusCode(500, ex.Message);
             }            
         }
 
