@@ -23,7 +23,7 @@ namespace RssMedia
                 {
                     webBuilder.UseKestrel()
                                 .UseContentRoot(Directory.GetCurrentDirectory())
-                                // .UseUrls("https://*:9020")
+                                .UseUrls("http://*:5000", "https://*:5001")
                                 .UseStartup<Startup>();
                 });
     }
