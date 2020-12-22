@@ -12,12 +12,12 @@ namespace RssMedia.RSS
 {
     public class FeedAccess
     {
-        private HttpClient _client;
+        private IHttpClientFactory _clientFactory;
         private Models.FeedLink _originalfeedLink;
         private string _decodedUrl;
-        public FeedAccess(Models.FeedLink feedLink)
+        public FeedAccess(IHttpClientFactory clientFactory, Models.FeedLink feedLink)
         {
-            _client = new HttpClient();
+            _clientFactory = clientFactory;
             _originalfeedLink = feedLink;
 
             _decodedUrl = GetValidUrl(WebUtility.UrlDecode(feedLink.AddUrl));
@@ -127,7 +127,8 @@ namespace RssMedia.RSS
 
             if (!string.IsNullOrEmpty(url))
             {
-                var response = await _client.GetAsync(url);
+                var client = _clientFactory.CreateClient();
+                var response = await client.GetAsync(url);
                 var contentBytes = await response.Content.ReadAsByteArrayAsync();
                 contentString = Encoding.UTF8.GetString(contentBytes);
             }

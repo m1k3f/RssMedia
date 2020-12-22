@@ -14,12 +14,12 @@ namespace RssMedia.Controllers {
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class RssMediaController : ControllerBase {
+        private IHttpClientFactory _client;
         private readonly ILogger<RssMediaController> _logger;
-        private HttpClient _client;
-        public RssMediaController(ILogger<RssMediaController> logger) 
+        public RssMediaController(ILogger<RssMediaController> logger, IHttpClientFactory client) 
         {
             _logger = logger;
-            _client = new HttpClient();
+            _client = client;
         }
 
         [HttpPost]
@@ -28,7 +28,7 @@ namespace RssMedia.Controllers {
         {          
             try
             {                
-                var feedAccess = new RSS.FeedAccess(feedLink);
+                var feedAccess = new RSS.FeedAccess(_client, feedLink);
                 var feedLinkList = await feedAccess.GetFeedLinkList();                
 
                 return feedLinkList;                
@@ -137,12 +137,11 @@ namespace RssMedia.Controllers {
         {            
             try 
             {
-                //var originalUrlDeserialized = JsonSerializer.Deserialize<string>(originalUrl.ToString());
-                //var originalUrlValue = originalUrl["originalUrl"].ToString();
                 if (!string.IsNullOrEmpty(originalUrl))
                 {
                     var decodedOriginalUrl = WebUtility.UrlDecode(originalUrl);
-                    var resolvedUrl = await RSS.Utilities.GetRedirectedUrl(decodedOriginalUrl);
+                    var utilities = new RSS.UtilitiesService(_client);
+                    var resolvedUrl = await utilities.GetRedirectedUrl(decodedOriginalUrl);
                     var urlJson = new Dictionary<string, string>()
                     {
                         {"resolvedUrl", resolvedUrl}
@@ -160,10 +159,6 @@ namespace RssMedia.Controllers {
             }
             catch(Exception ex)
             {
-                // var urlJson = new Dictionary<string, string>()
-                // {
-                //     {"resolvedUrl", originalUrl}
-                // };
                 return StatusCode(500, ex.Message);
             }            
         }

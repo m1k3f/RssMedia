@@ -29,6 +29,10 @@ namespace RssMedia
                 options.KnownProxies.Add(System.Net.IPAddress.Parse("192.168.0.138"));
             });
 
+            services.AddHttpClient();
+            // services.AddHttpClient<RSS.FeedAccess>();
+            // services.AddHttpClient<RSS.IUtilitiesService, RSS.UtilitiesService>();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
