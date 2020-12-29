@@ -32,7 +32,7 @@ export class FeedLinkAll extends Component {
     }
 
     getAllFeeds = async () => {
-        let feedLinkObjectArray = this.props.links.feedLinks.map((link) => {
+        let feedLinkObjectArray = this.props.links.map((link) => {
             let feedObject = {
                 feedlinkid: link.id,
                 feedrssurl: link.url,
