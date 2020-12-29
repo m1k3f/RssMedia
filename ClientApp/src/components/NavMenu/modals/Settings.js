@@ -10,32 +10,36 @@ import { MaxArticlesOptions } from '../controls/MaxArticlesOptions';
 export class Settings extends Component  {
     constructor() {
         super();
+        this.ReactSwal = withReactContent(swal);
         this.SettingsObject = null;
-        this.IsChanged = false;
+        this.IsSettingsChanged = false;
+        this.IsFeedsDelete = false;
     }
 
     static contextType = FeedContext;
 
     showSettingsModal = () => {
-        const ReactSwal = withReactContent(swal);
-
-        ReactSwal.fire({
+        this.ReactSwal.fire({
             title: 'Settings',
             html: this.getSettingsModalContent(),
             showConfirmButton: false,
-            //confirmButtonText: "Save",
             showCancelButton: false,
-            //focusCancel: true,
             allowOutsideClick: true,
             allowEnterKey: false,            
             showCloseButton: true
         })
         .then((value) => {
-            if (this.IsChanged) {                
+            if (this.IsSettingsChanged) {
                 this.props.navMenuCallback(this.SettingsObject);
             }
             else {
                 this.props.navMenuCallback(null);
+            }
+
+            if (this.IsFeedsDelete) {
+                const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+                feedLinksSettings.feedLinks.length = 0;
+                saveAndRefreshFeedLinks(feedLinksSettings);
             }
         });
     }
@@ -69,14 +73,13 @@ export class Settings extends Component  {
         settings[propertyName] = propertyValue;
 
         this.SettingsObject.settings = settings;
-        this.IsChanged = true;
+        this.IsSettingsChanged = true;
     }
 
-    handleFeedButtonCallback = (action) => {
-        const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+    handleFeedButtonCallback = (action) => {        
         if (action === 'feedsDelete') {
-            feedLinksSettings.feedLinks.length = 0;
-            saveAndRefreshFeedLinks(feedLinksSettings);
+            this.IsFeedsDelete = true;
+            this.ReactSwal.close();
         }
     }
 
