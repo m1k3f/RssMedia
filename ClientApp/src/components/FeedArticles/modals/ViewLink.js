@@ -9,10 +9,9 @@ export class ViewLink extends Component {
     }
 
     async componentDidMount() {
-        //TODO: use fetch instead of api?
         let {article} = this.props;
-        let resolvedArticleUrl = await this.getResolvedUrl(article.articleUrl);
-        article.articleUrl = resolvedArticleUrl;
+        // let resolvedArticleUrl = await this.getResolvedUrl(article.articleUrl);
+        // article.articleUrl = resolvedArticleUrl;
 
         this.setState({
             article: article
@@ -70,13 +69,6 @@ export class ViewLink extends Component {
             frameUrl = articleUrl.replace('watch', 'embed');
         }
         else {
-            // if ((articleId.includes('http://') || articleId.includes('https://')) &&
-            //     (articleId != articleUrl)) {
-            //     frameUrl = articleId;
-            // }
-            // else {
-            //     frameUrl = articleUrl;
-            // }
             frameUrl = articleUrl;
         }
 
@@ -89,18 +81,17 @@ export class ViewLink extends Component {
             originalUrl: encodedUrl
         };
 
-        // let request = new Request('api/rssmedia/resolvedurl', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },                    
-        //     body: JSON.stringify(urlObject)
-        // });
-
-        let request = new Request(`api/rssmedia/resolvedurl/${encodedUrl}`); 
+        let request = new Request('api/rssmedia/resolvedurl', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },                    
+            body: JSON.stringify(urlObject)
+        });
 
         let responseJson = await fetch(request)
-                                .then((response) => response.json());
+                                .then((response) => response.json())
+                                .catch(error => console.log(error));
                                 
 
         return responseJson.resolvedUrl;

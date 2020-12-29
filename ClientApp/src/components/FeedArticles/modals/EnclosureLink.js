@@ -53,37 +53,34 @@ export class EnclosureLink extends Component {
 
     getResolvedUrl = async (enclosureUrl) => {        
 
-        //TODO: use fetch instead of api?
         let encodedUrl = encodeURIComponent(enclosureUrl);
         let urlObject = {
             originalUrl: encodedUrl
         };
 
-        // let request = new Request('api/rssmedia/resolvedurl', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },                    
-        //     body: JSON.stringify(urlObject)
-        // });
+        let request = new Request('api/rssmedia/resolvedurl', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },                    
+            body: JSON.stringify(urlObject)
+        });
 
-        let request = new Request(`api/rssmedia/resolvedurl/${encodedUrl}`);
-
-        let responseJson = await fetch(request).then((response) => 
-            response.json()
-        );
+        let responseJson = await fetch(request)
+                                    .then((response) => response.json())
+                                    .catch(error => console.log(error));
 
         return responseJson.resolvedUrl;
     }
 
     handlePlayButton = async (e) => {
-        //TODO: use fetch instead of api?
         const audioElement = e.target;
         if (!audioElement.paused && audioElement.currentTime === 0)
         {
             let {article} = this.props;
-            let resolvedEnclosureUrl = await this.getResolvedUrl(article.articleEnclosureUrl);
-            audioElement.src = resolvedEnclosureUrl;
+            // let resolvedEnclosureUrl = await this.getResolvedUrl(article.articleEnclosureUrl);
+            // audioElement.src = resolvedEnclosureUrl;
+            audioElement.src = article.articleEnclosureUrl;
             //audioElement.play();
         }
     }
