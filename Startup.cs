@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using NLog;
 
 namespace RssMedia
 {
@@ -13,6 +15,7 @@ namespace RssMedia
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(System.String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -29,9 +32,7 @@ namespace RssMedia
                 options.KnownProxies.Add(System.Net.IPAddress.Parse("192.168.0.138"));
             });
 
-            services.AddHttpClient();
-            // services.AddHttpClient<RSS.FeedAccess>();
-            // services.AddHttpClient<RSS.IUtilitiesService, RSS.UtilitiesService>();
+            services.AddHttpClient();         
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -63,7 +64,7 @@ namespace RssMedia
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseRouting();            
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

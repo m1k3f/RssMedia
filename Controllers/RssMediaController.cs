@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RssMedia.Models;
@@ -71,6 +72,7 @@ namespace RssMedia.Controllers {
             }
             catch(Exception ex)
             {
+                _logger.LogError(ex, $"Error retrieving Feed '{feed.FeedName}'", null);
                 return GetFeedWithError(feed, ex);
             }
         }
@@ -131,18 +133,20 @@ namespace RssMedia.Controllers {
             };
         }
 
-        [HttpGet("{originalUrl}")]
+        [HttpPost]
         [ActionName("ResolvedUrl")]
-        public async Task<IActionResult> ResolvedUrl(string originalUrl)
+        public async Task<IActionResult> ResolvedUrl([FromBody]Dictionary<string, string> originalUrl)
         {            
             try 
-            {
-                if (!string.IsNullOrEmpty(originalUrl))
+            {        
+                var originalUrlValue = (originalUrl.Count > 0) ? originalUrl.First().Value : string.Empty;
+                if (!string.IsNullOrEmpty(originalUrlValue))
                 {
-                    var decodedOriginalUrl = WebUtility.UrlDecode(originalUrl);
+                    var decodedOriginalUrl = WebUtility.UrlDecode(originalUrlValue);
                     var utilities = new RSS.UtilitiesService(_client);
                     var resolvedUrl = await utilities.GetRedirectedUrl(decodedOriginalUrl);
-                    var urlJson = new Dictionary<string, string>()
+
+                    var urlJson = new Dictionary<string, string>() 
                     {
                         {"resolvedUrl", resolvedUrl}
                     };
@@ -159,6 +163,7 @@ namespace RssMedia.Controllers {
             }
             catch(Exception ex)
             {
+                _logger.LogError(ex, $"Error resolving url '{originalUrl.First().Value}'", null);
                 return StatusCode(500, ex.Message);
             }            
         }
