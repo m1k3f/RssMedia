@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@sweetalert/with-react": "^0.1.1",
     "merge": "^1.2.1",
     "oidc-client": "^1.9.0",
     "react": "^16.14.0",
@@ -13,7 +12,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "rimraf": "^2.6.2",
-    "sweetalert": "^2.1.2",
     "sweetalert2": "^10.9.1",
     "sweetalert2-react-content": "^3.2.1"
   },
