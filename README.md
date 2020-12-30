@@ -7,11 +7,23 @@
 - REST API service: [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 - [CodeHollow FeedReader package](https://www.nuget.org/packages/CodeHollow.FeedReader) for retrieving RSS feeds in the API
 - [NLog package](https://www.nuget.org/packages/NLog) for logging in the API
+- [sweetalert2 package](https://www.npmjs.com/package/sweetalert2) for popups and modals in the UI
 - All links to RSS feeds are stored in browser storage. No account is required.
 - A new feed can be added in two ways:
   - Direct RSS feed url
   - Any url of a page where RSS Feeds are associated. The service will search for RSS-related HTML 'Link' tags.
 - Each feed keeps track of when the user last viewed it. New articles since the last sync are highlighted.
+
+## Running the application
+
+- Local machine
+  1. Verify .Net Core 3.1 is installed on the machine
+  2. Download the application code
+  3. In the folder containing the code, run the command '*dotnet run*'
+  4. In a web browser, navigate to 'http://localhost:5000' or 'https://localhost:5001'
+- Server
+  - Testing for this application was done on a Raspberry Pi 4 server running Apache2.
+  - The code was deployed as self-contained to the server using the command '*dotnet publish -r linux-arm*'
 
 ## Known Issues
 
