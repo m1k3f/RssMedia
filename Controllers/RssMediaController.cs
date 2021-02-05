@@ -42,6 +42,53 @@ namespace RssMedia.Controllers {
         }
 
         [HttpPost]
+        [ActionName("GetFeedLinksList")]
+        public async Task<IEnumerable<Models.FeedLink>> GetFeedLinksList([FromBody]IEnumerable<Models.FeedLink> feedLinksList)
+        {
+            var returnFeedLinkList = new List<Models.FeedLink>();
+            foreach(var link in feedLinksList)
+            {
+                try
+                {
+                    var feedAccess = new RSS.FeedAccess(_client, link);
+                    var finalFeedLinkList = await feedAccess.GetFeedFromFeedUrl();
+                    Models.FeedLink finalFeedLink = null;
+                    if (finalFeedLinkList.Count() == 0)
+                    {
+                        finalFeedLink = new Models.FeedLink()
+                        {
+                            Id = Guid.NewGuid(),
+                            Title = link.Name,
+                            Url = link.AddUrl,
+                            Name = link.Name,
+                            AddUrl = link.AddUrl
+                        };
+                    }
+                    else 
+                    {
+                        finalFeedLink = finalFeedLinkList.First();
+                    }
+
+                    returnFeedLinkList.Add(finalFeedLink);
+                }
+                catch(Exception)
+                {
+                    var finalFeedLink = new Models.FeedLink()
+                    {
+                        Id = Guid.NewGuid(),
+                        Title = link.Name,
+                        Url = link.AddUrl,
+                        Name = link.Name,
+                        AddUrl = link.AddUrl
+                    };
+                    returnFeedLinkList.Add(finalFeedLink);
+                }
+            }
+
+            return returnFeedLinkList;
+        }
+
+        [HttpPost]
         [ActionName("Feed")]
         public async Task<Models.Feed> Feed([FromBody]Models.Feeds feeds)
         {           
@@ -125,7 +172,7 @@ namespace RssMedia.Controllers {
         public async Task<IActionResult> DownloadFeeds(Models.Feeds feeds)
         {
             Stream fileStream = await RSS.FileDownload.GetFeedFileStream(feeds);
-            string mimeType = "application/xml";
+            string mimeType = "text/x-opml+xml";
 
             return new FileStreamResult(fileStream, mimeType)
             {

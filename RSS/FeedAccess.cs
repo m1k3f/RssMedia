@@ -43,11 +43,9 @@ namespace RssMedia.RSS
                     return new List<Models.FeedLink>();
                 }
             }
-        }
+        }        
 
-        #region Private Methods
-
-        private async Task<IEnumerable<Models.FeedLink>> GetFeedFromFeedUrl()
+        public async Task<IEnumerable<Models.FeedLink>> GetFeedFromFeedUrl()
         {
             var feedLinkList = new List<Models.FeedLink>();
 
@@ -70,6 +68,8 @@ namespace RssMedia.RSS
 
             return feedLinkList;
         }
+
+        #region Private Methods
 
         private async Task<CodeHollow.FeedReader.Feed> GetFeedReaderFeed()
         {

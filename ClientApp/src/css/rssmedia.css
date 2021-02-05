@@ -20,9 +20,16 @@
     text-overflow: ellipsis;
 }
 
+.iconButton {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 6px;
+}
+
 body {    
     margin: auto;    
-    width: 90%;
+    width: 85%;
 }
 
 header {
@@ -208,7 +215,7 @@ main {
 .divFeeds a {
     cursor: pointer;
     padding: 8px;
-    margin: 2px;
+    margin: 3px;
     border: 2px solid #37474f;
     border-radius: 30px;
     min-width: 70px;
