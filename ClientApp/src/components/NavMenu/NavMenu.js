@@ -33,25 +33,26 @@ export class NavMenu extends Component {
   //   }
   // }
 
-  handleFeedButtonCallback = (option) => {    
-    if (option.action === 'feedsImport') {
-        const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
-        let feedLinkSettingsCopy = {...feedLinksSettings};
-        
-        feedLinkSettingsCopy.feedLinks.length = 0;
-        option.newFeedLinks.forEach((newFeedLink) => {
-            newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
-            feedLinkSettingsCopy.feedLinks.push(newFeedLink);
-        });
-        
-        saveAndRefreshFeedLinks(feedLinkSettingsCopy);
+  handleFeedButtonCallback = (option) => {
+    const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+    if (option.action === 'feedsImport') {        
+      let feedLinkSettingsCopy = {...feedLinksSettings};
+      
+      feedLinkSettingsCopy.feedLinks.length = 0;
+      option.newFeedLinks.forEach((newFeedLink) => {
+          newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
+          feedLinkSettingsCopy.feedLinks.push(newFeedLink);
+      });
+      
+      saveAndRefreshFeedLinks(feedLinkSettingsCopy);
     }
     else if (option.action === 'feedsExport') {
 
     }
     else if (option.action === 'feedsDelete') {
-      this.IsFeedsDelete = true;
-      this.ReactSwal.close();            
+      let feedLinkSettingsCopy = {...feedLinksSettings};        
+      feedLinkSettingsCopy.feedLinks.length = 0;
+      saveAndRefreshFeedLinks(feedLinkSettingsCopy);
     }
 }
 
