@@ -67,12 +67,13 @@ export class FeedLinkAdd extends Component {
     }
 
     saveNewFeedLink = (newFeedLink) => {
-        const { setFeedLinks, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+        const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+        let feedLinkSettingsCopy = {...feedLinksSettings};
         
-        newFeedLink.position = (feedLinksSettings.feedLinks.length > 0) ? feedLinksSettings.feedLinks.length : 0;        
-        feedLinksSettings.feedLinks.push(newFeedLink);
+        newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
+        feedLinkSettingsCopy.feedLinks.push(newFeedLink);
         
-        saveAndRefreshFeedLinks(feedLinksSettings);
+        saveAndRefreshFeedLinks(feedLinkSettingsCopy);
     }
 
     renderNewFeedModal = (show) => {
