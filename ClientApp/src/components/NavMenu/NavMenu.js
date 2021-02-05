@@ -1,33 +1,59 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../context/FeedContext';
+import { FeedExportButton } from './controls/FeedExportButton';
+import { FeedImportButton } from './controls/FeedImportButton';
+import { DeleteFeedsButton } from './controls/DeleteFeedsButton';
 import { Settings } from './modals/Settings';
 
 export class NavMenu extends Component {
   
   static contextType = FeedContext;
 
-  state = {
-    showSettingsModal: false,
-    settings: {}
-  }
+  // state = {
+  //   showSettingsModal: false,
+  //   settings: {}
+  // }
 
-  handleSettingsButtonClick = (e) => {
-    this.setState({
-      showSettingsModal: true
-    });
-  }
+  // handleSettingsButtonClick = (e) => {
+  //   this.setState({
+  //     showSettingsModal: true
+  //   });
+  // }
 
-  handleSettingsCallback = (settingsObject) => {
-    this.setState({
-      showSettingsModal: false
-    });
+  // handleSettingsCallback = (settingsObject) => {
+  //   this.setState({
+  //     showSettingsModal: false
+  //   });
 
-    if (settingsObject !== null) {
-      const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;      
-      setSettings(settingsObject.settings);
-      saveAndRefreshFeedLinks(feedLinksSettings);
+  //   if (settingsObject !== null) {
+  //     const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;      
+  //     setSettings(settingsObject.settings);
+  //     saveAndRefreshFeedLinks(feedLinksSettings);
+  //   }
+  // }
+
+  handleFeedButtonCallback = (option) => {    
+    if (option.action === 'feedsImport') {
+        const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+        let feedLinkSettingsCopy = {...feedLinksSettings};
+        
+        feedLinkSettingsCopy.feedLinks.length = 0;
+        option.newFeedLinks.forEach((newFeedLink) => {
+            newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
+            feedLinkSettingsCopy.feedLinks.push(newFeedLink);
+        });
+        
+        saveAndRefreshFeedLinks(feedLinkSettingsCopy);
     }
-  }
+    else if (option.action === 'feedsExport') {
+
+    }
+    else if (option.action === 'feedsDelete') {
+      this.IsFeedsDelete = true;
+      this.ReactSwal.close();            
+    }
+}
 
   renderSettingsModal = (show) => {
     let content = '';
@@ -52,13 +78,18 @@ export class NavMenu extends Component {
           <p>Feed Reader</p>
         </div>
         <div>
-          <button onClick={this.handleSettingsButtonClick}>
+          <FeedImportButton settingsCallback = {this.handleFeedButtonCallback} />                
+          <FeedExportButton settingsCallback = {this.handleFeedButtonCallback} />
+          <DeleteFeedsButton settingsCallback = {this.handleFeedButtonCallback} />
+        </div>
+        <div>
+          {/* <button onClick={this.handleSettingsButtonClick}>
             <i className="fas fa-cog fa-2x"></i>
-          </button>
+          </button> */}
           <a href="https://github.com/m1k3f/RssMedia" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-github fa-2x"></i>
           </a>
-          {this.renderSettingsModal(this.state.showSettingsModal)}
+          {/* {this.renderSettingsModal(this.state.showSettingsModal)} */}
         </div>        
       </header>
     );

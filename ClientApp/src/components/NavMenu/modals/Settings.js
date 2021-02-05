@@ -38,8 +38,8 @@ export class Settings extends Component  {
 
             if (this.IsFeedsDelete) {
                 const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
-                feedLinksSettings.feedLinks.length = 0;
-                saveAndRefreshFeedLinks(feedLinksSettings);
+                // feedLinksSettings.feedLinks.length = 0;
+                // saveAndRefreshFeedLinks(feedLinksSettings);                
             }
         });
     }
@@ -64,7 +64,7 @@ export class Settings extends Component  {
                 </div>                
             </div>
         );
-    }
+    }    
 
     handleMaxArticlesCallback = (maxArticlesObject) => {
         let propertyName = Object.keys(maxArticlesObject)[0];
@@ -76,10 +76,21 @@ export class Settings extends Component  {
         this.IsSettingsChanged = true;
     }
 
-    handleFeedButtonCallback = (action) => {        
-        if (action === 'feedsDelete') {
+    handleFeedButtonCallback = (option) => {
+        if (option.action === 'feedsDelete') {
             this.IsFeedsDelete = true;
-            this.ReactSwal.close();
+            this.ReactSwal.close();            
+        }
+        else if (option.action === 'feedsImport') {
+            const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+            let feedLinkSettingsCopy = {...feedLinksSettings};
+            
+            option.newFeedLinks.forEach((newFeedLink) => {
+                newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
+                feedLinkSettingsCopy.feedLinks.push(newFeedLink);
+            });
+            
+            saveAndRefreshFeedLinks(feedLinkSettingsCopy);
         }
     }
 
