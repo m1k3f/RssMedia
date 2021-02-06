@@ -78,7 +78,7 @@ export class NavMenu extends Component {
           <i className="fas fa-rss-square fa-lg"></i>
           <p>Feed Reader</p>
         </div>
-        <div>
+        <div className="navFeedButtons">
           <FeedImportButton settingsCallback = {this.handleFeedButtonCallback} />                
           <FeedExportButton settingsCallback = {this.handleFeedButtonCallback} />
           <DeleteFeedsButton settingsCallback = {this.handleFeedButtonCallback} />

@@ -49,6 +49,16 @@ header > div:first-child > i {
     padding-right: 5px;
 }
 
+header > .navFeedButtons {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;    
+}
+
+header > .navFeedButtons i {
+    font-size: 17px;
+}
+
 header > div > p {
     font-size: 20px;
 }
