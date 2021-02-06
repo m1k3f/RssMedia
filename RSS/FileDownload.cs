@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,16 +13,14 @@ namespace RssMedia.RSS
     public class FileDownload
     {
         
-        public static async Task<FileStream> GetFeedFileStream(Models.Feeds feeds) 
+        public static Stream GetFeedFileStream(Models.Feeds feeds) 
         {
-            var source = new CancellationTokenSource();
-            var token = source.Token;
-
-            var fileStream = new FileStream("Feeds.opml", FileMode.Create);            
-            var xml = GetFeedsXml(feeds.FeedList);
-            await xml.SaveAsync(fileStream, SaveOptions.None, token);
+            var xmlDoc = GetFeedsXml(feeds.FeedList);
+            var xmlFullDocument = string.Concat(xmlDoc.Declaration.ToString(), "\r\n", xmlDoc.ToString());
+            var feedBytes = Encoding.UTF8.GetBytes(xmlFullDocument);
+            var dataStream = new MemoryStream(feedBytes);
         
-            return fileStream;
+            return dataStream;
         }
 
         private static XDocument GetFeedsXml(IEnumerable<Models.Feed> feedList)
@@ -42,7 +41,7 @@ namespace RssMedia.RSS
                                 new XAttribute("text", feed.FeedName), 
                                 new XAttribute("type", "rss"), 
                                 new XAttribute("htmlUrl", ""),
-                                new XAttribute("xmlUrl", feed.FeedRssUrl));
+                                new XAttribute("xmlUrl", WebUtility.UrlDecode(feed.FeedRssUrl)));
                 body.Add(outline);
             }
 

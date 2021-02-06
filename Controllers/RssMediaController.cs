@@ -169,15 +169,22 @@ namespace RssMedia.Controllers {
 
         [HttpPost]
         [ActionName("DownloadFeeds")]
-        public async Task<IActionResult> DownloadFeeds(Models.Feeds feeds)
+        public IActionResult DownloadFeeds(Models.Feeds feeds)
         {
-            Stream fileStream = await RSS.FileDownload.GetFeedFileStream(feeds);
-            string mimeType = "text/x-opml+xml";
-
-            return new FileStreamResult(fileStream, mimeType)
+            try
             {
-                FileDownloadName = "Feeds.opml"
-            };
+                Stream fileStream = RSS.FileDownload.GetFeedFileStream(feeds);
+                string mimeType = "text/x-opml+xml";
+
+                return new FileStreamResult(fileStream, mimeType)
+                {
+                    FileDownloadName = "Feeds.opml"
+                };
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
