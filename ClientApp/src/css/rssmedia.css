@@ -113,12 +113,11 @@ main {
 }
 
 .divFeedBar {
-    border: 3px solid #333333;
+    border: 2px solid #333333;
     border-radius: 5px;
     padding: 10px;
     display: flex;
-    max-height: 15vh;
-    overflow: auto;
+    height: 10vh;
 }
 
 .divAdd {
@@ -127,6 +126,7 @@ main {
     padding-left: 4px;
     padding-right: 10px;
     border-right: 2px solid #333333;
+    min-height: 7vh;
 }
 
 .divAdd > a {
@@ -193,6 +193,7 @@ main {
     padding-left: 10px;
     border-right: 1px solid #cccccc;
     padding-right: 10px;
+    min-height: 7vh;
 }
 
 .divAllFeeds a {
@@ -206,26 +207,45 @@ main {
 }
 
 .divAllFeeds a:hover {
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
+    background-color: #37474f;
+    color: #fbfbfb;
 }
 
 /* .divAllFeeds a:hover:not(.divFeedsActive) {
     background-color: #f6f6f6;
 } */
 
+.divFeedsWrapperWrapper {
+    display: flex;
+    align-items: normal;    
+    margin-left: 10px;
+    margin-right: 10px;
+    min-height: 7vh;
+}
+
+.divFeedsWrapper {
+    display: flex;
+    align-items: start;
+    transition: max-height .5s ease;
+}
+
 .divFeeds {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: left;
     flex-wrap: wrap;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
 }
 
 .divFeeds a {
     cursor: pointer;
     padding: 8px;
-    margin: 3px;
+    margin-top: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 5px;
     border: 2px solid #37474f;
     border-radius: 30px;
     min-width: 70px;
@@ -235,7 +255,9 @@ main {
 }
 
 .divFeeds a:hover {
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
+    background-color: #37474f;
+    color: #fbfbfb;
 }
 
 /* .divFeeds a:hover:not(.divFeedsActive) {

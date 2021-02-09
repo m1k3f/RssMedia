@@ -4,8 +4,25 @@ import { FeedLink } from './FeedLink';
 
 export class FeedLinks extends Component {
     
+    state = {
+        overflowVisible: false
+    }
+
     static contextType = FeedContext;
 
+    handleOverflowButtonClick = () => {
+        if (this.state.overflowVisible) {            
+            this.setState({
+                overflowVisible: false
+            });
+        }
+        else {
+            this.setState({
+                overflowVisible: true
+            });
+        }
+    }
+        
     handleFeedLinkCallback = (existingFeedLink, droppedFeedLink) => {
         if (droppedFeedLink !== null) {
             this.reorderFeedLinks(existingFeedLink, droppedFeedLink);
@@ -60,13 +77,10 @@ export class FeedLinks extends Component {
         let feedLinks = this.props.links;
         let content = '';        
         if (feedLinks.length > 0) {
-            // let order = 0;
             content = feedLinks.map((link) => {
-                // order++;
                 return (
                     <FeedLink 
                         key = {link.id} 
-                        // linkOrder = {order} 
                         linkData = {link} 
                         feedLinksCallback = {this.handleFeedLinkCallback}
                     />
@@ -78,9 +92,33 @@ export class FeedLinks extends Component {
     }
 
     render() {
+        let buttonIcon = null;
+        let feedListStyle = {};
+        if (this.state.overflowVisible) {
+            buttonIcon = <i className="fas fa-angle-up"></i>;
+            feedListStyle = {
+                overflowY: 'visible',
+                maxHeight: '50vh'
+            }
+        }
+        else {
+            buttonIcon = <i className="fas fa-angle-down"></i>;
+            feedListStyle = {
+                overflowY: 'hidden',
+                maxHeight: '7vh'                
+            }
+        }
+
         return(
-            <div className="divFeeds fade-in">
-                {this.renderFeedLinks()}
+            <div className="divFeedsWrapperWrapper">
+                <div className="divFeedsWrapper" style={feedListStyle}>
+                    <div className="divFeeds fade-in">
+                        {this.renderFeedLinks()}                    
+                    </div>                    
+                </div>
+                <button className="iconButton" onClick={this.handleOverflowButtonClick}>
+                    {buttonIcon}
+                </button>
             </div>
         );
     }
