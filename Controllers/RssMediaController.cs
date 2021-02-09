@@ -50,11 +50,18 @@ namespace RssMedia.Controllers {
             {
                 try
                 {
-                    var feedAccess = new RSS.FeedAccess(_client, link);
-                    var finalFeedLinkList = await feedAccess.GetFeedFromFeedUrl();
+                    IEnumerable<FeedLink> finalFeedLinkList = new List<FeedLink>();
+
+                    if (link.PopulateRemoteData)
+                    {
+                        var feedAccess = new RSS.FeedAccess(_client, link);
+                        finalFeedLinkList = await feedAccess.GetFeedFromFeedUrl();
+                    }                    
+
                     Models.FeedLink finalFeedLink = null;
                     if (finalFeedLinkList.Count() == 0)
                     {
+                        //Not populating data remotely, or no remote data was found right now
                         finalFeedLink = new Models.FeedLink()
                         {
                             Id = Guid.NewGuid(),
@@ -79,7 +86,8 @@ namespace RssMedia.Controllers {
                         Title = link.Name,
                         Url = link.AddUrl,
                         Name = link.Name,
-                        AddUrl = link.AddUrl
+                        AddUrl = link.AddUrl,
+                        PopulateRemoteData = link.PopulateRemoteData
                     };
                     returnFeedLinkList.Add(finalFeedLink);
                 }

@@ -64,7 +64,8 @@ export class FeedImportButton extends Component {
                 //element is a feed
                 feedLinkArray.push({
                     name: outlineElements[i].getAttribute('text'),
-                    addUrl: outlineElements[i].getAttribute('xmlUrl')
+                    addUrl: outlineElements[i].getAttribute('xmlUrl'),
+                    populateRemoteData: false
                 });
             }
         }
@@ -84,7 +85,16 @@ export class FeedImportButton extends Component {
 
         let serviceResponse = await fetch(request).then((response) => response.json());
         if (serviceResponse.length > 0) {
-            feedLinksData = serviceResponse;
+            serviceResponse.forEach((link) => {
+                feedLinksData.push({
+                    id: link.id,
+                    title: link.title,
+                    url: link.url,
+                    name: link.name,
+                    addUrl: link.addUrl,
+                    position: link.position
+                });
+            });
         }
 
         return feedLinksData;
