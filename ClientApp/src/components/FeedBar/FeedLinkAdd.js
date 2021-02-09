@@ -71,7 +71,14 @@ export class FeedLinkAdd extends Component {
         let feedLinkSettingsCopy = {...feedLinksSettings};
         
         newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
-        feedLinkSettingsCopy.feedLinks.push(newFeedLink);
+        feedLinkSettingsCopy.feedLinks.push({
+            id: newFeedLink.id,
+            title: newFeedLink.title,
+            url: newFeedLink.url,
+            name: newFeedLink.name,
+            addUrl: newFeedLink.addUrl,
+            position: newFeedLink.position
+        });
         
         saveAndRefreshFeedLinks(feedLinkSettingsCopy);
     }
