@@ -34,7 +34,7 @@ export class NavMenu extends Component {
   // }
 
   handleFeedButtonCallback = (option) => {
-    const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+    const { setFeed, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
     if (option.action === 'feedsImport') {        
       let feedLinkSettingsCopy = {...feedLinksSettings};
       
@@ -53,6 +53,7 @@ export class NavMenu extends Component {
       let feedLinkSettingsCopy = {...feedLinksSettings};        
       feedLinkSettingsCopy.feedLinks.length = 0;
       saveAndRefreshFeedLinks(feedLinkSettingsCopy);
+      setFeed(null);
     }
 }
 
