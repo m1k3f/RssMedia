@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-import { FeedProvider } from './components/context/FeedContext';
-import { NavMenu } from './components/NavMenu/NavMenu';
-import { Content } from './components/Content';
+
+import {Reader} from './components/Reader';
 import './css/rssmedia.css';
-import './css/animation.css'
+import './css/animation.css';
 import './css/fontawesome/all.min.css';
 
 export default class App extends Component {
 
   render () {
     return (
-      <div className="fade-in">
-        <FeedProvider>
-          <NavMenu />
-          <Content />
-        </FeedProvider>
-      </div>
+      <Reader />
     );
   }
 }
