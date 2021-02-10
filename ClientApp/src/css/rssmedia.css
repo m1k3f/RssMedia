@@ -117,7 +117,10 @@ main {
     border-radius: 5px;
     padding: 10px;
     display: flex;
-    height: 10vh;
+    /* min-height: 7vh;
+    max-height: 10vh; */
+    /* height: 10vh; */
+    min-width: 100%;
 }
 
 .divAdd {
@@ -218,16 +221,28 @@ main {
 
 .divFeedsWrapperWrapper {
     display: flex;
-    align-items: normal;    
+    align-items: normal;
     margin-left: 10px;
     margin-right: 10px;
+    /* border-bottom: 1px solid #e4e4e4; */
+    border-radius: 5px;
     min-height: 7vh;
 }
 
 .divFeedsWrapper {
     display: flex;
     align-items: start;
-    transition: max-height .5s ease;
+    transition: max-height .4s linear;
+}
+
+.divFeedsHidden {
+    overflow-y: hidden;
+    max-height: 7vh;
+}
+
+.divFeedsExpanded {
+    overflow-y: visible;
+    max-height: 50vh;
 }
 
 .divFeeds {
@@ -236,13 +251,15 @@ main {
     justify-content: left;
     flex-wrap: wrap;
     border-radius: 5px;
-    background-color: #f8f8f8;
+    border: 1px solid #e4e4e4;
+    z-index: 100;
+    width: 100%;
 }
 
 .divFeeds a {
     cursor: pointer;
     padding: 8px;
-    margin-top: 5px;
+    margin-top: 6px;
     margin-left: 3px;
     margin-right: 3px;
     margin-bottom: 5px;

@@ -11,12 +11,16 @@ export class FeedLinks extends Component {
     static contextType = FeedContext;
 
     handleOverflowButtonClick = () => {
-        if (this.state.overflowVisible) {            
+        if (this.state.overflowVisible) {
+            this.feedsWrapper.classList.remove('divFeedsExpanded');
+            this.feedsWrapper.classList.add('divFeedsHidden');
             this.setState({
                 overflowVisible: false
             });
         }
         else {
+            this.feedsWrapper.classList.remove('divFeedsHidden');
+            this.feedsWrapper.classList.add('divFeedsExpanded');
             this.setState({
                 overflowVisible: true
             });
@@ -93,25 +97,16 @@ export class FeedLinks extends Component {
 
     render() {
         let buttonIcon = null;
-        let feedListStyle = {};
         if (this.state.overflowVisible) {
             buttonIcon = <i className="fas fa-angle-up"></i>;
-            feedListStyle = {
-                overflowY: 'visible',
-                maxHeight: '50vh'
-            }
         }
         else {
             buttonIcon = <i className="fas fa-angle-down"></i>;
-            feedListStyle = {
-                overflowY: 'hidden',
-                maxHeight: '7vh'                
-            }
         }
 
         return(
             <div className="divFeedsWrapperWrapper">
-                <div className="divFeedsWrapper" style={feedListStyle}>
+                <div className="divFeedsWrapper divFeedsHidden" ref={el => this.feedsWrapper = el}>
                     <div className="divFeeds fade-in">
                         {this.renderFeedLinks()}                    
                     </div>                    
