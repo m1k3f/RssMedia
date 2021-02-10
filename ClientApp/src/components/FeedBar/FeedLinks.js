@@ -98,10 +98,10 @@ export class FeedLinks extends Component {
     render() {
         let buttonIcon = null;
         if (this.state.overflowVisible) {
-            buttonIcon = <i className="fas fa-angle-up"></i>;
+            buttonIcon = <i className="fas fa-chevron-circle-up fa-lg"></i>;
         }
         else {
-            buttonIcon = <i className="fas fa-angle-down"></i>;
+            buttonIcon = <i className="fas fa-chevron-circle-down fa-lg"></i>;
         }
 
         return(
