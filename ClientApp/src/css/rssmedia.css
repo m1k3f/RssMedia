@@ -55,6 +55,14 @@ header > .navFeedButtons {
     justify-content: space-between;    
 }
 
+header > .navFeedButtons button {
+    transition: transform .2s;
+}
+
+header > .navFeedButtons button:hover {
+    transform: scale(1.4);
+}
+
 header > .navFeedButtons i {
     font-size: 17px;
 }
