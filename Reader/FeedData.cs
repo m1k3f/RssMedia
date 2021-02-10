@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace RssMedia.RSS
+namespace RssMedia.Reader
 {
     public class FeedData
     {
@@ -23,12 +23,12 @@ namespace RssMedia.RSS
             _feedName = feedName;
         }
 
-        public List<Models.Article> GetArticles()
+        public List<Models.Reader.Article> GetArticles()
         {
-            var articleList = new List<Models.Article>();
+            var articleList = new List<Models.Reader.Article>();
             foreach (var rssArticle in _rssFeed.Items)
             {
-                var article = new Models.Article()
+                var article = new Models.Reader.Article()
                 {
                     Id = Guid.NewGuid(),
                     ArticleId = rssArticle.Id,
@@ -52,7 +52,7 @@ namespace RssMedia.RSS
             return articleList;
         }
 
-        public static List<Models.Article> GetFilteredArticles(List<Models.Article> articles, int articleOffset, int articleCount)
+        public static List<Models.Reader.Article> GetFilteredArticles(List<Models.Reader.Article> articles, int articleOffset, int articleCount)
         {
             //Order list of articles by publish date, filter list by articleOffset and articleCount
             var orderedArticles = articles.OrderByDescending(a => a.ArticlePublishingDate).ToList();            

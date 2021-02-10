@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RssMedia.RSS
+namespace RssMedia.Reader
 {
     public interface IUtilitiesService
     {

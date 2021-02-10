@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RssMedia.Models
+namespace RssMedia.Models.Reader
 {
     public class Feeds
     {

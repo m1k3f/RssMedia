@@ -8,12 +8,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace RssMedia.RSS
+namespace RssMedia.Reader
 {
     public class FileDownload
     {
         
-        public static Stream GetFeedFileStream(Models.Feeds feeds) 
+        public static Stream GetFeedFileStream(Models.Reader.Feeds feeds) 
         {
             var xmlDoc = GetFeedsXml(feeds.FeedList);
             var xmlFullDocument = string.Concat(xmlDoc.Declaration.ToString(), "\r\n", xmlDoc.ToString());
@@ -23,7 +23,7 @@ namespace RssMedia.RSS
             return dataStream;
         }
 
-        private static XDocument GetFeedsXml(IEnumerable<Models.Feed> feedList)
+        private static XDocument GetFeedsXml(IEnumerable<Models.Reader.Feed> feedList)
         {
             var xDocument = new XDocument(
                                 new XDeclaration("1.0", "UTF-8", null));

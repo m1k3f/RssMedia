@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RssMedia.Models;
-using CodeHollow.FeedReader;
+using RssMedia.Models.Reader;
+//using CodeHollow.FeedReader;
 
 namespace RssMedia.Controllers {
     [ApiController]
@@ -25,11 +25,11 @@ namespace RssMedia.Controllers {
 
         [HttpPost]
         [ActionName("GetFeedLinks")]
-        public async Task<IEnumerable<Models.FeedLink>> GetFeedLinks([FromBody]Models.FeedLink feedLink)
+        public async Task<IEnumerable<FeedLink>> GetFeedLinks([FromBody]FeedLink feedLink)
         {          
             try
             {                
-                var feedAccess = new RSS.FeedAccess(_client, feedLink);
+                var feedAccess = new Reader.FeedAccess(_client, feedLink);
                 var feedLinkList = await feedAccess.GetFeedLinkList();                
 
                 return feedLinkList;                
@@ -37,15 +37,15 @@ namespace RssMedia.Controllers {
             catch(Exception ex)
             {
                 var errorMessage = ex.Message;
-                return new List<Models.FeedLink>();
+                return new List<FeedLink>();
             }            
         }
 
         [HttpPost]
         [ActionName("GetFeedLinksList")]
-        public async Task<IEnumerable<Models.FeedLink>> GetFeedLinksList([FromBody]IEnumerable<Models.FeedLink> feedLinksList)
+        public async Task<IEnumerable<FeedLink>> GetFeedLinksList([FromBody]IEnumerable<FeedLink> feedLinksList)
         {
-            var returnFeedLinkList = new List<Models.FeedLink>();
+            var returnFeedLinkList = new List<FeedLink>();
             foreach(var link in feedLinksList)
             {
                 try
@@ -54,15 +54,15 @@ namespace RssMedia.Controllers {
 
                     if (link.PopulateRemoteData)
                     {
-                        var feedAccess = new RSS.FeedAccess(_client, link);
+                        var feedAccess = new Reader.FeedAccess(_client, link);
                         finalFeedLinkList = await feedAccess.GetFeedFromFeedUrl();
                     }                    
 
-                    Models.FeedLink finalFeedLink = null;
+                    FeedLink finalFeedLink = null;
                     if (finalFeedLinkList.Count() == 0)
                     {
                         //Not populating data remotely, or no remote data was found right now
-                        finalFeedLink = new Models.FeedLink()
+                        finalFeedLink = new FeedLink()
                         {
                             Id = Guid.NewGuid(),
                             Title = link.Name,
@@ -80,7 +80,7 @@ namespace RssMedia.Controllers {
                 }
                 catch(Exception)
                 {
-                    var finalFeedLink = new Models.FeedLink()
+                    var finalFeedLink = new FeedLink()
                     {
                         Id = Guid.NewGuid(),
                         Title = link.Name,
@@ -98,7 +98,7 @@ namespace RssMedia.Controllers {
 
         [HttpPost]
         [ActionName("Feed")]
-        public async Task<Models.Feed> Feed([FromBody]Models.Feeds feeds)
+        public async Task<Feed> Feed([FromBody]Feeds feeds)
         {           
             var feed = feeds.FeedList.First();
 
@@ -108,7 +108,7 @@ namespace RssMedia.Controllers {
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feed.FeedRssUrl);
                     var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                    var feedData = new RSS.FeedData(rssFeed);
+                    var feedData = new Reader.FeedData(rssFeed);
 
                     feed.Id = Guid.NewGuid();
                     //feed.FeedTitle = rssFeed.Title;
@@ -116,7 +116,7 @@ namespace RssMedia.Controllers {
                     
                     var articleList = feedData.GetArticles();
                     var articleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
-                    feed.FeedArticles = RSS.FeedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                      
+                    feed.FeedArticles = Reader.FeedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                      
                 }
                 else 
                 {
@@ -134,12 +134,12 @@ namespace RssMedia.Controllers {
 
         [HttpPost]
         [ActionName("AllFeeds")]
-        public async Task<Models.Feed> AllFeeds(Models.Feeds feeds) 
+        public async Task<Feed> AllFeeds(Feeds feeds) 
         {
-            Models.Feed allFeed = null;            
+            Feed allFeed = null;            
             try
             {
-                allFeed = new Models.Feed() 
+                allFeed = new Feed() 
                 {
                     Id = Guid.NewGuid(),
                     FeedLinkId = Guid.Empty,
@@ -149,23 +149,23 @@ namespace RssMedia.Controllers {
                     FeedRssUrl = string.Empty
                 };
 
-                var articleList = new List<Models.Article>();
-                RSS.FeedData feedData = null;
+                var articleList = new List<Article>();
+                Reader.FeedData feedData = null;
                 foreach (var feedItem in feeds.FeedList)
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
                     var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                    feedData = new RSS.FeedData(rssFeed, feedItem.FeedName);
+                    feedData = new Reader.FeedData(rssFeed, feedItem.FeedName);
 
                     var articles = feedData.GetArticles();
                     var articleCount = (articles.Count < 10) ? articles.Count : 10; //max 10 articles from feed
-                    var feedArticles = RSS.FeedData.GetFilteredArticles(articles, 0, articleCount);
+                    var feedArticles = Reader.FeedData.GetFilteredArticles(articles, 0, articleCount);
                     
                     articleList.AddRange(feedArticles);
                 }
 
                 var allArticleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
-                allFeed.FeedArticles = RSS.FeedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, allArticleCount);
+                allFeed.FeedArticles = Reader.FeedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, allArticleCount);
 
                 return allFeed;
             }
@@ -177,11 +177,11 @@ namespace RssMedia.Controllers {
 
         [HttpPost]
         [ActionName("DownloadFeeds")]
-        public IActionResult DownloadFeeds(Models.Feeds feeds)
+        public IActionResult DownloadFeeds(Feeds feeds)
         {
             try
             {
-                Stream fileStream = RSS.FileDownload.GetFeedFileStream(feeds);
+                Stream fileStream = Reader.FileDownload.GetFeedFileStream(feeds);
                 string mimeType = "text/x-opml+xml";
 
                 return new FileStreamResult(fileStream, mimeType)
@@ -189,7 +189,7 @@ namespace RssMedia.Controllers {
                     FileDownloadName = "Feeds.opml"
                 };
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return StatusCode(500);
             }
@@ -205,7 +205,7 @@ namespace RssMedia.Controllers {
                 if (!string.IsNullOrEmpty(originalUrlValue))
                 {
                     var decodedOriginalUrl = WebUtility.UrlDecode(originalUrlValue);
-                    var utilities = new RSS.UtilitiesService(_client);
+                    var utilities = new Reader.UtilitiesService(_client);
                     var resolvedUrl = await utilities.GetRedirectedUrl(decodedOriginalUrl);
 
                     var urlJson = new Dictionary<string, string>() 
@@ -232,7 +232,7 @@ namespace RssMedia.Controllers {
 
         #region Private Methods
 
-        private Models.Feed GetFeedWithError(Models.Feed feed, Exception exception)
+        private Feed GetFeedWithError(Feed feed, Exception exception)
         {
             feed.FeedArticles = null;
             feed.FeedError = new FeedError()
@@ -245,14 +245,14 @@ namespace RssMedia.Controllers {
 
         private async Task<CodeHollow.FeedReader.Feed> GetRssFeed(string url)
         {
-            var rssFeed = await FeedReader.ReadAsync(url);
+            var rssFeed = await CodeHollow.FeedReader.FeedReader.ReadAsync(url);
             var specifiedFeed = rssFeed;
             
-            if (rssFeed.Type == FeedType.Rss_2_0)
+            if (rssFeed.Type == CodeHollow.FeedReader.FeedType.Rss_2_0)
             {
                 specifiedFeed = ((CodeHollow.FeedReader.Feeds.Rss20Feed)rssFeed.SpecificFeed).ToFeed();
             }
-            else if (rssFeed.Type == FeedType.MediaRss)
+            else if (rssFeed.Type == CodeHollow.FeedReader.FeedType.MediaRss)
             {
                 specifiedFeed = ((CodeHollow.FeedReader.Feeds.MediaRssFeed)rssFeed.SpecificFeed).ToFeed();
             }

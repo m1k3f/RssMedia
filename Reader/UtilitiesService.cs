@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RssMedia.RSS
+namespace RssMedia.Reader
 {
     public class UtilitiesService : IUtilitiesService
     {

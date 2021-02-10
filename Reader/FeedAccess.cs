@@ -8,14 +8,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CodeHollow.FeedReader;
 
-namespace RssMedia.RSS
+namespace RssMedia.Reader
 {
     public class FeedAccess
     {
         private IHttpClientFactory _clientFactory;
-        private Models.FeedLink _originalfeedLink;
+        private Models.Reader.FeedLink _originalfeedLink;
         private string _decodedUrl;
-        public FeedAccess(IHttpClientFactory clientFactory, Models.FeedLink feedLink)
+        public FeedAccess(IHttpClientFactory clientFactory, Models.Reader.FeedLink feedLink)
         {
             _clientFactory = clientFactory;
             _originalfeedLink = feedLink;
@@ -23,7 +23,7 @@ namespace RssMedia.RSS
             _decodedUrl = GetValidUrl(WebUtility.UrlDecode(feedLink.AddUrl));
         }
 
-        public async Task<IEnumerable<Models.FeedLink>> GetFeedLinkList()
+        public async Task<IEnumerable<Models.Reader.FeedLink>> GetFeedLinkList()
         {
             //var feedsByUrl = await GetFeedsFromPageUrl();
             var feedsByUrl = await GetFeedsFromPageUrlManual();
@@ -40,14 +40,14 @@ namespace RssMedia.RSS
                 }
                 else
                 {
-                    return new List<Models.FeedLink>();
+                    return new List<Models.Reader.FeedLink>();
                 }
             }
         }        
 
-        public async Task<IEnumerable<Models.FeedLink>> GetFeedFromFeedUrl()
+        public async Task<IEnumerable<Models.Reader.FeedLink>> GetFeedFromFeedUrl()
         {
-            var feedLinkList = new List<Models.FeedLink>();
+            var feedLinkList = new List<Models.Reader.FeedLink>();
 
             if (_decodedUrl != null)
             {
@@ -56,7 +56,7 @@ namespace RssMedia.RSS
                 if (rssFeed != null)
                 {
                     var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-                    feedLinkList.Add(new Models.FeedLink() {
+                    feedLinkList.Add(new Models.Reader.FeedLink() {
                         Id = guidId,
                         Title = rssFeed.Title,
                         Url = WebUtility.UrlEncode(_decodedUrl),
@@ -86,9 +86,9 @@ namespace RssMedia.RSS
             return feed;
         }
 
-        private async Task<IEnumerable<Models.FeedLink>> GetFeedsFromPageUrlManual()
+        private async Task<IEnumerable<Models.Reader.FeedLink>> GetFeedsFromPageUrlManual()
         {
-            var feedLinkList = new List<Models.FeedLink>();
+            var feedLinkList = new List<Models.Reader.FeedLink>();
 
             //TODO: don't get source as string; use stream instead
             var contentString = await GetPageSource(_decodedUrl);
@@ -107,7 +107,7 @@ namespace RssMedia.RSS
                     if (linkString != null)
                     {
                         var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-                        feedLinkList.Add(new Models.FeedLink() {
+                        feedLinkList.Add(new Models.Reader.FeedLink() {
                             Id = guidId,
                             Title = titleString,
                             Url = WebUtility.UrlEncode(linkString),
