@@ -15,6 +15,9 @@ export class FeedLink extends Component {
             const { setFeed, feedLinksSettings } = this.context;
             const feedLinkId = eventTarget.dataset.feedid;
             const feedUrl = eventTarget.dataset.url;
+
+            setFeed(null, true);
+
             let feedObject = {
                 feedlinkid: feedLinkId,
                 feedrssurl: feedUrl,
@@ -45,7 +48,7 @@ export class FeedLink extends Component {
                                 this.props.linkData.lastAccessed : 
                                 nowDateTime;
             feed.firstAccess = this.props.linkData.lastAccessed !== undefined ? false : true;            
-            setFeed(feed);
+            setFeed(feed, false);
              
             this.props.linkData.lastAccessed = nowDateTime;
             this.props.feedLinksCallback(this.props.linkData, null);

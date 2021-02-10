@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FeedContext from '../context/FeedContext';
-import { Spinner } from './Controls/Spinner';
 import { Article } from './Article';
 import { FeedArticlesControls } from './FeedArticlesControls';
 import { FeedTitle } from './Controls/FeedTitle';
@@ -8,16 +7,11 @@ import { FeedTitle } from './Controls/FeedTitle';
 export class FeedArticles extends Component {
 
     constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedFeed: null,
-            hideSpinner: true,
-            showLinkFrame: false
-        }        
+        super(props);      
     }    
 
     static contextType = FeedContext;    
+
 
     getFeedTitle = () => {
         let feedTitle = '';
@@ -33,25 +27,43 @@ export class FeedArticles extends Component {
         return (feedTitle);
     }
 
-    renderSpinner = () => {
-        return (<Spinner hide={this.state.hideSpinner} />);
+    renderFeedArticles = () => {
+        let content = null;
+        const { selectedFeed, selectedFeedLoading } = this.context;
+
+        if (selectedFeedLoading) {
+            content = (
+                <div className="divFeedArticlesLoading">
+                    <i className="fas fa-spinner fa-spin fa-2x"></i>  
+                </div>              
+            );            
+        }
+        else {
+            content = (
+                <div className="divFeedArticles">
+                    <FeedTitle title={this.getFeedTitle()} />
+                    <section>
+                        <FeedArticlesControls feed={this.context.selectedFeed} />
+                        {this.renderArticles(selectedFeed)}
+                    </section>
+                </div>
+            );
+        }
+
+        return (content);
     }
 
-    renderArticles = () => {        
-        let content = '';
-        const feedContext = this.context;
-
-        if (feedContext != null && feedContext.selectedFeed != null && 
-            feedContext.selectedFeed.feedArticles != null) {           
-
-            content = feedContext.selectedFeed.feedArticles.map((article) => {                           
-                return (
+    renderArticles = (selectedFeed) => {        
+        let content = null;
+        if (selectedFeed != null && selectedFeed.feedArticles != null) {
+            content = selectedFeed.feedArticles.map((article) => {                           
+                return (                    
                     <Article 
                         key = {article.id}  
                         data = {article} 
-                        feedLastAccessed = {feedContext.selectedFeed.lastAccessed}
-                        feedFirstAccess = {feedContext.selectedFeed.firstAccess}
-                    />
+                        feedLastAccessed = {selectedFeed.lastAccessed}
+                        feedFirstAccess = {selectedFeed.firstAccess}
+                    />                    
                 );
             });
         }
@@ -65,13 +77,9 @@ export class FeedArticles extends Component {
 
     render() {
         return (
-            <div className="divFeedArticles">
-                <FeedTitle title={this.getFeedTitle()} />
-                <section>
-                    <FeedArticlesControls feed = {this.context.selectedFeed} />
-                    {this.renderArticles()}
-                </section>
-            </div>
+            <React.Fragment>
+                {this.renderFeedArticles()}
+            </React.Fragment>
         );
     }
 }

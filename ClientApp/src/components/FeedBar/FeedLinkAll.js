@@ -5,19 +5,9 @@ export class FeedLinkAll extends Component {
     
     static contextType = FeedContext;
 
-    // async componentDidMount() {
-    //     let responseFeed = await this.getAllFeeds();
-        
-    //     if (responseFeed.feedError === null) {
-    //         this.allFeedsButton.classList.add('divFeedsActive');
-    //     }
-
-    //     const {setFeed} = this.context;
-    //     setFeed(responseFeed);
-    // }
-
     handleAllFeedsButton = async (e) => {
-        //const eventTarget = e.target;
+        const {setFeed} = this.context;
+        setFeed(null, true);
         
         let responseFeed = await this.getAllFeeds();
 
@@ -27,8 +17,8 @@ export class FeedLinkAll extends Component {
         }
 
         //add feed to context
-        const {setFeed} = this.context;
-        setFeed(responseFeed);
+        
+        setFeed(responseFeed, false);
     }
 
     getAllFeeds = async () => {

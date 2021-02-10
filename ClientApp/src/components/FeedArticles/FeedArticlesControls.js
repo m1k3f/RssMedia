@@ -83,10 +83,10 @@ export class FeedArticlesControls extends Component {
     }
 
     renderControls = () => {
-        let hideDiv = (this.props.feed == null);
+        let showDiv = (this.props.feed !== null);
         let isAllFeeds = (this.props.feed != null && this.props.feed.feedName === 'All Feeds');
         let content = null;
-        if (!hideDiv) {
+        if (showDiv) {
             if (isAllFeeds) {
                 content = (
                     <div className="divFeedArticlesControls">

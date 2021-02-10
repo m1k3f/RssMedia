@@ -240,7 +240,7 @@ main {
 .divFeedsWrapper {
     display: flex;
     align-items: start;
-    transition: max-height .4s linear;
+    transition: max-height .3s ease-out;
 }
 
 .divFeedsHidden {
@@ -258,8 +258,8 @@ main {
     align-items: start;
     justify-content: left;
     flex-wrap: wrap;
-    border-radius: 5px;
-    border: 1px solid #e4e4e4;
+    /* border-radius: 5px;
+    border: 1px solid #e4e4e4; */
     z-index: 100;
     width: 100%;
 }
@@ -292,6 +292,13 @@ main {
 .divFeedsActive {
     background-color: #37474f;
     color: #fbfbfb;
+}
+
+.divFeedArticlesLoading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
 }
 
 .divFeedArticles {
