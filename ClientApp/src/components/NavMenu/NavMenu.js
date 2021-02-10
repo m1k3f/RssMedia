@@ -93,7 +93,7 @@ export class NavMenu extends Component {
 
   render () {
     let helpIconStyle = {
-      color: '#004de6'
+      color: '#0044cc'
     };
 
     let githubIconStyle = {
@@ -115,10 +115,11 @@ export class NavMenu extends Component {
           {/* <button onClick={this.handleSettingsButtonClick}>
             <i className="fas fa-cog fa-2x"></i>
           </button> */}
-          <button className="iconButton" onClick={this.handleHelpButtonClick}>
+          <button className="iconButton" onClick={this.handleHelpButtonClick} title="Help">
             <i className="fas fa-question-circle fa-2x" style={helpIconStyle}></i>
           </button>
-          <a href="https://github.com/m1k3f/RssMedia" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/m1k3f/RssMedia" target="_blank" rel="noopener noreferrer"
+              title="View the Code!">
             <i className="fab fa-github fa-2x" style={githubIconStyle}></i>
           </a>
           {/* {this.renderSettingsModal(this.state.showSettingsModal)} */}
