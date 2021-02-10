@@ -43,9 +43,9 @@ export class EnclosureLink extends Component {
                 <audio controls 
                         onPlay={this.handlePlayButton}
                         ref={el => this.audioElement = el} />
-                <button onClick={this.handleDownloadButton}>
+                {/* <button onClick={this.handleDownloadButton}>
                     <i className="fas fa-download fa-lg"></i>&nbsp;Download
-                </button>
+                </button> */}
             </div>
         );
         
@@ -85,19 +85,19 @@ export class EnclosureLink extends Component {
         }
     }
 
-    handleDownloadButton = async (e) => {
-        let {article} = this.props;
+    // handleDownloadButton = async (e) => {
+    //     let {article} = this.props;
         
-        fetch(article.articleEnclosureUrl).then(response => {
-            response.blob().then(blob => {
-                let downloadLink = document.createElement('a');
-                let url = window.URL.createObjectURL(blob);
-                downloadLink.href = url;
-                downloadLink.download = 'download';        
-                downloadLink.click();
-            });
-        });        
-    }
+    //     fetch(article.articleEnclosureUrl).then(response => {
+    //         response.blob().then(blob => {
+    //             let downloadLink = document.createElement('a');
+    //             let url = window.URL.createObjectURL(blob);
+    //             downloadLink.href = url;
+    //             downloadLink.download = 'download';        
+    //             downloadLink.click();
+    //         });
+    //     });        
+    // }
 
     render() {        
         return(
