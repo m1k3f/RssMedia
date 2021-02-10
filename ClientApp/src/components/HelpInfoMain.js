@@ -14,11 +14,17 @@ export class HelpInfoMain extends Component {
         })
     }
 
+    handleHelpInfoCallback = () => {
+        this.setState({
+            showHelpModal: false
+        });
+    }
+
     renderHelpModal = () => {
         let content = null;
         if (this.state.showHelpModal) {
           content = (
-            <HelpInfo />
+            <HelpInfo helpInfoCallback={this.handleHelpInfoCallback} />
           );
         }
     

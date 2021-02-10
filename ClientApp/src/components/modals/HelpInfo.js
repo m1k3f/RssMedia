@@ -18,9 +18,7 @@ export class HelpInfo extends Component {
             showCloseButton: true
         })
         .then((value) => {
-            if (value.isDismissed) {
-                                    
-            }
+            this.props.helpInfoCallback();
         });
     }
 
