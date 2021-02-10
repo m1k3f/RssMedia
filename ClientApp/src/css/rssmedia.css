@@ -64,29 +64,39 @@ header > .navFeedButtons button:hover {
 }
 
 header > .navFeedButtons i {
-    font-size: 17px;
+    font-size: 17px;    
 }
 
 header > div > p {
     font-size: 20px;
 }
 
-header > div:last-child {
+header > .navFeedButtonsRight {
     display: flex;
     align-items: center;
 }
 
-header > div:last-child > button {
-    outline: none;
-    border: none;
-    cursor: pointer;
+header > .navFeedButtonsRight > * {
+    margin-left: 6px;
+    padding: 4px;
 }
 
-header > div:last-child i {
-    color: black;
+header > .navFeedButtonsRight i {
+    font-size: 30px;    
 }
 
-.settingsModal {
+.helpModal {
+    max-height: 40vh;
+    overflow: auto;
+}
+
+.helpModal > p {
+    font-size: 12px;
+    text-align: left;
+    padding: 2px;
+}
+
+/* .settingsModal {
     display: flex;
     flex-direction: column;
     border: 1px solid #b0bec5;
@@ -114,7 +124,7 @@ header > div:last-child i {
     outline: none;
     cursor: pointer;
     padding: 10px;
-}
+} */
 
 main {
     font-size: 13px;
