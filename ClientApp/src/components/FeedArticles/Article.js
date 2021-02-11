@@ -68,7 +68,7 @@ export class Article extends Component {
         let article = this.props.data;
         if (article.articleUrl !== null && article.articleUrl.length > 0) {
             content = (
-                <button onClick={this.handleArticleLink}>
+                <button className="iconButton" onClick={this.handleArticleLink} title="View Link">
                     <i className="fas fa-link fa-lg"></i>
                 </button>
             );
@@ -82,7 +82,7 @@ export class Article extends Component {
         let article = this.props.data;
         if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0) {
             content = (
-                <button onClick={this.handleEnclosureClick}>
+                <button className="iconButton" onClick={this.handleEnclosureClick} title="View Attachment">
                     <i className="fas fa-paperclip fa-lg"></i>
                 </button>
             );
@@ -120,7 +120,7 @@ export class Article extends Component {
 
         let articleTitle = (article.articleFullTitle !== null) ? article.articleFullTitle : article.articleTitle;
         let author = (article.articleAuthor !== null) ? 
-                        <div><p>by {article.articleAuthor}</p></div> : 
+                        <div className="feedArticleAuthor"><p>by {article.articleAuthor}</p></div> : 
                         null;
         
         let formattedPublishDateTime = null;
@@ -161,15 +161,15 @@ export class Article extends Component {
                     </div>
                 </button>
                 <section style={sectionStyle}>
-                    <div>
-                        <h4>{article.articleTitle}</h4>
+                    <div className="feedArticleDetails">
+                        <h3>{article.articleTitle}</h3>
                         <div>
                             {this.renderViewLinkButton()}
                             {this.renderEnclosureButton()}
                         </div>
                     </div>
                     {author}
-                    <div>
+                    <div className="feedArticleContent">
                         <div>{ReactHtmlParser(article.articleDescription)}</div>
                         {this.renderArticleImage()}
                     </div>                    
