@@ -19,6 +19,9 @@ export class MessageDisplay extends Component {
             allowEnterKey: false,            
             showCloseButton: true
         })
+        .then((value) => {
+            this.props.messageDisplayCallback();
+        });
     }
 
     getMessageModalContent = () => {

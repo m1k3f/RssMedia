@@ -66,6 +66,15 @@ export class FeedLinkAdd extends Component {
         this.saveNewFeedLink(feedLink);
     }
 
+    handleMessageDisplayCallback = () => {
+        this.setState({
+            showNewFeedModal: false,
+            showMultiFeedModal: false,
+            showErrorModal: false,
+            feedLinkData: []
+        });
+    }
+
     saveNewFeedLink = (newFeedLink) => {
         const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
         let feedLinkSettingsCopy = {...feedLinksSettings};
@@ -105,7 +114,7 @@ export class FeedLinkAdd extends Component {
         let content = '';
         if (showErrorModal) {
             content = (
-                <MessageDisplay isError={false}>
+                <MessageDisplay isError={false} messageDisplayCallback={this.handleMessageDisplayCallback}>
                     No feeds could be found for the given URL.
                 </MessageDisplay>
             )
