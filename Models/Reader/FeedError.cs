@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RssMedia.Models.Reader
+namespace Models.Reader
 {
     public class FeedError
     {

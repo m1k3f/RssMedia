@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RssMedia.Models.Reader;
-//using CodeHollow.FeedReader;
+
+using Models.Reader;
 
 namespace RssMedia.Controllers {
     [ApiController]

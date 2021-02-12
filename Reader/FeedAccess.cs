@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CodeHollow.FeedReader;
 
-namespace RssMedia.Reader
+namespace Reader
 {
     public class FeedAccess
     {
