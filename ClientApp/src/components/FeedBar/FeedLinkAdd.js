@@ -9,7 +9,8 @@ export class FeedLinkAdd extends Component {
         showNewFeedModal: false,
         showMultiFeedModal: false,
         showErrorModal: false,
-        feedLinkData: []
+        feedLinkData: [],
+        isLoading: false
     }
 
     static contextType = FeedContext;
@@ -19,38 +20,52 @@ export class FeedLinkAdd extends Component {
             showNewFeedModal: true,
             showMultiFeedModal: false,
             showErrorModal: false,
-            feedLinkData: [] 
+            feedLinkData: [],
+            isLoading: true
         });
     }    
 
     handleNewFeedCallback = (feedLinkData) => {
-        if (feedLinkData.length === 1) {
-            //1 RSS feed found for url
-            this.setState({
-                showNewFeedModal: false,
-                showMultiFeedModal: false,
-                showErrorModal: false,
-                feedLinkData: []
-            });
+        if (feedLinkData !== null) {
+            if (feedLinkData.length === 1) {
+                //1 RSS feed found for url
+                this.setState({
+                    showNewFeedModal: false,
+                    showMultiFeedModal: false,
+                    showErrorModal: false,
+                    feedLinkData: [],
+                    isLoading: false
+                });
 
-            this.saveNewFeedLink(feedLinkData[0]);
-        }
-        else if (feedLinkData.length > 1) {
-            //Multiple RSS feeds found for url
-            this.setState({
-                showNewFeedModal: false,
-                showMultiFeedModal: true,
-                showErrorModal: false,
-                feedLinkData: feedLinkData
-            });
+                this.saveNewFeedLink(feedLinkData[0]);
+            }
+            else if (feedLinkData.length > 1) {
+                //Multiple RSS feeds found for url
+                this.setState({
+                    showNewFeedModal: false,
+                    showMultiFeedModal: true,
+                    showErrorModal: false,
+                    feedLinkData: feedLinkData
+                });
+            }
+            else {
+                this.setState({
+                    showNewFeedModal: false,
+                    showMultiFeedModal: false,
+                    showErrorModal: true,
+                    feedLinkData: [],
+                    isLoading: false
+                })
+            }
         }
         else {
             this.setState({
                 showNewFeedModal: false,
                 showMultiFeedModal: false,
-                showErrorModal: true,
-                feedLinkData: []
-            })
+                showErrorModal: false,
+                feedLinkData: [],
+                isLoading: false
+            });
         }
         
     }
@@ -60,7 +75,8 @@ export class FeedLinkAdd extends Component {
             showNewFeedModal: false,
             showMultiFeedModal: false,
             showErrorModal: false,
-            feedLinkData: []
+            feedLinkData: [],
+            isLoading: false
         });
 
         this.saveNewFeedLink(feedLink);
@@ -123,12 +139,28 @@ export class FeedLinkAdd extends Component {
         return content;
     }
 
-    render() {
-        return(
-            <div className="divAdd">
+    renderAddItem = () => {
+        let content = null;
+        if (this.state.isLoading) {
+            content = (
+                <i className="fas fa-spinner fa-spin"></i>
+            );
+        }
+        else {
+            content = (
                 <a onClick={this.handleAddButton}>
                     <i className="fas fa-plus fa-lg"></i>
                 </a>
+            );
+        }
+
+        return (content);
+    }
+
+    render() {
+        return(
+            <div className="divAdd">
+                {this.renderAddItem()}
                 {this.renderNewFeedModal(this.state.showNewFeedModal)}
                 {this.renderMultiFeedModal(this.state)}
                 {this.renderMessageModal(this.state)}

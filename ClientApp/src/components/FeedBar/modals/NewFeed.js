@@ -19,14 +19,17 @@ export class NewFeed extends Component {
             showCloseButton: true
         })
         .then(async (value) => {
-            if (value.isConfirmed) {                
+            if (value.isConfirmed) {
                 let feedLink = {
                     name: this.feedName.value,
                     addurl: encodeURIComponent(this.feedUrl.value)
                 };
-
+                
                 //send entered values to service
                 this.getFeedLinkData(feedLink);
+            }
+            else {
+                this.feedLinkAddCallback(null);
             }
         });
     }

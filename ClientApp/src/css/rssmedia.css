@@ -82,7 +82,7 @@ header > .navFeedButtonsRight > * {
 }
 
 header > .navFeedButtonsRight i {
-    font-size: 30px;    
+    font-size: 28px;    
 }
 
 .helpModal {
@@ -151,13 +151,17 @@ main {
 .divAdd > a {
     cursor: pointer;
     color: #29a3a3;
-    padding: 10px;
-    margin-top: 6px;
     transition: transform .2s;
 }
 
 .divAdd > a:hover {
     transform: scale(1.5);
+}
+
+.divAdd i {
+    padding: 10px;
+    margin-top: 6px;
+    font-size: 18px;
 }
 
 .addEditButtonModal {
@@ -239,7 +243,7 @@ main {
 }
 
 .divFeedsWrapperWrapper button {
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .divFeedsWrapper {
@@ -408,7 +412,7 @@ article[name="feedArticle"] > button {
     flex-direction: row;
     justify-content: space-between;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     outline: none;
     width: 100%;
     line-height: 16px;
@@ -458,7 +462,7 @@ article[name="feedArticle"] > button > div i {
 
 article[name="feedArticle"] section {
     background-color: #fafafa;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     padding-left: 10px;
     padding-right: 10px;
     /* padding-bottom: 10px; */
