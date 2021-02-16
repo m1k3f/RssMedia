@@ -15,7 +15,8 @@ export class HelpInfo extends Component {
             allowEnterKey: false,
             showConfirmButton: false,
             showCancelButton: false,
-            showCloseButton: true
+            showCloseButton: true,
+            width: '60%',
         })
         .then((value) => {
             this.props.helpInfoCallback();
@@ -41,13 +42,15 @@ export class HelpInfo extends Component {
                     All feeds are saved in web browser storage, but it is wise to back up your feeds to
                     a file just in case!
                 </p>
+                <p>&nbsp;</p>
                 <p style={{fontWeight:'600'}}>Main Feed Bar</p>
                 <p>
                     To add a new feed, click the&nbsp;<i className="fas fa-plus fa-lg" style={{color: '#29a3a3'}}></i>&nbsp;
                     button. You will need to provide a name and URL for the feed. The URL can either be a 
-                    direct link to an RSS feed or to a web page that has RSS feeds associated. If multiple RSS
+                    direct link to an RSS feed or to a web page that has RSS feeds associated (e.g. npr.org, nytimes.com, etc). If multiple RSS
                     feeds are found, then choose your desired feed.
                 </p>
+                <p>&nbsp;</p>
                 <p style={{fontWeight:'600'}}>Feed Articles</p>
                 <p>
                     When viewing articles in a feed,&nbsp;<i className="fas fa-sync-alt fa-lg"></i> refreshes 

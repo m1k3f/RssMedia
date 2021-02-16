@@ -26,7 +26,7 @@ export class DeleteButton extends Component {
 
     render() {
         return(
-            <a className="clickable" onClick={this.handleDeleteClick}>
+            <a className="clickable" onClick={this.handleDeleteClick} title="Delete Feed">
                 <i className="fas fa-trash fa-lg"></i>
             </a>
         );

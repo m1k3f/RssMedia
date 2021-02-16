@@ -42,7 +42,7 @@ export class SyncButton extends Component {
                         'fas fa-sync-alt fa-lg';
 
         return(
-            <a className="clickable" onClick={this.handleSyncClick}>
+            <a className="clickable" onClick={this.handleSyncClick} title="Refresh Articles">
                 <i className={iconClass}></i>
             </a>
         );

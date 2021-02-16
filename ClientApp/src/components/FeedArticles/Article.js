@@ -68,7 +68,7 @@ export class Article extends Component {
         let article = this.props.data;
         if (article.articleUrl !== null && article.articleUrl.length > 0) {
             content = (
-                <button className="iconButton" onClick={this.handleArticleLink} title="View Link">
+                <button className="iconButton" onClick={this.handleArticleLink} title="View Full Article">
                     <i className="fas fa-link fa-lg"></i>
                 </button>
             );
@@ -129,8 +129,9 @@ export class Article extends Component {
             formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
         }
 
+        let articleColor = '#546e7a';
         let headerButtonStyle = {
-            backgroundColor: '#546e7a' //default to unread color
+            backgroundColor: articleColor //default to unread color
         };
         
         if (article.articlePublishingDate != null) {
@@ -138,15 +139,17 @@ export class Article extends Component {
             let lastAccessedDate = new Date(this.props.feedLastAccessed);
             let firstAccess = this.props.feedFirstAccess;
             if (publishDate < lastAccessedDate && !firstAccess) {
+                articleColor = '#37474f';
                 headerButtonStyle = {
-                    backgroundColor: '#37474f' //read color
+                    backgroundColor: articleColor //read color
                 };
             }
         }
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
-            maxHeight: (this.state.opened) ? '50vh' : '0'
+            maxHeight: (this.state.opened) ? '50vh' : '0',
+            border: `1px solid ${articleColor}`
         }
 
         return(

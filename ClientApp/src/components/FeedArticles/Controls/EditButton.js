@@ -40,7 +40,7 @@ export class EditButton extends Component {
     render() {
         return(
             <React.Fragment>
-                <a className="clickable" onClick={this.handleEditClick}>
+                <a className="clickable" onClick={this.handleEditClick} title="Edit Feed">
                     <i className="fas fa-edit fa-lg"></i>
                 </a>
                 {this.renderEditModal()}
