@@ -1,6 +1,4 @@
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI',Arial,sans-serif;
+* {    
     background-color: #fbfbfb;
 }
 
@@ -24,12 +22,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 6px;
-}
-
-body {    
-    margin: auto;    
-    width: 80%;
+    padding: 6px;    
 }
 
 header {

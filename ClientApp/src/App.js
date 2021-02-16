@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {Reader} from './components/Reader';
-import './css/rssmedia.css';
 import './css/animation.css';
 import './css/fontawesome/all.min.css';
 
