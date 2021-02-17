@@ -85,7 +85,7 @@ export class NavMenu extends Component {
           <DeleteFeedsButton settingsCallback = {this.handleFeedButtonCallback} />
         </div>
         <div className={styles.headerButtonsRight}>
-          <button className={`${styles.headerHelpButton} iconButton`} onClick={this.handleHelpButtonClick} title="Help">
+          <button className={`${styles.headerHelpButton} ${styles.iconButton}`} onClick={this.handleHelpButtonClick} title="Help">
             <i className={`fas fa-question-circle fa-2x`} 
                 style={helpIconStyle}></i>
           </button>

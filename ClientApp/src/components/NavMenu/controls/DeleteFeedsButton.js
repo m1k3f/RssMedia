@@ -28,7 +28,8 @@ export class DeleteFeedsButton extends Component {
 
         return (
             <React.Fragment>
-                <button className={`${styles.headerButtonCenter} iconButton`} onClick={this.handleDeleteButtonClick} title="Delete All Feeds">
+                <button className={`${styles.headerButtonCenter} ${styles.iconButton}`} 
+                        onClick={this.handleDeleteButtonClick} title="Delete All Feeds">
                     <i className={`fas fa-trash fa-2x`} style={iconStyle}></i>
                 </button>
             </React.Fragment>

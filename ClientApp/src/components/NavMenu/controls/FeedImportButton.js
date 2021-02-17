@@ -111,12 +111,12 @@ export class FeedImportButton extends Component {
 
         if (this.state.isLoading) {
             content = (
-                <i className={`${styles.headerButtonCenterIcon} fas fa-spinner fa-spin fa-2x`} style={iconStyle}></i>
+                <i className={`fas fa-spinner fa-spin fa-2x`} style={iconStyle}></i>
             );
         }
         else {
             content = (
-                <button className={`${styles.headerButtonCenter} iconButton`}  
+                <button className={`${styles.headerButtonCenter} ${styles.iconButton}`}  
                         onClick={this.handleFeedsImport} title="Import Feeds">
                     <i className={`fas fa-file-upload fa-2x`} style={iconStyle}></i>
                 </button>

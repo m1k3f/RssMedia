@@ -42,19 +42,11 @@
     transform: scale(1.4);
 }
 
-.headerButtonCenterIcon {
-    font-size: 17px;
-}
-
 .headerButtonsRight {
     display: flex;
     align-items: center;
     line-height: 10px;
 }
-
-/* .headerButtonsRightIcon {
-    font-size: 28px;
-} */
 
 .headerHelpButton {
     margin-left: 6px;
@@ -64,16 +56,4 @@
 .headerCodeLink {
     margin-left: 6px;
     padding: 4px;
-}
-
-.helpModal {
-    max-height: 40vh;
-    overflow: auto;
-}
-
-.helpModalText {
-    font-size: 13px;
-    text-align: left;
-    margin-top: 0;
-    margin-bottom: 8px;
 }

@@ -80,7 +80,7 @@ export class FeedExportButton extends Component {
         }
         else {
             content = (
-                <button className={`${styles.headerButtonCenter} iconButton`} 
+                <button className={`${styles.headerButtonCenter} ${styles.iconButton}`} 
                         onClick={this.handleFeedsExport} title="Export Feeds">
                     <i className={`fas fa-file-download fa-2x`} style={iconStyle}></i>
                 </button>
