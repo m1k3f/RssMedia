@@ -1,0 +1,41 @@
+.helpModal {
+    max-height: 40vh;
+    overflow: auto;
+}
+
+.helpModalText {
+    font-size: 13px;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* .settingsModal {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #b0bec5;
+    border-radius:4px;
+    padding: 10px;
+}
+
+.settingsModal p {    
+    font-weight: 600;
+}
+
+.settingsModal > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.settingsModal > div * {
+    font-size: 14px;
+}
+
+.settingsModal button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+} */
