@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+import styles from './FeedBarModal.module.css';
 
 export class NewFeed extends Component {
 
@@ -36,9 +38,11 @@ export class NewFeed extends Component {
 
     getNewFeedModalContent = () => {
         return (
-            <div className="addEditButtonModal">                
-                <input placeholder="Name..." type="text" ref={el => this.feedName = el} />
-                <input placeholder="URL..." type="text" ref={el => this.feedUrl = el} />
+            <div className={styles.addEditButtonModal}>                
+                <input className={styles.addEditButtonModalInput} placeholder="Name..." 
+                        type="text" ref={el => this.feedName = el} />
+                <input className={styles.addEditButtonModalInput} placeholder="URL..." 
+                        type="text" ref={el => this.feedUrl = el} />
             </div>
         );
     }

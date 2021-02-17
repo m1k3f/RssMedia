@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+import styles from './FeedBarModal.module.css';
 
 export class MultiFeedSelection extends Component {
     
@@ -32,18 +33,20 @@ export class MultiFeedSelection extends Component {
             count++;
             let feedLinkId = `feedLink${count}`;
             return (
-                <div key={link.id}>
+                <div key={link.id} className={styles.multiFeedModalOption}>
                     <input type="radio" id={feedLinkId} name="rbFeedLink" value={link.id} />
-                    <label htmlFor={feedLinkId}>
-                        <p>{link.title}</p>
-                        <p>{decodeURIComponent(link.url)}</p>
+                    <label className={styles.optionLabel} htmlFor={feedLinkId}>
+                        <p className={styles.optionLabelText}>{link.title}</p>
+                        <p className={`${styles.optionLabelText} ${styles.optionLabelUrl}`}>
+                            {decodeURIComponent(link.url)}
+                        </p>
                     </label>
                 </div>
             );
         });
 
         return (
-            <div className="multiFeedModal">
+            <div className={styles.multiFeedModal}>
                 <p>Multiple feeds exist. Please select the desired feed: </p>
                 {content}
             </div>

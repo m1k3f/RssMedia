@@ -1,0 +1,43 @@
+.addEditButtonModal {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.addEditButtonModalInput {
+    margin: 2px;
+    font-size: 13px;
+}
+
+.multiFeedModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.multiFeedModalOption {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 6px;
+    background-color: #F5FCFF;
+}
+
+.optionLabel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0px;
+    background-color: #F5FCFF;
+}
+
+.optionLabelText {
+    padding: 2px;
+    margin: 0;
+    text-align: left;
+    background-color: #F5FCFF;
+}
+
+.optionLabelUrl {
+    font-size: 13px;
+}
