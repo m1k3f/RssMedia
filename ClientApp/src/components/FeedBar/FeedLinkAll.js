@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../context/FeedContext';
+import styles from './FeedBar.module.css';
 
 export class FeedLinkAll extends Component {
     
@@ -13,7 +15,7 @@ export class FeedLinkAll extends Component {
 
         if (responseFeed.feedError === null) {
             this.clearActiveFeed();        
-            this.allFeedsButton.classList.add('divFeedsActive');
+            this.allFeedsButton.classList.add(styles.divFeedsActive);
         }
 
         //add feed to context
@@ -53,13 +55,14 @@ export class FeedLinkAll extends Component {
     clearActiveFeed = () => {
         //TODO: rewrite this to not use querySelectorAll
         let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
-        feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
+        feedButtons.forEach(f => f.classList.remove(styles.divFeedsActive));
     }
 
     render() {
         return (
-            <div className="divAllFeeds">
-                <a name="btnFeeds" 
+            <div className={styles.divAllFeeds}>
+                <a className={styles.divAllFeedsButton} 
+                    name="btnFeeds" 
                     onClick={this.handleAllFeedsButton}
                     ref={el => this.allFeedsButton = el}>
                     All Feeds

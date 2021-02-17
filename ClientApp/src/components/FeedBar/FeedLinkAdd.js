@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../context/FeedContext';
 import { NewFeed } from './modals/NewFeed';
 import { MultiFeedSelection } from './modals/MultiFeedSelection';
 import { MessageDisplay } from '../modals/MessageDisplay';
+import styles from './FeedBar.module.css';
 
 export class FeedLinkAdd extends Component {
     state = {
@@ -141,15 +143,21 @@ export class FeedLinkAdd extends Component {
 
     renderAddItem = () => {
         let content = null;
-        if (this.state.isLoading) {
+        let iconStyle = {
+            padding: '10px',
+            marginTop: '6px',
+            fontSize: '18px'
+        };
+
+        if (this.state.isLoading) {            
             content = (
-                <i className="fas fa-spinner fa-spin"></i>
+                <i className="fas fa-spinner fa-spin" style={iconStyle}></i>
             );
         }
         else {
             content = (
-                <a onClick={this.handleAddButton}>
-                    <i className="fas fa-plus fa-lg"></i>
+                <a className={styles.divAddLink} onClick={this.handleAddButton}>
+                    <i className="fas fa-plus fa-lg" style={iconStyle}></i>
                 </a>
             );
         }
@@ -159,7 +167,7 @@ export class FeedLinkAdd extends Component {
 
     render() {
         return(
-            <div className="divAdd">
+            <div className={styles.divAdd}>
                 {this.renderAddItem()}
                 {this.renderNewFeedModal(this.state.showNewFeedModal)}
                 {this.renderMultiFeedModal(this.state)}

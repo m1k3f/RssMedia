@@ -1,0 +1,120 @@
+.iconButton {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 6px;    
+}
+
+.divFeedBar {
+    border: 2px solid #333333;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+    min-width: 100%;
+}
+
+.divAdd {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 4px;
+    padding-right: 10px;    
+    border-right: 2px solid #333333;
+}
+
+.divAddLink {
+    cursor: pointer;
+    color: #29a3a3;
+    transition: transform .2s;
+}
+
+.divAddLink:hover {
+    transform: scale(1.5);
+}
+
+.divAllFeeds {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.divAllFeedsButton {
+    cursor: pointer;
+    padding: 8px;
+    margin-top: 6px;
+    border: 2px solid #37474f;
+    border-radius: 30px;
+    min-width: 80px;
+    font-weight: 600;
+    transition: transform .2s;
+}
+
+.divAllFeedsButton:hover {
+    background-color: #37474f;
+    color: #fbfbfb;
+}
+
+.divFeedLinks {
+    display: flex;
+    align-items: flex-start;
+    margin-right: 10px;
+    padding-left: 10px;
+    border-left: 1px solid #cccccc;
+}
+
+.divFeedLinksButton {
+    margin-top: 8px;
+}
+
+.divFeedsWrapper {
+    display: flex;
+    align-items: start;
+    transition: max-height .3s ease-out;
+}
+
+.divFeedsHidden {
+    overflow-y: hidden;
+    max-height: 45px;
+}
+
+.divFeedsExpanded {
+    overflow-y: visible;
+    max-height: 50vh;
+}
+
+.divFeeds {
+    display: flex;
+    align-items: start;
+    justify-content: left;
+    flex-wrap: wrap;
+    z-index: 100;
+    width: 100%;
+}
+
+
+
+.feedLink {
+    cursor: pointer;
+    padding: 8px;
+    margin-top: 6px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+    border: 2px solid #37474f;
+    border-radius: 30px;
+    min-width: 70px;
+    transition: transform .2s;
+    text-align: center;
+    font-weight: 600;
+}
+
+.feedLink:hover {
+    background-color: #37474f;
+    color: #fbfbfb;
+}
+
+.divFeedsActive {
+    background-color: #37474f;
+    color: #fbfbfb;
+}

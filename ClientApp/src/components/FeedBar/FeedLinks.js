@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../context/FeedContext';
 import { FeedLink } from './FeedLink';
+import styles from './FeedBar.module.css';
 
 export class FeedLinks extends Component {
     
@@ -12,15 +14,15 @@ export class FeedLinks extends Component {
 
     handleOverflowButtonClick = () => {
         if (this.state.overflowVisible) {
-            this.feedsWrapper.classList.remove('divFeedsExpanded');
-            this.feedsWrapper.classList.add('divFeedsHidden');
+            this.feedsWrapper.classList.remove(styles.divFeedsExpanded);
+            this.feedsWrapper.classList.add(styles.divFeedsHidden);
             this.setState({
                 overflowVisible: false
             });
         }
         else {
-            this.feedsWrapper.classList.remove('divFeedsHidden');
-            this.feedsWrapper.classList.add('divFeedsExpanded');
+            this.feedsWrapper.classList.remove(styles.divFeedsHidden);
+            this.feedsWrapper.classList.add(styles.divFeedsExpanded);
             this.setState({
                 overflowVisible: true
             });
@@ -105,13 +107,15 @@ export class FeedLinks extends Component {
         }
 
         return(
-            <div className="divFeedsWrapperWrapper">
-                <div className="divFeedsWrapper divFeedsHidden" ref={el => this.feedsWrapper = el}>
-                    <div className="divFeeds fade-in">
+            <div className={styles.divFeedLinks}>
+                <div className={`${styles.divFeedsWrapper} ${styles.divFeedsHidden}`} 
+                        ref={el => this.feedsWrapper = el}>
+                    <div className={`fade-in ${styles.divFeeds}`}>
                         {this.renderFeedLinks()}                    
                     </div>                    
                 </div>
-                <button className="iconButton" onClick={this.handleOverflowButtonClick}>
+                <button className={`${styles.divFeedLinksButton} ${styles.iconButton}`} 
+                        onClick={this.handleOverflowButtonClick}>
                     {buttonIcon}
                 </button>
             </div>

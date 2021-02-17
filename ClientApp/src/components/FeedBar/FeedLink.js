@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../context/FeedContext';
+import styles from './FeedBar.module.css';
 
 export class FeedLink extends Component {    
 
@@ -31,7 +33,7 @@ export class FeedLink extends Component {
             if (feed.feedError === null) {
                 //show active feed in feedbar
                 this.clearActiveFeed();
-                eventTarget.classList.add('divFeedsActive');
+                eventTarget.classList.add(styles.divFeedsActive);
                 //document.querySelector('.divFeedArticles').hidden = false;               
 
                 //TODO: change logic to hide spinner
@@ -100,7 +102,7 @@ export class FeedLink extends Component {
     clearActiveFeed = () => {
         //TODO: rewrite this to not use querySelectorAll
         let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
-        feedButtons.forEach(f => f.classList.remove('divFeedsActive'));
+        feedButtons.forEach(f => f.classList.remove(styles.divFeedsActive));
     }
 
     render() {
@@ -108,7 +110,8 @@ export class FeedLink extends Component {
         let feedUrl = (feedLink.url == null) ? '' : feedLink.url;
 
         return (            
-            <a name="btnFeeds" onClick={this.handleFeedButton} 
+            <a className={styles.feedLink} name="btnFeeds" 
+                onClick={this.handleFeedButton} 
                 data-feedid={feedLink.id} 
                 data-url={feedUrl}
                 draggable
