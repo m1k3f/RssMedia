@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../context/FeedContext';
 import { Article } from './Article';
 import { FeedArticlesControls } from './FeedArticlesControls';
 import { FeedTitle } from './Controls/FeedTitle';
+import styles from './FeedArticles.module.css';
 
 export class FeedArticles extends Component {
 
@@ -33,16 +35,16 @@ export class FeedArticles extends Component {
 
         if (selectedFeedLoading) {
             content = (
-                <div className="divFeedArticlesLoading">
+                <div className={styles.divFeedArticlesLoading}>
                     <i className="fas fa-spinner fa-spin fa-2x"></i>  
                 </div>              
             );            
         }
         else {
             content = (
-                <div className="divFeedArticles">
+                <div className={styles.divFeedArticles}>
                     <FeedTitle title={this.getFeedTitle()} />
-                    <section>
+                    <section className={styles.feedControlsArticles}>
                         <FeedArticlesControls feed={this.context.selectedFeed} />
                         {this.renderArticles(selectedFeed)}
                     </section>
@@ -69,7 +71,7 @@ export class FeedArticles extends Component {
         }
 
         return(
-            <div className="divFeedArticlesList">
+            <div className={styles.divFeedArticlesList}>
                 {content}
             </div>
         );

@@ -1,9 +1,11 @@
 import React, { Component} from 'react';
+
 import FeedContext from '../context/FeedContext';
 import { SyncButton } from './Controls/SyncButton';
 import { EditButton } from './Controls/EditButton';
 import { DeleteButton } from './Controls/DeleteButton';
 import { FeedImageLink } from './Controls/FeedImageLink';
+import styles from './FeedArticles.module.css';
 
 export class FeedArticlesControls extends Component {
     
@@ -89,7 +91,7 @@ export class FeedArticlesControls extends Component {
         if (showDiv) {
             if (isAllFeeds) {
                 content = (
-                    <div className="divFeedArticlesControls">
+                    <div className={styles.divFeedArticlesControls}>
                         <FeedImageLink selectedFeed = {this.props.feed} />
                         <SyncButton controlsCallback = {this.handleButtonClick}
                                     selectedFeed = {this.props.feed} />
@@ -98,7 +100,7 @@ export class FeedArticlesControls extends Component {
             }
             else {
                 content = (
-                    <div className="divFeedArticlesControls">
+                    <div className={styles.divFeedArticlesControls}>
                         <FeedImageLink selectedFeed = {this.props.feed} />
                         <SyncButton controlsCallback = {this.handleButtonClick}
                                     selectedFeed = {this.props.feed} />

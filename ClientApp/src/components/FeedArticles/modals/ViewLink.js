@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 
+import styles from './FeedArticleModals.module.css';
+
 export class ViewLink extends Component {
 
     state = {
@@ -31,7 +33,7 @@ export class ViewLink extends Component {
                 showCancelButton: false,
                 showCloseButton: true,
                 width: '90%',
-                customClass: 'swalPopup'
+                customClass: styles.swalPopup
             })
             .then((value) => {
                 if (value.isDismissed) {
@@ -47,11 +49,14 @@ export class ViewLink extends Component {
         let frameUrl = this.getFrameUrl();
 
         return (
-            <div className="divViewLink">
+            <div className={styles.divViewLink}>
                 <a href={this.state.article.articleUrl} target="_blank" rel="noopener noreferrer">
-                    <p className="truncate">{this.state.article.articleUrl}</p>
+                    <p className={`${styles.divViewLinkText} ${styles.truncate}`}>
+                        {this.state.article.articleUrl}
+                    </p>
                 </a>
-                <iframe title="View Link Modal"
+                <iframe className={styles.divViewLinkFrame} 
+                        title="View Link Modal"
                         src={frameUrl} 
                         name="extLinkFrame"
                         ref={el => this.frameElement = el}>

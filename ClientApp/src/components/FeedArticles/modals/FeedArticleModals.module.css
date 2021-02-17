@@ -1,0 +1,53 @@
+.truncate {
+    width: 80vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.addEditButtonModal {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.addEditButtonModalItem {
+    margin: 2px;
+    font-size: 13px;
+}
+
+.divViewLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divViewLinkText {
+    font-size: 13px;
+}
+
+.divViewLinkFrame {
+    width: 100%;
+    height: 80vh;
+}
+
+.swalPopup {
+    height: 100%;
+}
+
+.divEnclosure {
+    display: flex;
+    flex-direction: column;    
+}
+
+/* .divEnclosure > * {
+    padding-bottom: 6px;
+}
+
+.divEnclosure > p {
+    font-size: 13px;
+}
+
+.divEnclosure > a {
+    font-size: 13px;
+} */

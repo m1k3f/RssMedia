@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+
 import FeedContext from '../../context/FeedContext';
+import styles from './FeedArticleModals.module.css';
 
 export class EditFeed extends Component {
     
@@ -50,16 +52,20 @@ export class EditFeed extends Component {
         let feedUrlDisplay = (feedUrl.length > 50) ? `${feedUrl.substring(0, 50)}...` : feedUrl;
 
         return (
-            <div className="addEditButtonModal">                
-                <input placeholder="Feed Button Name..." 
+            <div className={styles.addEditButtonModal}>                
+                <input className={styles.addEditButtonModalItem} 
+                        placeholder="Feed Button Name..." 
                         type="text" 
                         defaultValue={feedName} 
                         ref={el => this.feedLinkName = el} />
-                <input placeholder="Feed Title..." 
+                <input className={styles.addEditButtonModalItem} 
+                        placeholder="Feed Title..." 
                         type="text"
                         defaultValue={feedTitle}
                         ref={el => this.feedTitle = el} />
-                <a href={feedUrl}>{feedUrlDisplay}</a>
+                <a className={styles.addEditButtonModalItem} href={feedUrl}>
+                    {feedUrlDisplay}
+                </a>
             </div>
         );
     }

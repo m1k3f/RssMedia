@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 
+import styles from './FeedArticleModals.module.css';
+
 export class EnclosureLink extends Component {
 
     constructor() {
@@ -37,12 +39,18 @@ export class EnclosureLink extends Component {
     }
 
     getEnclosureModalContent = () => {
+        let itemStyle = {
+            paddingBottom: '6px',
+            fontSize: '13px'
+        };
+
         return (
-            <div className="divEnclosure">
-                <p>{this.props.article.articleTitle}</p>
+            <div className={styles.divEnclosure}>
+                <p style={itemStyle}>{this.props.article.articleTitle}</p>
                 <audio controls 
                         onPlay={this.handlePlayButton}
-                        ref={el => this.audioElement = el} />
+                        ref={el => this.audioElement = el}
+                        style={itemStyle} />
                 {/* <button onClick={this.handleDownloadButton}>
                     <i className="fas fa-download fa-lg"></i>&nbsp;Download
                 </button> */}

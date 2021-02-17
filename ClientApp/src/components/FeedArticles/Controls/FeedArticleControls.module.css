@@ -1,0 +1,30 @@
+.iconButton {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 6px;    
+}
+
+.divFeedTitle {
+    font-size: 24px;
+    font-weight: 600;
+    padding-top: 15px;
+    padding-bottom: 10px
+}
+
+.controlsImage {
+    width: 42px;
+    height: 42px;
+    border: 1px solid black;
+    transition: transform .2s;    
+    margin-bottom: 30px;
+}
+
+.controlsImage:hover {
+    transform: scale(1.5);
+}
+
+.controlsButton {
+    margin-bottom: 30px;
+    padding: 0;
+}

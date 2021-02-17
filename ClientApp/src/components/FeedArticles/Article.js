@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import { EnclosureLink } from './modals/EnclosureLink';
 import { ViewLink } from './modals/ViewLink';
+import styles from './FeedArticles.module.css';
 
 export class Article extends Component {  
 
@@ -67,9 +69,15 @@ export class Article extends Component {
         let content = '';
         let article = this.props.data;
         if (article.articleUrl !== null && article.articleUrl.length > 0) {
+            let iconStyle = {
+                color: '#4d4d4d',
+                fontSize: '20px'
+            };
+
             content = (
-                <button className="iconButton" onClick={this.handleArticleLink} title="View Full Article">
-                    <i className="fas fa-link fa-lg"></i>
+                <button className={`${styles.iconButton} ${styles.feedArticleDetailsButton}`} 
+                        onClick={this.handleArticleLink} title="View Full Article">
+                    <i className="fas fa-link fa-lg" style={iconStyle}></i>
                 </button>
             );
         }
@@ -81,9 +89,15 @@ export class Article extends Component {
         let content = '';
         let article = this.props.data;
         if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0) {
+            let iconStyle = {
+                color: '#4d4d4d',
+                fontSize: '20px'
+            };
+
             content = (
-                <button className="iconButton" onClick={this.handleEnclosureClick} title="View Attachment">
-                    <i className="fas fa-paperclip fa-lg"></i>
+                <button className={`${styles.iconButton} ${styles.feedArticleDetailsButton}`} 
+                        onClick={this.handleEnclosureClick} title="View Attachment">
+                    <i className="fas fa-paperclip fa-lg" style={iconStyle}></i>
                 </button>
             );
         }
@@ -96,7 +110,7 @@ export class Article extends Component {
         let article = this.props.data;
         if (article.articleImageUrl != null && article.articleImageUrl.length > 0) {
             content = (
-                <img src={article.articleImageUrl} />
+                <img src={article.articleImageUrl} style={{marginBottom:'10px'}} />
             );
         }
 
@@ -120,7 +134,7 @@ export class Article extends Component {
 
         let articleTitle = (article.articleFullTitle !== null) ? article.articleFullTitle : article.articleTitle;
         let author = (article.articleAuthor !== null) ? 
-                        <div className="feedArticleAuthor"><p>by {article.articleAuthor}</p></div> : 
+                        <div><p className={styles.feedArticleAuthor}>by {article.articleAuthor}</p></div> : 
                         null;
         
         let formattedPublishDateTime = null;
@@ -146,6 +160,11 @@ export class Article extends Component {
             }
         }
 
+        let expandIconStyle = {
+            paddingLeft: '15px',
+            backgroundColor: headerButtonStyle.backgroundColor
+        };
+
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
         let sectionStyle = {
             maxHeight: (this.state.opened) ? '50vh' : '0',
@@ -153,27 +172,32 @@ export class Article extends Component {
         }
 
         return(
-            <article name="feedArticle">
-                <button style={headerButtonStyle} onClick={this.handleHeaderClick}>
-                    <div style={headerButtonStyle}>
-                        <p style={headerButtonStyle}>{articleTitle}</p>
-                        <div style={headerButtonStyle}>
-                            <p style={headerButtonStyle}>{formattedPublishDateTime}</p>
-                            <i style={headerButtonStyle} className={angleIcon}></i>
+            <article className={styles.feedArticle} name="feedArticle">
+                <button className={styles.headerButton} style={headerButtonStyle} 
+                        onClick={this.handleHeaderClick}>
+                    <div className={styles.headerButtonContent} style={headerButtonStyle}>
+                        <p className={styles.headerButtonText} style={headerButtonStyle}>{articleTitle}</p>
+                        <div className={styles.headerButtonRight} style={headerButtonStyle}>
+                            <p className={styles.headerButtonRightText} style={headerButtonStyle}>
+                                {formattedPublishDateTime}
+                            </p>
+                            <i style={expandIconStyle} className={angleIcon}></i>
                         </div>
                     </div>
                 </button>
-                <section style={sectionStyle}>
-                    <div className="feedArticleDetails">
-                        <h3>{article.articleTitle}</h3>
+                <section className={styles.feedArticleContent} style={sectionStyle}>
+                    <div className={styles.feedArticleDetails}>
+                        <h3 style={{margin:'0'}}>{article.articleTitle}</h3>
                         <div>
                             {this.renderViewLinkButton()}
                             {this.renderEnclosureButton()}
                         </div>
                     </div>
                     {author}
-                    <div className="feedArticleContent">
-                        <div>{ReactHtmlParser(article.articleDescription)}</div>
+                    <div>
+                        <div style={{marginBottom:'10px'}}>
+                            {ReactHtmlParser(article.articleDescription)}
+                        </div>
                         {this.renderArticleImage()}
                     </div>                    
                     {this.renderModal()}

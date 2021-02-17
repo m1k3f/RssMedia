@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import FeedContext from '../../context/FeedContext';
+import styles from './FeedArticleControls.module.css';
 
 export class DeleteButton extends Component {
 
@@ -25,10 +27,15 @@ export class DeleteButton extends Component {
     }
 
     render() {
+        let iconStyle = {
+            fontSize: '40px'
+        };
+
         return(
-            <a className="clickable" onClick={this.handleDeleteClick} title="Delete Feed">
-                <i className="fas fa-trash fa-lg"></i>
-            </a>
+            <button className={`${styles.iconButton} ${styles.controlsButton}`} 
+                    onClick={this.handleDeleteClick} title="Delete Feed">
+                <i className="fas fa-trash fa-lg" style={iconStyle}></i>
+            </button>
         );
     }
 }
