@@ -4,6 +4,7 @@ import FeedContext from './context/FeedContext';
 import { FeedBar } from './FeedBar/FeedBar';
 import { FeedArticles } from './FeedArticles/FeedArticles';
 import { HelpInfoMain } from './HelpInfoMain';
+import styles from './Content.module.css';
 
 export class Content extends Component {
 
@@ -29,7 +30,7 @@ export class Content extends Component {
 
     render() {
         return (
-            <main>                
+            <main className={styles.mainContent}>
                 <FeedBar />
                 {this.renderItem()}
             </main>
