@@ -4,36 +4,16 @@ import FeedContext from '../context/FeedContext';
 import { FeedExportButton } from './controls/FeedExportButton';
 import { FeedImportButton } from './controls/FeedImportButton';
 import { DeleteFeedsButton } from './controls/DeleteFeedsButton';
-import { Settings } from './modals/Settings';
 import { HelpInfo } from '../modals/HelpInfo'
+import styles from './NavMenu.module.css';
 
 export class NavMenu extends Component {
   
   static contextType = FeedContext;
 
   state = {
-    // showSettingsModal: false,
-    // settings: {}
     showHelpModal: false
   }
-
-  // handleSettingsButtonClick = (e) => {
-  //   this.setState({
-  //     showSettingsModal: true
-  //   });
-  // }
-
-  // handleSettingsCallback = (settingsObject) => {
-  //   this.setState({
-  //     showSettingsModal: false
-  //   });
-
-  //   if (settingsObject !== null) {
-  //     const { setSettings, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;      
-  //     setSettings(settingsObject.settings);
-  //     saveAndRefreshFeedLinks(feedLinksSettings);
-  //   }
-  // }
 
   handleFeedButtonCallback = (option) => {
     const { setFeed, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
@@ -82,53 +62,37 @@ export class NavMenu extends Component {
     return (content);
   }
 
-  // renderSettingsModal = (show) => {
-  //   let content = '';
-  //   if (show) {
-  //     const feedContext = this.context;
-  //     let { settings } = feedContext.feedLinksSettings;
-  //     content = (
-  //       <Settings 
-  //         defaultSettings = {settings}
-  //         navMenuCallback = {this.handleSettingsCallback} />
-  //     );
-  //   }
-
-  //   return content;
-  // }
-
   render () {
     let helpIconStyle = {
-      color: '#0044cc'
+      color: '#0044cc',
+      fontSize: '28px'
     };
 
     let githubIconStyle = {
-      color: 'black'
+      color: 'black',
+      fontSize: '28px'
     }
 
     return (
-      <header>
-        <div>
-          <i className="fas fa-rss-square fa-lg"></i>
-          <p>Feed Reader</p>
+      <header className={styles.header}>
+        <div className={styles.headerTitle}>
+          <i className={`${styles.headerTitleIcon} fas fa-rss-square fa-lg`}></i>
+          <p className={styles.headerTitleText}>Feed Reader</p>
         </div>
-        <div className="navFeedButtons">
+        <div className={styles.headerButtonsCenter}>
           <FeedImportButton settingsCallback = {this.handleFeedButtonCallback} />                
           <FeedExportButton settingsCallback = {this.handleFeedButtonCallback} />
           <DeleteFeedsButton settingsCallback = {this.handleFeedButtonCallback} />
         </div>
-        <div className="navFeedButtonsRight">
-          {/* <button onClick={this.handleSettingsButtonClick}>
-            <i className="fas fa-cog fa-2x"></i>
-          </button> */}
-          <button className="iconButton" onClick={this.handleHelpButtonClick} title="Help">
-            <i className="fas fa-question-circle fa-2x" style={helpIconStyle}></i>
+        <div className={styles.headerButtonsRight}>
+          <button className={`${styles.headerHelpButton} iconButton`} onClick={this.handleHelpButtonClick} title="Help">
+            <i className={`fas fa-question-circle fa-2x`} 
+                style={helpIconStyle}></i>
           </button>
-          <a href="https://github.com/m1k3f/RssMedia" target="_blank" rel="noopener noreferrer"
-              title="View the Code!">
-            <i className="fab fa-github fa-2x" style={githubIconStyle}></i>
+          <a className={styles.headerCodeLink} href="https://github.com/m1k3f/RssMedia" 
+              target="_blank" rel="noopener noreferrer" title="View the Code!">
+            <i className={`fab fa-github fa-2x`} style={githubIconStyle}></i>
           </a>
-          {/* {this.renderSettingsModal(this.state.showSettingsModal)} */}
           {this.renderHelpModal()}
         </div>        
       </header>

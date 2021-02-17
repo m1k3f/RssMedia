@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import FeedContext from '../../context/FeedContext';
+import styles from '../NavMenu.module.css';
 
 export class FeedExportButton extends Component {
 
@@ -67,16 +68,21 @@ export class FeedExportButton extends Component {
 
     renderButton = () => {
         let content = null;
+        let iconStyle = {
+            fontSize: '17px',
+            marginRight: '4px'
+        };
+
         if (this.state.isLoading) {
             content = (
-                <i className="fas fa-spinner fa-spin fa-2x" style={{marginRight: '4px'}}></i>
+                <i className={`fas fa-spinner fa-spin fa-2x`} style={iconStyle}></i>
             );
         }
         else {
             content = (
-                <button className="iconButton" style={{marginRight: '4px'}} 
+                <button className={`${styles.headerButtonCenter} iconButton`} 
                         onClick={this.handleFeedsExport} title="Export Feeds">
-                    <i className="fas fa-file-download fa-2x"></i>
+                    <i className={`fas fa-file-download fa-2x`} style={iconStyle}></i>
                 </button>
             );
         }

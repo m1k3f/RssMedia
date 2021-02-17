@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import styles from '../NavMenu.module.css';
+
 export class DeleteFeedsButton extends Component {
 
     handleDeleteButtonClick = (e) => {
@@ -20,10 +22,14 @@ export class DeleteFeedsButton extends Component {
     }
 
     render() {
+        let iconStyle = {
+            fontSize: '17px'
+        };
+
         return (
             <React.Fragment>
-                <button className="iconButton" onClick={this.handleDeleteButtonClick} title="Delete All Feeds">
-                    <i className="fas fa-trash fa-2x"></i>
+                <button className={`${styles.headerButtonCenter} iconButton`} onClick={this.handleDeleteButtonClick} title="Delete All Feeds">
+                    <i className={`fas fa-trash fa-2x`} style={iconStyle}></i>
                 </button>
             </React.Fragment>
         );

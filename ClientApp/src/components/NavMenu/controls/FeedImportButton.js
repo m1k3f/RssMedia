@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import styles from '../NavMenu.module.css';
+
 export class FeedImportButton extends Component {
 
     state = {
@@ -102,16 +104,21 @@ export class FeedImportButton extends Component {
 
     renderButton = () => {
         let content = null;
+        let iconStyle = {
+            fontSize: '17px',
+            marginRight: '4px'
+        };
+
         if (this.state.isLoading) {
             content = (
-                <i className="fas fa-spinner fa-spin fa-2x" style={{marginRight: '4px'}}></i>
+                <i className={`${styles.headerButtonCenterIcon} fas fa-spinner fa-spin fa-2x`} style={iconStyle}></i>
             );
         }
         else {
             content = (
-                <button className="iconButton" style={{marginRight: '4px'}} 
-                        onClick={this.handleFeedsImport} title="Import Feeds">                
-                    <i className="fas fa-file-upload fa-2x"></i>
+                <button className={`${styles.headerButtonCenter} iconButton`}  
+                        onClick={this.handleFeedsImport} title="Import Feeds">
+                    <i className={`fas fa-file-upload fa-2x`} style={iconStyle}></i>
                 </button>
             );
         }
