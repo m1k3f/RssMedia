@@ -52,7 +52,7 @@ export class NewFeed extends Component {
     }
 
     getFeedLinkData = async (feedLink) => {
-        let request = new Request('api/rssmedia/GetFeedLinks', {
+        let request = new Request(process.env.REACT_APP_APIFEEDLINKS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

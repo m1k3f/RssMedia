@@ -47,7 +47,7 @@ export class FeedExportButton extends Component {
     }
 
     downloadFeedsFile = async (feeds) => {
-        let request = new Request('api/rssmedia/downloadFeeds', {
+        let request = new Request(process.env.REACT_APP_APIDOWNLOADFEEDS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

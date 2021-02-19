@@ -85,7 +85,7 @@ export class FeedLink extends Component {
             feedarticlecount: articleCount
         };      
 
-        let request = new Request('api/rssmedia/feed', {
+        let request = new Request(process.env.REACT_APP_APIFEED, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

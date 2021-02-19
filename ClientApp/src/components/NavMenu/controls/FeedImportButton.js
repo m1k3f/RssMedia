@@ -77,7 +77,7 @@ export class FeedImportButton extends Component {
 
     getFeedLinksData = async (feedLinkArray) => {
         let feedLinksData = [];        
-        let request = new Request('api/rssmedia/GetFeedLinksList', {
+        let request = new Request(process.env.REACT_APP_APIFEEDLINKSLIST, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

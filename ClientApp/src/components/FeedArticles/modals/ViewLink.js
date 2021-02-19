@@ -86,7 +86,7 @@ export class ViewLink extends Component {
             originalUrl: encodedUrl
         };
 
-        let request = new Request('api/rssmedia/resolvedurl', {
+        let request = new Request(process.env.REACT_APP_APIRESOLVEDURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

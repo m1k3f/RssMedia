@@ -39,7 +39,7 @@ export class FeedLinkAll extends Component {
             feedarticlecount: 50
         };
 
-        let request = new Request('api/rssmedia/allfeeds', {
+        let request = new Request(process.env.REACT_APP_APIALLFEEDS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
