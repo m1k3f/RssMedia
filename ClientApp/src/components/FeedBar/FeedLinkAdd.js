@@ -72,7 +72,7 @@ export class FeedLinkAdd extends Component {
         
     }
 
-    handleMultiFeedCallback = (feedLink) => {
+    handleMultiFeedCallback = (feedLink) => {        
         this.setState({
             showNewFeedModal: false,
             showMultiFeedModal: false,
@@ -81,7 +81,9 @@ export class FeedLinkAdd extends Component {
             isLoading: false
         });
 
-        this.saveNewFeedLink(feedLink);
+        if (feedLink !== null) {
+            this.saveNewFeedLink(feedLink);
+        }        
     }
 
     handleMessageDisplayCallback = () => {
@@ -145,7 +147,7 @@ export class FeedLinkAdd extends Component {
         let content = null;
         let iconStyle = {
             padding: '10px',
-            marginTop: '6px',
+            // marginTop: '6px',
             fontSize: '18px'
         };
 

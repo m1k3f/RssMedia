@@ -24,6 +24,9 @@ export class MultiFeedSelection extends Component {
 
                 this.selectedFeedCallback(link);
             }
+            else {
+                this.selectedFeedCallback(null);
+            }
         });
     }
 
