@@ -11,10 +11,12 @@ export class SyncButton extends Component {
 
     static contextType = FeedContext;
 
-    handleSyncClick = (e) => {
+    handleSyncClick = async (e) => {
         const {feedLinksSettings} = this.context;
         this.animateButton(true);        
         
+        await this.wait(2000);
+
         let feedLinkId = this.props.selectedFeed.feedLinkId;
         let linkIndex = feedLinksSettings.feedLinks.findIndex((link) => link.id === feedLinkId);
         let feedLink = null;
@@ -38,13 +40,17 @@ export class SyncButton extends Component {
         });
     }
 
+    wait = async (milliseconds) => {
+        await new Promise(r => setTimeout(r, milliseconds));
+    }
+
     render() {
         let iconClass = (this.state.spin) ? 
                         'fas fa-sync-alt fa-spin fa-lg' : 
                         'fas fa-sync-alt fa-lg';
 
         let iconStyle = {
-            fontSize: '40px'
+            fontSize: '30px'
         };
 
         return(
