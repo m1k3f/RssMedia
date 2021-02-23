@@ -93,27 +93,30 @@ namespace Reader
             //TODO: don't get source as string; use stream instead
             var contentString = await GetPageSource(_decodedUrl);
 
-            Regex rex = new Regex("<link[^>]*>");
-            var matches = rex.Matches(contentString);
-            foreach (var match in matches)
+            if (!string.IsNullOrEmpty(contentString))
             {
-                var matchString = match.ToString();
-                if (FeedValidator.FeedExists(matchString))
+                Regex rex = new Regex("<link[^>]*>");
+                var matches = rex.Matches(contentString);
+                foreach (var match in matches)
                 {
-                    var titleString = GetHtmlAttributeValueByName(matchString, "title");
-                    var linkString = GetHtmlAttributeValueByName(matchString, "href");
-                    linkString = GetValidUrl(linkString);
-
-                    if (linkString != null)
+                    var matchString = match.ToString();
+                    if (FeedValidator.FeedExists(matchString))
                     {
-                        var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
-                        feedLinkList.Add(new Models.Reader.FeedLink() {
-                            Id = guidId,
-                            Title = titleString,
-                            Url = WebUtility.UrlEncode(linkString),
-                            Name = _originalfeedLink.Name,
-                            AddUrl = _originalfeedLink.AddUrl
-                        });
+                        var titleString = GetHtmlAttributeValueByName(matchString, "title");
+                        var linkString = GetHtmlAttributeValueByName(matchString, "href");
+                        linkString = GetValidUrl(linkString);
+
+                        if (linkString != null)
+                        {
+                            var guidId = (_originalfeedLink.Id == null || _originalfeedLink.Id == Guid.Empty) ? Guid.NewGuid() : _originalfeedLink.Id;
+                            feedLinkList.Add(new Models.Reader.FeedLink() {
+                                Id = guidId,
+                                Title = titleString,
+                                Url = WebUtility.UrlEncode(linkString),
+                                Name = _originalfeedLink.Name,
+                                AddUrl = _originalfeedLink.AddUrl
+                            });
+                        }
                     }
                 }
             }
@@ -128,9 +131,31 @@ namespace Reader
             if (!string.IsNullOrEmpty(url))
             {
                 var client = _clientFactory.CreateClient();
-                var response = await client.GetAsync(url);
-                var contentBytes = await response.Content.ReadAsByteArrayAsync();
-                contentString = Encoding.UTF8.GetString(contentBytes);
+                HttpResponseMessage response = null;
+                var retry = false;
+                for(var i=0; i < 2; i++)
+                {
+                    try
+                    {
+                        if (!retry)
+                        {
+                            response = await client.GetAsync(url);
+                        }
+                        else if (retry && url.StartsWith("https://"))
+                        {
+                            var newUrl = url.Replace("https://", "http://");
+                            response = await client.GetAsync(newUrl);
+                        }
+                    }
+                    catch(HttpRequestException)
+                    {
+                        retry = true;
+                        continue;
+                    }
+
+                    var contentBytes = await response.Content.ReadAsByteArrayAsync();
+                    contentString = Encoding.UTF8.GetString(contentBytes);
+                }
             }
 
             return contentString;
