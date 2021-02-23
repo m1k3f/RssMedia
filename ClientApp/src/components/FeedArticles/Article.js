@@ -162,7 +162,8 @@ export class Article extends Component {
 
         let expandIconStyle = {
             paddingLeft: '15px',
-            backgroundColor: headerButtonStyle.backgroundColor
+            backgroundColor: headerButtonStyle.backgroundColor,
+            fontSize: '20px'
         };
 
         let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';

@@ -28,7 +28,7 @@ export class DeleteButton extends Component {
 
     render() {
         let iconStyle = {
-            fontSize: '40px'
+            fontSize: '30px'
         };
 
         return(

@@ -21,18 +21,18 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border: 8px solid #d9d9d9;
+    border: 8px solid #e6e6e6;
     border-radius: 8px;
     padding-top: 35px;
     padding-bottom: 35px;
     padding-left: 35px;
     padding-right: 35px;
-    color: #d9d9d9;
+    color: #e6e6e6;
 }
 
 .divHelpInfoButton:hover {
-    border: 8px solid #0044cc;
-    color: #0044cc;
+    border: 8px solid #a6a6a6;
+    color: #a6a6a6;
 }
 
 /* .divHelpInfoButton i {

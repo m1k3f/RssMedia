@@ -21,7 +21,7 @@
 }
 
 .controlsImage:hover {
-    transform: scale(1.5);
+    transform: scale(2.0);
 }
 
 .controlsButton {

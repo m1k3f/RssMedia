@@ -41,7 +41,7 @@ export class EditButton extends Component {
 
     render() {
         let iconStyle = {
-            fontSize: '40px'
+            fontSize: '30px'
         };
 
         return(
