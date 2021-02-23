@@ -6,14 +6,9 @@ import { FeedArticlesControls } from './FeedArticlesControls';
 import { FeedTitle } from './Controls/FeedTitle';
 import styles from './FeedArticles.module.css';
 
-export class FeedArticles extends Component {
+export class FeedArticles extends Component { 
 
-    constructor(props) {
-        super(props);      
-    }    
-
-    static contextType = FeedContext;    
-
+    static contextType = FeedContext;
 
     getFeedTitle = () => {
         let feedTitle = '';

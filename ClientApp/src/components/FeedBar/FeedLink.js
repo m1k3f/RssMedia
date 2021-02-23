@@ -110,7 +110,8 @@ export class FeedLink extends Component {
         let feedUrl = (feedLink.url == null) ? '' : feedLink.url;
 
         return (            
-            <a className={styles.feedLink} name="btnFeeds" 
+            <a className={styles.feedLink} 
+                name="btnFeeds" 
                 onClick={this.handleFeedButton} 
                 data-feedid={feedLink.id} 
                 data-url={feedUrl}

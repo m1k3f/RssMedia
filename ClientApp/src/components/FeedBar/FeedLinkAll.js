@@ -61,12 +61,12 @@ export class FeedLinkAll extends Component {
     render() {
         return (
             <div className={styles.divAllFeeds}>
-                <a className={styles.divAllFeedsButton} 
+                <button className={styles.divAllFeedsButton} 
                     name="btnFeeds" 
                     onClick={this.handleAllFeedsButton}
                     ref={el => this.allFeedsButton = el}>
                     All Feeds
-                </a>
+                </button>
             </div>
         );
     }

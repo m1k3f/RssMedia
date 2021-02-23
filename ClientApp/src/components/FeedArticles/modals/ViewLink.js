@@ -65,8 +65,7 @@ export class ViewLink extends Component {
         );
     }
 
-    getFrameUrl = () => {
-        let articleId = this.state.article.articleId;
+    getFrameUrl = () => {        
         let articleUrl = this.state.article.articleUrl;
         let frameUrl = '';
                 

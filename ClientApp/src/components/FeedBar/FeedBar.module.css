@@ -2,7 +2,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 6px;    
+    /* padding: 6px;     */
 }
 
 .divFeedBar {
@@ -26,6 +26,7 @@
     cursor: pointer;
     color: #29a3a3;
     transition: transform .2s;
+    padding: 0;
 }
 
 .divAddLink:hover {
@@ -68,12 +69,12 @@
 }
 
 .divFeedLinksButton {
-    margin-top: 4px;    
+    padding: 10px;   
 }
 
 .divFeedsWrapper {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     transition: max-height .3s ease-out;
 }
 
@@ -89,7 +90,7 @@
 
 .divFeeds {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: left;
     flex-wrap: wrap;
     z-index: 100;

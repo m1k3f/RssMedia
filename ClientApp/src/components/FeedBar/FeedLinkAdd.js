@@ -158,9 +158,10 @@ export class FeedLinkAdd extends Component {
         }
         else {
             content = (
-                <a className={styles.divAddLink} onClick={this.handleAddButton}>
+                <button className={`${styles.divAddLink} ${styles.iconButton}`} 
+                        onClick={this.handleAddButton}>
                     <i className="fas fa-plus fa-lg" style={iconStyle}></i>
-                </a>
+                </button>
             );
         }
 
