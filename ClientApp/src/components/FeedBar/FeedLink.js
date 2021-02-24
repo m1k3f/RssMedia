@@ -9,56 +9,39 @@ export class FeedLink extends Component {
 
     handleFeedButton = async (e) => {
         const eventTarget = e.target;
+        let feedLink = this.props.linkData;        
 
-        //TODO: change logic to show spinner
-        //document.querySelector('.divSpinner').hidden = false;
-
-        if (eventTarget != null && eventTarget.dataset.url.length > 0) {
-            const { setFeed, feedLinksSettings } = this.context;
-            const feedLinkId = eventTarget.dataset.feedid;
-            const feedUrl = eventTarget.dataset.url;
+        if (eventTarget != null && feedLink.url.length > 0) {
+            const { setFeed, feedLinksSettings } = this.context;            
 
             setFeed(null, true);
 
             let feedObject = {
-                feedlinkid: feedLinkId,
-                feedrssurl: feedUrl,
-                feedname: eventTarget.innerText,
-                feedTitle: this.props.linkData.title
+                feedlinkid: feedLink.id,
+                feedrssurl: feedLink.url,
+                feedname: feedLink.name,
+                feedTitle: feedLink.title
             }
 
             let maxArticles = feedLinksSettings.settings.maxArticles;
             let feed = await this.getFeed(feedObject, 0, maxArticles);
 
             if (feed.feedError === null) {
-                //show active feed in feedbar
                 this.clearActiveFeed();
                 eventTarget.classList.add(styles.divFeedsActive);
-                //document.querySelector('.divFeedArticles').hidden = false;               
 
-                //TODO: change logic to hide spinner
-                //document.querySelector('.divSpinner').hidden = true;                
-            }
-            else {
-                //TODO: change logic to hide spinner
-                //document.querySelector('.divSpinner').hidden = true;
-            }
-                       
-            let nowDateTime = new Date();
+                let nowDateTime = new Date();
 
-            feed.lastAccessed = this.props.linkData.lastAccessed !== undefined ? 
-                                this.props.linkData.lastAccessed : 
-                                nowDateTime;
-            feed.firstAccess = this.props.linkData.lastAccessed !== undefined ? false : true;            
-            setFeed(feed, false);
-             
-            this.props.linkData.lastAccessed = nowDateTime;
-            this.props.feedLinksCallback(this.props.linkData, null);
-        }
-        else {
-            //TODO: change logic to hide spinner
-            //document.querySelector('.divSpinner').hidden = true;
-        }        
+                feed.lastAccessed = this.props.linkData.lastAccessed !== undefined ? 
+                                    this.props.linkData.lastAccessed : 
+                                    nowDateTime;
+                feed.firstAccess = this.props.linkData.lastAccessed !== undefined ? false : true;            
+                setFeed(feed, false);
+                
+                this.props.linkData.lastAccessed = nowDateTime;
+                this.props.feedLinksCallback(this.props.linkData, null);
+            }            
+        }     
     }
 
     handleDragStart = (e) =>  {
@@ -107,14 +90,11 @@ export class FeedLink extends Component {
 
     render() {
         let feedLink = this.props.linkData;
-        let feedUrl = (feedLink.url == null) ? '' : feedLink.url;
 
         return (            
             <a className={styles.feedLink} 
                 name="btnFeeds" 
                 onClick={this.handleFeedButton} 
-                data-feedid={feedLink.id} 
-                data-url={feedUrl}
                 draggable
                 onDragStart={(e) => this.handleDragStart(e)}
                 onDragOver={(e) => e.preventDefault()}
