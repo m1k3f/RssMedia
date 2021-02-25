@@ -37,17 +37,10 @@
 
 .divEnclosure {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
 }
 
-/* .divEnclosure > * {
-    padding-bottom: 6px;
+.audioElement {
+    outline: none;
+    margin: auto;
 }
-
-.divEnclosure > p {
-    font-size: 13px;
-}
-
-.divEnclosure > a {
-    font-size: 13px;
-} */

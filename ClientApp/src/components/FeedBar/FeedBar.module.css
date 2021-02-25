@@ -7,7 +7,7 @@
 
 .divFeedBar {
     border: 2px solid #333333;
-    border-radius: 5px;
+    border-radius: 5px;    
     padding: 10px;
     display: flex;
     align-items: flex-start;
