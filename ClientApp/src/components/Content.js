@@ -11,17 +11,17 @@ export class Content extends Component {
     static contextType = FeedContext;
 
     renderItem = () => {
-        const { feedLinksSettings } = this.context;
+        const { selectedFeed, selectedFeedLoading } = this.context;
         let content = null;
-        if (feedLinksSettings.feedLinks.length > 0)
-        {
+        
+        if (selectedFeed === null && !selectedFeedLoading) {
             content = (
-                <FeedArticles />
+                <HelpInfoMain />
             );
         }
         else {
             content = (
-                <HelpInfoMain />
+                <FeedArticles />
             );
         }
 
