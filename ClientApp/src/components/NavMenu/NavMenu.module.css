@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+/* .header * {
+    background-color: #fbfbfb;
+} */
+
 .headerTitle {
     display: flex;
     align-items: center;
@@ -31,10 +35,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    line-height: 10px;
+    line-height: 10px;    
 }
 
 .headerButtonCenter {
+    background-color: #ffffff;
     transition: transform .2s;
 }
 
@@ -51,6 +56,7 @@
 .headerHelpButton {
     margin-left: 6px;
     padding: 4px;
+    background-color: #ffffff;
 }
 
 .headerCodeLink {

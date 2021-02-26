@@ -10,11 +10,13 @@ export class Reader extends Component {
 
     render() {
         return (
-            <div className={`fade-in ${styles.readerApp}`}>
-                <FeedProvider>
-                    <NavMenu />
-                    <Content />
-                </FeedProvider>
+            <div className={`fade-in ${styles.top}`}>
+                <div className={styles.readerApp}>
+                    <FeedProvider>
+                        <NavMenu />
+                        <Content />
+                    </FeedProvider>
+                </div>
             </div>
         );
     }

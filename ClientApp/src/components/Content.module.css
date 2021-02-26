@@ -1,4 +1,12 @@
-.readerApp {
+.top {
+    /* background-color: #fbfbfb; */
+}
+
+.top * {
+    /* background-color: #fbfbfb; */
+}
+
+.readerApp {    
     margin: auto;
     width: 80vw;
 }

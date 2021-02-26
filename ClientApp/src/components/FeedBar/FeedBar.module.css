@@ -27,6 +27,7 @@
     color: #29a3a3;
     transition: transform .2s;
     padding: 0;
+    background-color: #ffffff;
 }
 
 .divAddLink:hover {
@@ -50,6 +51,7 @@
     font-weight: 600;
     font-size: 11px;
     text-align: center;
+    background-color: #ffffff;
     transition: transform .2s;
 }
 
@@ -69,7 +71,8 @@
 }
 
 .divFeedLinksButton {
-    padding: 10px;   
+    padding: 10px;
+    background-color: #ffffff;
 }
 
 .divFeedsWrapper {
