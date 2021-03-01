@@ -10,34 +10,32 @@
 
 ## Remaining Items
 
-- ~~Issue: Article View Link - url not final url; resolve article url in service before showing modal~~
-- ~~Issue: Article Enclosure Link - url not final url; resolve url before showing modal~~
+- Issue: Article View Link - url not final url; resolve article url in service before showing modal~~
+- Issue: Article Enclosure Link - url not final url; resolve url before showing modal~~
 - Issue: added Reason feed, delete feed, add Reason feed again -> shows in FeedBar 2nd to last instead of last
-- Issue: added NPR feed with npr.org, no feed found; added NPR feed with http://npr.org, feed found
-- ~~Issue: resolve Enclosure url on play instead of on Enclosure mount~~
-- Issue: fix service HttpClient to use correctly
+- ~~Issue: added NPR feed with npr.org, no feed found; added NPR feed with http://npr.org, feed found~~
 - Issue: Enclosure button shows in article, but it is not audio -> check enclosure to see if audio/video
-- Article Controls Sync button logic
-- Feed Title: ~~use FeedLink title, allow for changing on feed edit,~~ refresh Title
-- ~~Display content when no feed button selected (no articles showing): default to all feeds?~~
-- ~~Add LastAccessed datetime to JSON for each feedlink, highlight new articles published after that datetime~~
-- Add LastAccessed datetime to JSON for all feeds
+- ~~Issue: Article contents not formatted well; doesn't account for no content well~~
+- Issue: ResolveUrl not working
+- ~~Issue: Can't view service errors => add NLog and writing to log files~~
+- New icons: https://react-icons.github.io/react-icons
 - App info: info button & modal, or help box shown on app start; shows app description, how to use
 - Settings button:
   - Number articles displayed
   - sort feedbar buttons alphabetically/createDate/custom drag
-  - import feeds from opml file to UI & web storage
-  - export feeds from UI & web storage to opml file
-  - remove all feeds: hide button and warning with expand/collapse
+  - ~~import feeds from opml file to UI & web storage~~
+  - ~~export feeds from UI & web storage to opml file~~
+  - ~~remove all feeds: hide button and warning with expand/collapse~~
   - toggle between dark and light theme
+- FeedLinkAdd service call: search for possible RSS hyperlink options
 - Feed Controls: Add Home button that links to baseUrl
-- Show spinner when articles are loading: use spinning sync button or articles spinner
+- ~~Show spinner when articles are loading: use spinning sync button or articles spinner~~
+- Show spinner on EnclosureLink modal when playing audio
 - When no feeds exist, show centered Add button with description; on first feed save, animate feedbar expand and fade out centered add button
 - FeedLinks: option to show feed group to show all feed articles in group
   - show feed articles when group is clicked
   - article controls edit - show/add feeds in group
 - Feed Controls Edit: checkbox to make default feed to show on start
-- ~~Feed Controls Image: enlarge on hover~~
 - Feed Controls Sync: sync on a timer every X minutes
 
 ## Requirements
