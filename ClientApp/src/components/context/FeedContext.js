@@ -51,6 +51,7 @@ class FeedProvider extends Component {
             feedLinks = localStorage.getItem("rmFeeds");
             if (feedLinks === undefined || feedLinks === null || feedLinks === '') {        
                 feedLinks = {
+                    version: 1,
                     settings: {
                         maxArticles: 20
                     },
