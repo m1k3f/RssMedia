@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaRssSquare, FaQuestionCircle, FaGithub } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { FeedExportButton } from './controls/FeedExportButton';
@@ -65,33 +66,33 @@ export class NavMenu extends Component {
   render () {
     let helpIconStyle = {
       color: '#0044cc',
-      fontSize: '28px'
+      fontSize: '30px'
     };
 
     let githubIconStyle = {
       color: 'black',
-      fontSize: '28px'
+      fontSize: '30px'
     }
 
     return (
       <header className={styles.header}>
         <div className={styles.headerTitle}>
-          <i className={`${styles.headerTitleIcon} fas fa-rss-square fa-lg`}></i>
+          <FaRssSquare className={styles.headerTitleIcon} />
           <p className={styles.headerTitleText}>Feed Reader</p>
         </div>
         <div className={styles.headerButtonsCenter}>
           <FeedImportButton settingsCallback = {this.handleFeedButtonCallback} />                
           <FeedExportButton settingsCallback = {this.handleFeedButtonCallback} />
           <DeleteFeedsButton settingsCallback = {this.handleFeedButtonCallback} />
+          <div style={{width: '17px', height: '17px', margin: '5px'}} />
         </div>
         <div className={styles.headerButtonsRight}>
           <button className={`${styles.headerHelpButton} ${styles.iconButton}`} onClick={this.handleHelpButtonClick} title="Help">
-            <i className={`fas fa-question-circle fa-2x`} 
-                style={helpIconStyle}></i>
+            <FaQuestionCircle style={helpIconStyle} />
           </button>
           <a className={styles.headerCodeLink} href="https://github.com/m1k3f/RssMedia" 
               target="_blank" rel="noopener noreferrer" title="View the Code!">
-            <i className={`fab fa-github fa-2x`} style={githubIconStyle}></i>
+            <FaGithub style={githubIconStyle} />
           </a>
           {this.renderHelpModal()}
         </div>        

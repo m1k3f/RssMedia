@@ -28,6 +28,8 @@
 .headerTitleIcon {
     color: #ff8000;
     padding-right: 5px;
+    width: 30px;
+    height: 30px;
 }
 
 .headerButtonsCenter {
@@ -54,6 +56,7 @@
 }
 
 .headerHelpButton {
+    margin-top: 4px;
     margin-left: 6px;
     padding: 4px;
     background-color: #ffffff;

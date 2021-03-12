@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaFileDownload, FaSpinner } from 'react-icons/fa'; 
 
 import FeedContext from '../../context/FeedContext';
 import styles from '../NavMenu.module.css';
@@ -69,20 +70,21 @@ export class FeedExportButton extends Component {
     renderButton = () => {
         let content = null;
         let iconStyle = {
-            fontSize: '17px',
+            width: '17px',
+            height: '17px',
             marginRight: '4px'
         };
 
         if (this.state.isLoading) {
             content = (
-                <i className={`fas fa-spinner fa-spin fa-2x`} style={iconStyle}></i>
+                <FaSpinner style={iconStyle} />
             );
         }
         else {
             content = (
                 <button className={`${styles.headerButtonCenter} ${styles.iconButton}`} 
                         onClick={this.handleFeedsExport} title="Export Feeds">
-                    <i className={`fas fa-file-download fa-2x`} style={iconStyle}></i>
+                    <FaFileDownload style={iconStyle} />
                 </button>
             );
         }

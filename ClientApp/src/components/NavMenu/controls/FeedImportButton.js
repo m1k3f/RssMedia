@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaFileUpload, FaSpinner } from 'react-icons/fa';
 
 import styles from '../NavMenu.module.css';
 
@@ -105,20 +106,21 @@ export class FeedImportButton extends Component {
     renderButton = () => {
         let content = null;
         let iconStyle = {
-            fontSize: '17px',
+            width: '17px',
+            height: '17px',
             marginRight: '4px'
         };
 
         if (this.state.isLoading) {
             content = (
-                <i className={`fas fa-spinner fa-spin fa-2x`} style={iconStyle}></i>
+                <FaSpinner style={iconStyle} />
             );
         }
         else {
             content = (
                 <button className={`${styles.headerButtonCenter} ${styles.iconButton}`}  
                         onClick={this.handleFeedsImport} title="Import Feeds">
-                    <i className={`fas fa-file-upload fa-2x`} style={iconStyle}></i>
+                    <FaFileUpload style={iconStyle} />
                 </button>
             );
         }
