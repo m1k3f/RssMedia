@@ -83,7 +83,7 @@
 
 .divFeedsHidden {
     overflow-y: hidden;
-    max-height: 35px;
+    max-height: 36px;
 }
 
 .divFeedsExpanded {
@@ -109,6 +109,7 @@
     margin-bottom: 8px;
     border: 2px solid #37474f;
     border-radius: 30px;
+    background-color: #ffffff;
     min-width: 70px;
     transition: transform .2s;
     text-align: center;

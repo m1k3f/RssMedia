@@ -91,17 +91,15 @@ export class FeedLink extends Component {
     render() {
         let feedLink = this.props.linkData;
 
-        return (            
-            <a className={styles.feedLink} 
-                name="btnFeeds" 
-                onClick={this.handleFeedButton} 
-                draggable
-                onDragStart={(e) => this.handleDragStart(e)}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => this.handleDrop(e)}
-            >
+        return (
+            <button className={styles.feedLink} name="btnFeeds"
+                    onClick={this.handleFeedButton} 
+                    draggable
+                    onDragStart={(e) => this.handleDragStart(e)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => this.handleDrop(e)}>
                 {feedLink.name}
-            </a>                
+            </button>
         );
     }
 }

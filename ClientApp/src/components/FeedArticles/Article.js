@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import { EnclosureLink } from './modals/EnclosureLink';
 import { ViewLink } from './modals/ViewLink';
 import styles from './FeedArticles.module.css';
@@ -110,7 +110,7 @@ export class Article extends Component {
         let article = this.props.data;
         if (article.articleImageUrl != null && article.articleImageUrl.length > 0) {
             content = (
-                <img src={article.articleImageUrl} style={{marginBottom:'10px'}} />
+                <img src={article.articleImageUrl} style={{marginBottom:'10px'}} alt="" />
             );
         }
 
