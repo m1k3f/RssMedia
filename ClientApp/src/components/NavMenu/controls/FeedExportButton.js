@@ -77,7 +77,7 @@ export class FeedExportButton extends Component {
 
         if (this.state.isLoading) {
             content = (
-                <FaSpinner style={iconStyle} />
+                <FaSpinner style={iconStyle} className="spin" />
             );
         }
         else {
