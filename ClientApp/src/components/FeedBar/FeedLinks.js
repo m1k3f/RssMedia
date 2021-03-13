@@ -106,11 +106,9 @@ export class FeedLinks extends Component {
         };
 
         if (this.state.overflowVisible) {
-            // buttonIcon = <i className="fas fa-chevron-circle-up fa-lg"></i>;
             buttonIcon = <FaChevronCircleUp style={iconStyle} />
         }
         else {
-            // buttonIcon = <i className="fas fa-chevron-circle-down fa-lg"></i>;
             buttonIcon = <FaChevronCircleDown style={iconStyle} />
         }
 

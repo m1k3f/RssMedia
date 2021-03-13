@@ -155,7 +155,6 @@ export class FeedLinkAdd extends Component {
 
         if (this.state.isLoading) {            
             content = (
-                // <i className="fas fa-spinner fa-spin" style={iconStyle}></i>
                 <FaSpinner style={iconStyle} className="spin" />
             );
         }
@@ -163,7 +162,6 @@ export class FeedLinkAdd extends Component {
             content = (
                 <button className={`${styles.divAddLink} ${styles.iconButton}`} 
                         onClick={this.handleAddButton} title="Add Feed">
-                    {/* <i className="fas fa-plus fa-lg" style={iconStyle}></i> */}
                     <FaPlus style={iconStyle} />
                 </button>
             );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaQuestionCircle } from 'react-icons/fa';
 
 import { HelpInfo } from './modals/HelpInfo';
 import styles from './Content.module.css';
@@ -34,13 +35,14 @@ export class HelpInfoMain extends Component {
 
     render() {
         let iconStyle = {
-            fontSize: '50px'
+            width: '50px',
+            height: '50px'
         };
 
         return (
             <div className={styles.divHelpInfoMain}>
                 <div className={styles.divHelpInfoButton} onClick={this.handleButtonClick}>
-                    <i className="fas fa-question-circle fa-2x" style={iconStyle}></i>
+                    <FaQuestionCircle style={iconStyle} />
                     <p className={styles.divHelpInfoButtonText}>Help</p>
                 </div>
                 {this.renderHelpModal()}

@@ -1,6 +1,7 @@
 .helpModal {
     max-height: 40vh;
     overflow: auto;
+    padding: 6px;
 }
 
 .helpModalText {
