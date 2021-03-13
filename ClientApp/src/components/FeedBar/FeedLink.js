@@ -84,7 +84,7 @@ export class FeedLink extends Component {
 
     clearActiveFeed = () => {
         //TODO: rewrite this to not use querySelectorAll
-        let feedButtons = document.querySelectorAll('a[name="btnFeeds"]');
+        let feedButtons = document.querySelectorAll('button[name="btnFeeds"]');
         feedButtons.forEach(f => f.classList.remove(styles.divFeedsActive));
     }
 
