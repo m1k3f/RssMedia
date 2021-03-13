@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaChevronCircleDown, FaChevronCircleUp } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { FeedLink } from './FeedLink';
@@ -99,11 +100,18 @@ export class FeedLinks extends Component {
 
     render() {
         let buttonIcon = null;
+        let iconStyle = {
+            width: '18px',
+            height: '18px'
+        };
+
         if (this.state.overflowVisible) {
-            buttonIcon = <i className="fas fa-chevron-circle-up fa-lg"></i>;
+            // buttonIcon = <i className="fas fa-chevron-circle-up fa-lg"></i>;
+            buttonIcon = <FaChevronCircleUp style={iconStyle} />
         }
         else {
-            buttonIcon = <i className="fas fa-chevron-circle-down fa-lg"></i>;
+            // buttonIcon = <i className="fas fa-chevron-circle-down fa-lg"></i>;
+            buttonIcon = <FaChevronCircleDown style={iconStyle} />
         }
 
         return(

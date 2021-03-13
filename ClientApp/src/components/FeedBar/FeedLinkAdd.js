@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaSpinner, FaPlus } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { NewFeed } from './modals/NewFeed';
@@ -146,21 +147,24 @@ export class FeedLinkAdd extends Component {
     renderAddItem = () => {
         let content = null;
         let iconStyle = {
-            padding: '10px',
-            // marginTop: '6px',
-            fontSize: '18px'
+            color: '#29a3a3',
+            // padding: '10px',
+            width: '20px',
+            height: '20px'
         };
 
         if (this.state.isLoading) {            
             content = (
-                <i className="fas fa-spinner fa-spin" style={iconStyle}></i>
+                // <i className="fas fa-spinner fa-spin" style={iconStyle}></i>
+                <FaSpinner style={iconStyle} className="spin" />
             );
         }
         else {
             content = (
                 <button className={`${styles.divAddLink} ${styles.iconButton}`} 
-                        onClick={this.handleAddButton}>
-                    <i className="fas fa-plus fa-lg" style={iconStyle}></i>
+                        onClick={this.handleAddButton} title="Add Feed">
+                    {/* <i className="fas fa-plus fa-lg" style={iconStyle}></i> */}
+                    <FaPlus style={iconStyle} />
                 </button>
             );
         }

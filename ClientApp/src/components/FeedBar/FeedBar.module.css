@@ -23,15 +23,8 @@
 }
 
 .divAddLink {
-    cursor: pointer;
-    color: #29a3a3;
-    transition: transform .2s;
-    padding: 0;
+    padding: 8px;
     background-color: #ffffff;
-}
-
-.divAddLink:hover {
-    transform: scale(1.5);
 }
 
 .divAllFeeds {
@@ -44,7 +37,6 @@
 .divAllFeedsButton {
     cursor: pointer;
     padding: 8px;
-    /* margin-top: 6px; */
     border: 2px solid #37474f;
     border-radius: 30px;
     min-width: 80px;
