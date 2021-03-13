@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaLink, FaPaperclip, FaAngleUp, FaAngleDown } from 'react-icons/fa';
 
 import ReactHtmlParser from 'react-html-parser';
 import { EnclosureLink } from './modals/EnclosureLink';
@@ -71,13 +72,14 @@ export class Article extends Component {
         if (article.articleUrl !== null && article.articleUrl.length > 0) {
             let iconStyle = {
                 color: '#4d4d4d',
-                fontSize: '20px'
+                width: '20px',
+                height: '20px'
             };
 
             content = (
                 <button className={`${styles.iconButton} ${styles.feedArticleDetailsButton}`} 
-                        onClick={this.handleArticleLink} title="View Full Article">
-                    <i className="fas fa-link fa-lg" style={iconStyle}></i>
+                        onClick={this.handleArticleLink} title="View Full Article">                    
+                    <FaLink style={iconStyle} />
                 </button>
             );
         }
@@ -91,13 +93,14 @@ export class Article extends Component {
         if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0) {
             let iconStyle = {
                 color: '#4d4d4d',
-                fontSize: '20px'
+                width: '20px',
+                height: '20px'
             };
 
             content = (
                 <button className={`${styles.iconButton} ${styles.feedArticleDetailsButton}`} 
                         onClick={this.handleEnclosureClick} title="View Attachment">
-                    <i className="fas fa-paperclip fa-lg" style={iconStyle}></i>
+                    <FaPaperclip style={iconStyle} />
                 </button>
             );
         }
@@ -163,10 +166,13 @@ export class Article extends Component {
         let expandIconStyle = {
             paddingLeft: '15px',
             backgroundColor: headerButtonStyle.backgroundColor,
-            fontSize: '20px'
+            width: '26px',
+            height: '26px'
         };
 
-        let angleIcon = (this.state.opened) ? 'fas fa-angle-up fa-2x' : 'fas fa-angle-down fa-2x';
+        let angleIcon = (this.state.opened) ? 
+                        <FaAngleUp style={expandIconStyle} /> :
+                        <FaAngleDown style={expandIconStyle} />;
         let sectionStyle = {
             maxHeight: (this.state.opened) ? '50vh' : '0',
             border: `1px solid ${articleColor}`
@@ -182,7 +188,7 @@ export class Article extends Component {
                             <p className={styles.headerButtonRightText} style={headerButtonStyle}>
                                 {formattedPublishDateTime}
                             </p>
-                            <i style={expandIconStyle} className={angleIcon}></i>
+                            {angleIcon}
                         </div>
                     </div>
                 </button>

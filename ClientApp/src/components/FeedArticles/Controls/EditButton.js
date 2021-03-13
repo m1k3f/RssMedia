@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaEdit } from 'react-icons/fa';
 
 import { EditFeed } from '../modals/EditFeed';
 import styles from './FeedArticleControls.module.css';
@@ -41,14 +42,15 @@ export class EditButton extends Component {
 
     render() {
         let iconStyle = {
-            fontSize: '30px'
+            width: '32px',
+            height: '32px'
         };
 
         return(
             <React.Fragment>
                 <button className={`${styles.iconButton} ${styles.controlsButton}`} 
                         onClick={this.handleEditClick} title="Edit Feed">
-                    <i className="fas fa-edit fa-lg" style={iconStyle}></i>
+                    <FaEdit style={iconStyle} />
                 </button>
                 {this.renderEditModal()}
             </React.Fragment>

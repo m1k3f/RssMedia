@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaSpinner } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { Article } from './Article';
@@ -29,9 +30,14 @@ export class FeedArticles extends Component {
         const { selectedFeed, selectedFeedLoading } = this.context;
 
         if (selectedFeedLoading) {
+            let iconStyle = {
+                width: '30px',
+                height: '30px'
+            };
+
             content = (
                 <div className={styles.divFeedArticlesLoading}>
-                    <i className="fas fa-spinner fa-spin fa-2x"></i>  
+                    <FaSpinner className="spin" style={iconStyle} />
                 </div>              
             );            
         }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaSyncAlt } from 'react-icons/fa';
 
 import FeedContext from '../../context/FeedContext';
 import styles from './FeedArticleControls.module.css';
@@ -45,18 +46,19 @@ export class SyncButton extends Component {
     }
 
     render() {
-        let iconClass = (this.state.spin) ? 
-                        'fas fa-sync-alt fa-spin fa-lg' : 
-                        'fas fa-sync-alt fa-lg';
-
         let iconStyle = {
-            fontSize: '30px'
+            width: '32px',
+            height: '32px'
         };
+        
+        let iconSync = (this.state.spin) ? 
+                        <FaSyncAlt style={iconStyle} className="spin" /> : 
+                        <FaSyncAlt style={iconStyle} />;
 
         return(
             <button className={`${styles.iconButton} ${styles.controlsButton}`} 
                     onClick={this.handleSyncClick} title="Refresh Articles">
-                <i className={iconClass} style={iconStyle}></i>
+                {iconSync}
             </button>
         );
     }

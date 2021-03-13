@@ -25,7 +25,8 @@
 }
 
 .controlsButton {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    margin-left: 0;
     padding: 0;
     background-color: #ffffff;
 }

@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import { FaRss, FaYoutube } from 'react-icons/fa';
 
 import styles from './FeedArticleControls.module.css';
 
@@ -9,18 +10,19 @@ export class FeedImageLink extends Component {
         let selectedFeed = this.props.selectedFeed;
         let iconStyle = {
             marginBottom: '30px',
-            fontSize: '40px',
+            width: '40px',
+            height: '40px',
             color: '#fc0505'
         };
 
         if (selectedFeed === null || selectedFeed.feedRssUrl.length === 0) {
             image = (
-                <i className="fas fa-rss" style={iconStyle}></i>
+                <FaRss style={iconStyle} />
             ); 
         }
         else if (selectedFeed.feedRssUrl.includes("youtube.com")) {
             image = (
-                <i className="fab fa-youtube" style={iconStyle}></i>
+                <FaYoutube style={iconStyle} />
             );            
         }
         else if (selectedFeed.feedImageUrl != null && selectedFeed.feedImageUrl.length > 0) {
