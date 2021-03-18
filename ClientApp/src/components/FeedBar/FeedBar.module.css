@@ -70,7 +70,7 @@
 .divFeedsWrapper {
     display: flex;
     align-items: flex-start;
-    transition: max-height .3s ease-out;
+    /* transition: max-height .3s ease-out; */
 }
 
 .divFeedsHidden {

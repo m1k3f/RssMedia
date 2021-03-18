@@ -154,13 +154,15 @@ export class FeedLinkAdd extends Component {
 
         if (this.state.isLoading) {            
             content = (
-                <FaSpinner style={this.props.iconStyle} className="spin" />
+                <div className={styles.divAddLink}>
+                    <FaSpinner style={this.props.iconStyle} className={`spin`} />
+                </div>
             );
         }
         else {
             content = (
                 <button className={`${styles.divAddLink} ${styles.iconButton}`} 
-                        onClick={this.handleAddButton} title="Add Feed">
+                        onClick={this.handleAddButton}>
                     {/* <FaPlus style={iconStyle} /> */}
                     {this.props.children}
                 </button>
