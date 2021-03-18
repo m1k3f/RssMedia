@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
-import { FaTrash } from 'react-icons/fa';
+import { FaSpinner } from 'react-icons/fa';
 
+import FeedContext from '../../context/FeedContext';
 import styles from '../NavMenu.module.css';
 
 export class DeleteFeedsButton extends Component {
 
-    handleDeleteButtonClick = (e) => {
+    static contextType = FeedContext;
+
+    state = {
+        isLoading: false
+    }
+
+    handleDeleteButtonClick = async (e) => {
         this.showSpinner(true);
 
-        let option = {
-            action: 'feedsDelete'
-        }
-        this.props.settingsCallback(option);
+        await this.wait(2000);
+
+        // let option = {
+        //     action: 'feedsDelete'
+        // }
+        // this.props.settingsCallback(option);
+        this.removeAllFeeds();
 
         this.showSpinner(false);
     }
@@ -22,20 +32,47 @@ export class DeleteFeedsButton extends Component {
         });
     }
 
-    render() {
-        let iconStyle = {
-            width: '17px',
-            height: '17px'
-        };
+    wait = async (milliseconds) => {
+        await new Promise(r => setTimeout(r, milliseconds));
+    }
 
-        return (
-            <React.Fragment>
+    removeAllFeeds = () => {
+        const { setFeed, feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+        let feedLinkSettingsCopy = {...feedLinksSettings};        
+        feedLinkSettingsCopy.feedLinks.length = 0;
+        saveAndRefreshFeedLinks(feedLinkSettingsCopy);
+        setFeed(null);
+    }
+
+    renderButton = () => {
+        let content = null;
+
+        if (this.state.isLoading) {
+            let spinnerStyle = { paddingTop: '8px', paddingBottom: '8px' };
+            content = (
+                <div className={styles.headerButtonCenter} style={{spinnerStyle}}>
+                    <FaSpinner style={this.props.iconStyle} className="spin" />
+                </div>
+            );
+        }
+        else {
+            let buttonStyle = { paddingLeft: '16px', paddingRight: '16px' };
+            content = (                
                 <button className={`${styles.headerButtonCenter} ${styles.iconButton}`} 
-                        onClick={this.handleDeleteButtonClick} title="Delete All Feeds">
-                    {/* <i className={`fas fa-trash fa-2x`} style={iconStyle}></i> */}
-                    <FaTrash style={iconStyle} />
+                        style={{buttonStyle}} onClick={this.handleDeleteButtonClick}>
+                    {this.props.children}
                 </button>
-            </React.Fragment>
+            );
+        }
+
+        return content;
+    }
+
+    render() {        
+        return (
+            <div>
+                {this.renderButton()}
+            </div>
         );
     }
 }

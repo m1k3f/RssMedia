@@ -18,8 +18,10 @@ export class FeedImportButton extends Component {
 
     handleFile = async (e) => {
         this.showSpinner(true);
+        const file = e.target.files[0];
 
-        let file = e.target.files[0];
+        await this.wait(1000);
+        
         if (file) {
             //Read through file and set it to feedlinks
             let fileContents = await this.getFileContents(file);
@@ -38,6 +40,10 @@ export class FeedImportButton extends Component {
         this.setState({
             isLoading: show
         });
+    }
+
+    wait = async (milliseconds) => {
+        await new Promise(r => setTimeout(r, milliseconds));
     }
 
     getFileContents = (file) => {
@@ -119,16 +125,18 @@ export class FeedImportButton extends Component {
         let content = null;
 
         if (this.state.isLoading) {
+            let spinnerStyle = { paddingTop: '8px', paddingBottom: '8px' };
             content = (
-                <div>
+                <div className={styles.headerButtonCenter} style={{spinnerStyle}}>
                     <FaSpinner style={this.props.iconStyle} className="spin" />
                 </div>
             );
         }
         else {
+            let buttonStyle = { paddingLeft: '16px', paddingRight: '16px' };
             content = (                
                 <button className={`${styles.headerButtonCenter} ${styles.iconButton}`}  
-                        onClick={this.handleFeedsImport}>
+                        style={{buttonStyle}} onClick={this.handleFeedsImport}>
                     {this.props.children}
                 </button>
             );

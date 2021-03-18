@@ -1,3 +1,7 @@
+:root {
+    --centerButtonHoverColor: #ececec;
+}
+
 .iconButton {
     border: none;
     outline: none;
@@ -9,11 +13,8 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
+    height: 55px;
 }
-
-/* .header * {
-    background-color: #fbfbfb;
-} */
 
 .headerTitle {
     display: flex;
@@ -40,14 +41,19 @@
     line-height: 10px;    
 }
 
-.headerButtonCenter {
-    background-color: #ffffff;
-    transition: transform .2s;
+.divButtonCenter {
+    
 }
 
-/* .headerButtonCenter:hover {
-    transform: scale(1.4);
-} */
+.headerButtonCenter {
+    background-color: #ffffff;    
+    /* transition: transform .2s; */
+}
+
+.headerButtonCenter:hover {
+    /* background-color: var(--centerButtonHoverColor);
+    border-radius: 4px;     */
+}
 
 .headerButtonsRight {
     display: flex;

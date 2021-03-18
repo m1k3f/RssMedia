@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FaFileDownload, FaSpinner } from 'react-icons/fa'; 
+import { FaSpinner } from 'react-icons/fa'; 
 
 import FeedContext from '../../context/FeedContext';
 import styles from '../NavMenu.module.css';
@@ -14,6 +14,8 @@ export class FeedExportButton extends Component {
 
     handleFeedsExport = async (e) => {
         this.showSpinner(true);
+
+        await this.wait(1000);
 
         //get all feedlinks from browser storage
         const { feedLinksSettings } = this.context;
@@ -47,6 +49,10 @@ export class FeedExportButton extends Component {
         });
     }
 
+    wait = async (milliseconds) => {
+        await new Promise(r => setTimeout(r, milliseconds));
+    }
+
     downloadFeedsFile = async (feeds) => {
         let request = new Request(process.env.REACT_APP_APIDOWNLOADFEEDS, {
             method: 'POST',
@@ -69,22 +75,20 @@ export class FeedExportButton extends Component {
 
     renderButton = () => {
         let content = null;
-        let iconStyle = {
-            width: '17px',
-            height: '17px',
-            marginRight: '4px'
-        };
 
         if (this.state.isLoading) {
+            let spinnerStyle = { paddingTop: '8px', paddingBottom: '8px' };
             content = (
-                <FaSpinner style={iconStyle} className="spin" />
+                <div className={styles.headerButtonCenter} style={{spinnerStyle}}>
+                    <FaSpinner style={this.props.iconStyle} className="spin" />
+                </div>
             );
         }
         else {
             content = (
                 <button className={`${styles.headerButtonCenter} ${styles.iconButton}`} 
-                        onClick={this.handleFeedsExport} title="Export Feeds">
-                    <FaFileDownload style={iconStyle} />
+                        onClick={this.handleFeedsExport}>
+                    {this.props.children}
                 </button>
             );
         }
@@ -94,9 +98,9 @@ export class FeedExportButton extends Component {
 
     render() {
         return(            
-            <React.Fragment>
+            <div>
                 {this.renderButton()}
-            </React.Fragment>
+            </div>
         );
     }
 }
