@@ -146,23 +146,23 @@ export class FeedLinkAdd extends Component {
 
     renderAddItem = () => {
         let content = null;
-        let iconStyle = {
-            color: '#29a3a3',
-            // padding: '10px',
-            width: '20px',
-            height: '20px'
-        };
+        // let iconStyle = {
+        //     color: '#29a3a3',
+        //     width: '20px',
+        //     height: '20px'
+        // };
 
         if (this.state.isLoading) {            
             content = (
-                <FaSpinner style={iconStyle} className="spin" />
+                <FaSpinner style={this.props.iconStyle} className="spin" />
             );
         }
         else {
             content = (
                 <button className={`${styles.divAddLink} ${styles.iconButton}`} 
                         onClick={this.handleAddButton} title="Add Feed">
-                    <FaPlus style={iconStyle} />
+                    {/* <FaPlus style={iconStyle} /> */}
+                    {this.props.children}
                 </button>
             );
         }

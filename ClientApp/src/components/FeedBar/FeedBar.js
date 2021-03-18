@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaPlus } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { FeedLinkAdd } from './FeedLinkAdd';
@@ -30,9 +31,32 @@ export class FeedBar extends Component {
     }
 
     render() {
+        const { feedLinksSettings } = this.context;
+        let divStyle = null;
+        if (feedLinksSettings.feedLinks.length > 0) {
+            divStyle = {
+                visibility: 'visible'
+            };
+        }
+        else {
+            divStyle = {
+                visibility: 'hidden'
+            };
+        }
+
+        let iconStyle = {
+            color: '#29a3a3',
+            width: '20px',
+            height: '20px'
+        };
+
         return (
-            <div className={styles.divFeedBar}>                
-                <FeedLinkAdd />
+            <div className={styles.divFeedBar} style={divStyle}>
+                <div style={{borderRight: '2px solid #333333'}}>
+                    <FeedLinkAdd iconStyle={iconStyle}>
+                        <FaPlus style={iconStyle} />
+                    </FeedLinkAdd>
+                </div>
                 {this.renderFeedLinkButtons()}
             </div>
         );

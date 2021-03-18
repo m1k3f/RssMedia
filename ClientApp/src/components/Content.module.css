@@ -1,11 +1,3 @@
-.top {
-    /* background-color: #fbfbfb; */
-}
-
-.top * {
-    /* background-color: #fbfbfb; */
-}
-
 .readerApp {    
     margin: auto;
     width: 80vw;
@@ -15,7 +7,7 @@
     font-size: 13px;
 }
 
-.divHelpInfoMain {
+.divMainContentButtons {
     margin-top: 10px;
     display: flex;
     justify-content: center;
@@ -23,25 +15,24 @@
     height: 50vh;
 }
 
-.divHelpInfoButton {
+.divMainContentButton {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    padding-top: 35px;
-    padding-bottom: 35px;
-    padding-left: 35px;
-    padding-right: 35px;
-    color: #0044cc;
-    opacity: .25;
+    padding: 10px;
+    margin-right: 20px;
+    /* opacity: .25; */
+    width: 110px;
+    height: 110px;
 }
 
-.divHelpInfoButton:hover {
+/* .divMainContentButton:hover {
     opacity: 1;
-}
+} */
 
-.divHelpInfoButtonText {
+.divMainContentButtonText {
     font-size: 20px;
     margin-bottom: 0;
     margin-top: 10px;

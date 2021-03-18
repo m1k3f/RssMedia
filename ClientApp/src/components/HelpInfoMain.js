@@ -31,22 +31,24 @@ export class HelpInfoMain extends Component {
         }
     
         return (content);
-      }
+    }
 
     render() {
         let iconStyle = {
-            width: '50px',
-            height: '50px'
+            color: '#0044cc',
+            width: '40px',
+            height: '40px'
         };
 
         return (
-            <div className={styles.divHelpInfoMain}>
-                <div className={styles.divHelpInfoButton} onClick={this.handleButtonClick}>
+            <React.Fragment>
+                <div className={styles.divMainContentButton}
+                        onClick={this.handleButtonClick}>
                     <FaQuestionCircle style={iconStyle} />
-                    <p className={styles.divHelpInfoButtonText}>Help</p>
+                    <p className={styles.divMainContentButtonText}>Help</p>
                 </div>
                 {this.renderHelpModal()}
-            </div>
+            </React.Fragment>
         );
     }
 }
