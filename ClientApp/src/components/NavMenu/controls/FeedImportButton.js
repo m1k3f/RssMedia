@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { FaFileUpload, FaSpinner } from 'react-icons/fa';
+import { FaSpinner } from 'react-icons/fa';
 
+import FeedContext from '../../context/FeedContext';
 import styles from '../NavMenu.module.css';
 
 export class FeedImportButton extends Component {
+
+    static contextType = FeedContext;
 
     state = {
         isLoading: false
@@ -24,11 +27,7 @@ export class FeedImportButton extends Component {
                 let fileFeedLinksArray = this.getFileFeedLinksArray(fileContents);
                 let feedLinksData = await this.getFeedLinksData(fileFeedLinksArray);
 
-                let option = {
-                    action: 'feedsImport',
-                    newFeedLinks: feedLinksData
-                }
-                this.props.settingsCallback(option);
+                this.saveFeedLinks(feedLinksData);
             }
         }
 
@@ -103,24 +102,34 @@ export class FeedImportButton extends Component {
         return feedLinksData;
     }
 
+    saveFeedLinks = (newFeedLinks) => {
+        const { feedLinksSettings, saveAndRefreshFeedLinks } = this.context;
+        let feedLinkSettingsCopy = {...feedLinksSettings};
+      
+        feedLinkSettingsCopy.feedLinks.length = 0;
+        newFeedLinks.forEach((newFeedLink) => {
+            newFeedLink.position = (feedLinkSettingsCopy.feedLinks.length > 0) ? feedLinkSettingsCopy.feedLinks.length : 0;        
+            feedLinkSettingsCopy.feedLinks.push(newFeedLink);
+        });
+      
+        saveAndRefreshFeedLinks(feedLinkSettingsCopy);
+    }
+
     renderButton = () => {
         let content = null;
-        let iconStyle = {
-            width: '17px',
-            height: '17px',
-            marginRight: '4px'
-        };
 
         if (this.state.isLoading) {
             content = (
-                <FaSpinner style={iconStyle} className="spin" />
+                <div>
+                    <FaSpinner style={this.props.iconStyle} className="spin" />
+                </div>
             );
         }
         else {
-            content = (
+            content = (                
                 <button className={`${styles.headerButtonCenter} ${styles.iconButton}`}  
-                        onClick={this.handleFeedsImport} title="Import Feeds">
-                    <FaFileUpload style={iconStyle} />
+                        onClick={this.handleFeedsImport}>
+                    {this.props.children}
                 </button>
             );
         }
@@ -130,11 +139,11 @@ export class FeedImportButton extends Component {
 
     render() {
         return(
-            <React.Fragment>
+            <div>
                 <input type="file" style={{display:'none'}} accept=".opml"
                         ref={el => this.fileImport = el} onChange={this.handleFile} />
                 {this.renderButton()}
-            </React.Fragment>
+            </div>
         );
     }
 }
