@@ -1,3 +1,11 @@
+:root {
+    --mainBackgroundColor: #ffffff;
+    --feedButtonColor: #546c78;
+    --feedButtonTextColor: #fbfbfb;
+    --feedButtonHoverColor: #ffffff;
+    --feedButtonHoverTextColor: #546c78;
+}
+
 .iconButton {
     border: none;
     outline: none;
@@ -6,25 +14,26 @@
 }
 
 .divFeedBar {
-    border: 2px solid #333333;
-    border-radius: 5px;    
+    border: 2px solid #808080;
+    border-radius: 5px;
+    background-color: var(--mainBackgroundColor);
     padding: 10px;
     display: flex;
     align-items: flex-start;
     min-width: 100%;
+    /* z-index: 100; */
 }
 
 .divAdd {
     display: flex;
     align-items: flex-start;
     padding-left: 4px;
-    padding-right: 10px;    
-    /* border-right: 2px solid #333333; */
+    padding-right: 10px;
 }
 
 .divAddLink {
     padding: 8px;
-    background-color: #ffffff;
+    background-color: var(--mainBackgroundColor);
 }
 
 .divAllFeeds {
@@ -37,19 +46,21 @@
 .divAllFeedsButton {
     cursor: pointer;
     padding: 8px;
-    border: 2px solid #37474f;
+    border: 2px solid var(--feedButtonColor);
     border-radius: 30px;
+    background-color: var(--feedButtonColor);
     min-width: 80px;
     font-weight: 600;
     font-size: 11px;
     text-align: center;
-    background-color: #ffffff;
+    color: var(--feedButtonTextColor);
     transition: transform .2s;
 }
 
-.divAllFeedsButton:hover {
-    background-color: #37474f;
-    color: #fbfbfb;
+.divAllFeedsButton:hover {    
+    background-color: var(--feedButtonHoverColor);
+    color: var(--feedButtonHoverTextColor);
+    border: 2px solid var(--feedButtonColor);
 }
 
 .divFeedLinks {
@@ -64,7 +75,7 @@
 
 .divFeedLinksButton {
     padding: 10px;
-    background-color: #ffffff;
+    background-color: var(--mainBackgroundColor);
 }
 
 .divFeedsWrapper {
@@ -95,23 +106,24 @@
 .feedLink {
     cursor: pointer;
     padding: 8px;
-    /* margin-top: 6px; */
     margin-left: 3px;
     margin-right: 3px;
     margin-bottom: 8px;
-    border: 2px solid #37474f;
+    border: 2px solid var(--feedButtonColor);
     border-radius: 30px;
-    background-color: #ffffff;
+    background-color: var(--feedButtonColor);
     min-width: 70px;
     transition: transform .2s;
     text-align: center;
     font-weight: 600;
     font-size: 11px;
+    color: var(--feedButtonTextColor);
 }
 
 .feedLink:hover {
-    background-color: #37474f;
-    color: #fbfbfb;
+    background-color: var(--feedButtonHoverColor);
+    color: var(--feedButtonHoverTextColor);
+    border: 2px solid var(--feedButtonColor)
 }
 
 .divFeedsActive {
