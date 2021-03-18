@@ -146,7 +146,7 @@ export class Article extends Component {
             formattedPublishDateTime = this.getFormattedDateTime(publishDateTime);
         }
 
-        let articleColor = '#546e7a';
+        let articleColor = '#3f525a';
         let headerButtonStyle = {
             backgroundColor: articleColor //default to unread color
         };
@@ -156,7 +156,7 @@ export class Article extends Component {
             let lastAccessedDate = new Date(this.props.feedLastAccessed);
             let firstAccess = this.props.feedFirstAccess;
             if (publishDate < lastAccessedDate && !firstAccess) {
-                articleColor = '#37474f';
+                articleColor = '#2a363c';
                 headerButtonStyle = {
                     backgroundColor: articleColor //read color
                 };
