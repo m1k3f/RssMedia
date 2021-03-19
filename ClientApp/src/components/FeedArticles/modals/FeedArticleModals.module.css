@@ -40,7 +40,14 @@
     flex-direction: column;
 }
 
+.enclosureAudio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .audioElement {
     outline: none;
-    margin: auto;
+    margin-right: 10px;
 }

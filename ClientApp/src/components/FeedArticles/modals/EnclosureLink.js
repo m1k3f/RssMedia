@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+import { FaSpinner } from 'react-icons/fa';
 
 import styles from './FeedArticleModals.module.css';
 
@@ -49,20 +50,35 @@ export class EnclosureLink extends Component {
         return (
             <div className={styles.divEnclosure}>
                 <p style={itemStyle}>{this.props.article.articleTitle}</p>
-                <audio className={styles.audioElement} 
-                        style={itemStyle}
-                        controls preload='none'
-                        ref={el => this.audioElement = el}
-                        >
-                            <source src={article.articleEnclosureUrl} />
-                </audio>
+                <div className={styles.enclosureAudio}>
+                    <audio className={styles.audioElement} style={itemStyle} controls preload='none' 
+                            ref={el => this.audioElement = el}
+                            onPlay={this.onAudioPlay} 
+                            onPlaying={this.onAudioPlaying} 
+                            onPause={this.onAudioPaused}>
+                                <source src={article.articleEnclosureUrl} />
+                    </audio>
+                    <div ref={el => this.audioSpinner = el} style={{visibility: 'hidden'}}>
+                        <FaSpinner className="spin" />
+                    </div>
+                </div>
             </div>
-        );
-        
+        );        
     }
 
-    getResolvedUrl = async (enclosureUrl) => {        
+    onAudioPlay = () => {
+        this.audioSpinner.style.visibility = 'visible';
+    }
 
+    onAudioPlaying = () => {
+        this.audioSpinner.style.visibility = 'hidden';
+    }
+
+    onAudioPaused = () => {
+        this.audioSpinner.style.visibility = 'hidden';
+    }
+
+    getResolvedUrl = async (enclosureUrl) => {
         let encodedUrl = encodeURIComponent(enclosureUrl);
         let urlObject = {
             originalUrl: encodedUrl
