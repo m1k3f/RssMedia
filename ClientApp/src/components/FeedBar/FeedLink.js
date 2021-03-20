@@ -40,7 +40,12 @@ export class FeedLink extends Component {
                 
                 this.props.linkData.lastAccessed = nowDateTime;
                 this.props.feedLinksCallback(this.props.linkData, null);
-            }            
+            }
+            else {
+                this.clearActiveFeed();
+                eventTarget.classList.add(styles.divFeedsActive);
+                setFeed(feed, false);
+            }
         }     
     }
 

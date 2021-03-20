@@ -42,11 +42,14 @@ export class FeedArticles extends Component {
             );            
         }
         else {
+            let articlesExist = (selectedFeed != null && selectedFeed.feedArticles != null);
+            let divClass = articlesExist ? styles.divFeedArticles : styles.divFeedArticlesEmpty;             
+
             content = (
-                <div className={styles.divFeedArticles}>
+                <div className={divClass}>
                     <FeedTitle title={this.getFeedTitle()} />
                     <section className={styles.feedControlsArticles}>
-                        <FeedArticlesControls feed={this.context.selectedFeed} />
+                        <FeedArticlesControls feed={selectedFeed} />
                         {this.renderArticles(selectedFeed)}
                     </section>
                 </div>
@@ -59,7 +62,7 @@ export class FeedArticles extends Component {
     renderArticles = (selectedFeed) => {        
         let content = null;
         if (selectedFeed != null && selectedFeed.feedArticles != null) {
-            content = selectedFeed.feedArticles.map((article) => {                           
+            let articles = selectedFeed.feedArticles.map((article) => {                           
                 return (                    
                     <Article 
                         key = {article.id}  
@@ -69,13 +72,15 @@ export class FeedArticles extends Component {
                     />                    
                 );
             });
+
+            content = (
+                <div className={styles.divFeedArticlesList}>
+                    {articles}
+                </div>
+            );
         }
 
-        return(
-            <div className={styles.divFeedArticlesList}>
-                {content}
-            </div>
-        );
+        return(content);
     }
 
     render() {

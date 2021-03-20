@@ -85,13 +85,17 @@ export class FeedArticlesControls extends Component {
     }
 
     renderControls = () => {
-        let showDiv = (this.props.feed !== null);
+        // let showDiv = (this.props.feed !== null);
+        let showDiv = true;
         let isAllFeeds = (this.props.feed != null && this.props.feed.feedName === 'All Feeds');
         let content = null;
         if (showDiv) {
+            let articlesExist = (this.props.feed != null && this.props.feed.feedArticles != null);
+            let divControlsClass = articlesExist ? styles.divFeedArticlesControls : styles.divFeedArticlesControlsEmpty;
+
             if (isAllFeeds) {
                 content = (
-                    <div className={styles.divFeedArticlesControls}>
+                    <div className={divControlsClass}>
                         <FeedImageLink selectedFeed = {this.props.feed} />
                         <SyncButton controlsCallback = {this.handleButtonClick}
                                     selectedFeed = {this.props.feed} />
@@ -100,7 +104,7 @@ export class FeedArticlesControls extends Component {
             }
             else {
                 content = (
-                    <div className={styles.divFeedArticlesControls}>
+                    <div className={divControlsClass}>
                         <FeedImageLink selectedFeed = {this.props.feed} />
                         <SyncButton controlsCallback = {this.handleButtonClick}
                                     selectedFeed = {this.props.feed} />

@@ -107,16 +107,15 @@ namespace RssMedia.Controllers {
                 if (!string.IsNullOrEmpty(feed.FeedRssUrl))
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feed.FeedRssUrl);
-                    var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
+                    var rssFeed = await GetRssFeed(decodedFeedRssUrl, false).ConfigureAwait(false);                    
                     var feedData = new Reader.FeedData(rssFeed);
 
                     feed.Id = Guid.NewGuid();
-                    //feed.FeedTitle = rssFeed.Title;
                     feed.FeedImageUrl = (!string.IsNullOrEmpty(rssFeed.ImageUrl)) ? WebUtility.UrlEncode(rssFeed.ImageUrl) : string.Empty;
                     
                     var articleList = feedData.GetArticles();
                     var articleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
-                    feed.FeedArticles = Reader.FeedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                      
+                    feed.FeedArticles = Reader.FeedData.GetFilteredArticles(articleList, feeds.FeedArticleOffset, articleCount);                                       
                 }
                 else 
                 {
@@ -154,14 +153,17 @@ namespace RssMedia.Controllers {
                 foreach (var feedItem in feeds.FeedList)
                 {
                     var decodedFeedRssUrl = WebUtility.UrlDecode(feedItem.FeedRssUrl);
-                    var rssFeed = await GetRssFeed(decodedFeedRssUrl).ConfigureAwait(false);
-                    feedData = new Reader.FeedData(rssFeed, feedItem.FeedName);
+                    var rssFeed = await GetRssFeed(decodedFeedRssUrl, true).ConfigureAwait(false);
+                    if (rssFeed != null)
+                    {
+                        feedData = new Reader.FeedData(rssFeed, feedItem.FeedName);
 
-                    var articles = feedData.GetArticles();
-                    var articleCount = (articles.Count < 10) ? articles.Count : 10; //max 10 articles from feed
-                    var feedArticles = Reader.FeedData.GetFilteredArticles(articles, 0, articleCount);
-                    
-                    articleList.AddRange(feedArticles);
+                        var articles = feedData.GetArticles();
+                        var articleCount = (articles.Count < 10) ? articles.Count : 10; //max 10 articles from feed
+                        var feedArticles = Reader.FeedData.GetFilteredArticles(articles, 0, articleCount);
+                        
+                        articleList.AddRange(feedArticles);
+                    }
                 }
 
                 var allArticleCount = (feeds.FeedArticleCount > articleList.Count) ? articleList.Count : feeds.FeedArticleCount;
@@ -243,21 +245,31 @@ namespace RssMedia.Controllers {
             return feed;
         }
 
-        private async Task<CodeHollow.FeedReader.Feed> GetRssFeed(string url)
+        private async Task<CodeHollow.FeedReader.Feed> GetRssFeed(string url, bool suppressErrors)
         {
-            var rssFeed = await CodeHollow.FeedReader.FeedReader.ReadAsync(url);
-            var specifiedFeed = rssFeed;
-            
-            if (rssFeed.Type == CodeHollow.FeedReader.FeedType.Rss_2_0)
+            try
             {
-                specifiedFeed = ((CodeHollow.FeedReader.Feeds.Rss20Feed)rssFeed.SpecificFeed).ToFeed();
-            }
-            else if (rssFeed.Type == CodeHollow.FeedReader.FeedType.MediaRss)
-            {
-                specifiedFeed = ((CodeHollow.FeedReader.Feeds.MediaRssFeed)rssFeed.SpecificFeed).ToFeed();
-            }
+                var rssFeed = await CodeHollow.FeedReader.FeedReader.ReadAsync(url);
+                var specifiedFeed = rssFeed;
+                
+                if (rssFeed.Type == CodeHollow.FeedReader.FeedType.Rss_2_0)
+                {
+                    specifiedFeed = ((CodeHollow.FeedReader.Feeds.Rss20Feed)rssFeed.SpecificFeed).ToFeed();
+                }
+                else if (rssFeed.Type == CodeHollow.FeedReader.FeedType.MediaRss)
+                {
+                    specifiedFeed = ((CodeHollow.FeedReader.Feeds.MediaRssFeed)rssFeed.SpecificFeed).ToFeed();
+                }
 
-            return specifiedFeed;
+                return specifiedFeed;
+            }
+            catch(Exception ex)
+            {
+                if (suppressErrors)
+                    return null;
+                else 
+                    throw ex;
+            }
         }
 
         #endregion

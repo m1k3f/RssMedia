@@ -55,8 +55,11 @@ export class SyncButton extends Component {
                         <FaSyncAlt style={iconStyle} className="spin" /> : 
                         <FaSyncAlt style={iconStyle} />;
 
+        let articlesExist = (this.props.selectedFeed != null && this.props.selectedFeed.feedArticles != null);
+        let buttonClass = articlesExist ? styles.controlsButton : styles.controlsButtonRight;
+
         return(
-            <button className={`${styles.iconButton} ${styles.controlsButton}`} 
+            <button className={`${styles.iconButton} ${buttonClass}`} 
                     onClick={this.handleSyncClick} title="Refresh Articles">
                 {iconSync}
             </button>
