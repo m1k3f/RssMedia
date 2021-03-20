@@ -52,7 +52,7 @@ export class FeedBar extends Component {
 
         return (
             <div className={styles.divFeedBar} style={divStyle}>
-                <div style={{borderRight: '2px solid #333333'}}>
+                <div style={{borderRight: '2px solid #96abb6'}}>
                     <FeedLinkAdd iconStyle={iconStyle}>
                         <FaPlus style={iconStyle} title="Add Feed" />
                     </FeedLinkAdd>
