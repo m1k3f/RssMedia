@@ -51,3 +51,8 @@
     outline: none;
     margin-right: 10px;
 }
+
+.enclosureAudioErrorText {
+    font-size: 12px;
+    color: #ff6666;
+}

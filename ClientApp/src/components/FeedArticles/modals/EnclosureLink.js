@@ -55,12 +55,18 @@ export class EnclosureLink extends Component {
                             ref={el => this.audioElement = el}
                             onPlay={this.onAudioPlay} 
                             onPlaying={this.onAudioPlaying} 
-                            onPause={this.onAudioPaused}>
+                            onPause={this.onAudioPaused}
+                            onError={this.onAudioError}>
                                 <source src={article.articleEnclosureUrl} />
                     </audio>
                     <div ref={el => this.audioSpinner = el} style={{visibility: 'hidden'}}>
                         <FaSpinner className="spin" />
                     </div>
+                </div>
+                <div ref={el => this.audioErrorMessage = el} style={{visibility: 'hidden'}}>
+                    <p className={styles.enclosureAudioErrorText}>
+                        An error occurred playing the audio.
+                    </p>
                 </div>
             </div>
         );        
@@ -78,26 +84,31 @@ export class EnclosureLink extends Component {
         this.audioSpinner.style.visibility = 'hidden';
     }
 
-    getResolvedUrl = async (enclosureUrl) => {
-        let encodedUrl = encodeURIComponent(enclosureUrl);
-        let urlObject = {
-            originalUrl: encodedUrl
-        };
-
-        let request = new Request(process.env.REACT_APP_APIRESOLVEDURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },                    
-            body: JSON.stringify(urlObject)
-        });
-
-        let responseJson = await fetch(request)
-                                    .then((response) => response.json())
-                                    .catch(error => console.log(error));
-
-        return responseJson.resolvedUrl;
+    onAudioError = () => {
+        this.audioSpinner.style.visibility = 'hidden';
+        this.audioErrorMessage.style.visibility = 'visible';
     }
+
+    // getResolvedUrl = async (enclosureUrl) => {
+    //     let encodedUrl = encodeURIComponent(enclosureUrl);
+    //     let urlObject = {
+    //         originalUrl: encodedUrl
+    //     };
+
+    //     let request = new Request(process.env.REACT_APP_APIRESOLVEDURL, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=utf-8'
+    //         },                    
+    //         body: JSON.stringify(urlObject)
+    //     });
+
+    //     let responseJson = await fetch(request)
+    //                                 .then((response) => response.json())
+    //                                 .catch(error => console.log(error));
+
+    //     return responseJson.resolvedUrl;
+    // }
 
     render() {        
         return(
