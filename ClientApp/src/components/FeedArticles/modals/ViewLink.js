@@ -49,18 +49,19 @@ export class ViewLink extends Component {
         let frameUrl = this.getFrameUrl();
 
         return (
-            <div className={styles.divViewLink}>
-                <a href={this.state.article.articleUrl} target="_blank" rel="noopener noreferrer">
-                    <p className={`${styles.divViewLinkText} ${styles.truncate}`}>
-                        {this.state.article.articleUrl}
-                    </p>
-                </a>
+            <div className={styles.divViewLink}>                
                 <iframe className={styles.divViewLinkFrame} 
                         title="View Link Modal"
                         src={frameUrl} 
                         name="extLinkFrame"
                         ref={el => this.frameElement = el}>
                 </iframe>
+                <a href={this.state.article.articleUrl} style={{outline: 'none'}}
+                    target="_blank" rel="noopener noreferrer">
+                    <p className={`${styles.divViewLinkText}`}>
+                        Link
+                    </p>
+                </a>
             </div>
         );
     }
