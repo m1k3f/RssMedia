@@ -26,12 +26,11 @@ export class FeedLink extends Component {
             let maxArticles = feedLinksSettings.settings.maxArticles;
             let feed = await this.getFeed(feedObject, 0, maxArticles);
 
+            this.clearActiveFeed();
+            eventTarget.classList.add(styles.divFeedsActive);
+
             if (feed.feedError === null) {
-                this.clearActiveFeed();
-                eventTarget.classList.add(styles.divFeedsActive);
-
                 let nowDateTime = new Date();
-
                 feed.lastAccessed = this.props.linkData.lastAccessed !== undefined ? 
                                     this.props.linkData.lastAccessed : 
                                     nowDateTime;
@@ -42,8 +41,6 @@ export class FeedLink extends Component {
                 this.props.feedLinksCallback(this.props.linkData, null);
             }
             else {
-                this.clearActiveFeed();
-                eventTarget.classList.add(styles.divFeedsActive);
                 setFeed(feed, false);
             }
         }     
