@@ -41,19 +41,15 @@ export class EditButton extends Component {
     }
 
     render() {
-        let iconStyle = {
-            width: '32px',
-            height: '32px'
-        };
-
         let articlesExist = (this.props.selectedFeed != null && this.props.selectedFeed.feedArticles != null);
         let buttonClass = articlesExist ? styles.controlsButton : styles.controlsButtonRight;
+        let iconClass = articlesExist ? styles.controlsButtonIcon : styles.controlsButtonIconRight;
 
         return(
             <React.Fragment>
                 <button className={`${styles.iconButton} ${buttonClass}`} 
                         onClick={this.handleEditClick} title="Edit Feed">
-                    <FaEdit style={iconStyle} />
+                    <FaEdit className={iconClass} />
                 </button>
                 {this.renderEditModal()}
             </React.Fragment>

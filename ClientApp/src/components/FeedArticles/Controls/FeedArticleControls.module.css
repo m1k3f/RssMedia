@@ -36,3 +36,13 @@
     padding: 0;
     background-color: #ffffff;
 }
+
+.controlsButtonIcon {
+    width: 32px;
+    height: 32px;
+}
+
+.controlsButtonIconRight {
+    width: 20px;
+    height: 20px;
+}

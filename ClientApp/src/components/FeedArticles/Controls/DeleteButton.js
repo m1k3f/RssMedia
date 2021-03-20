@@ -28,18 +28,14 @@ export class DeleteButton extends Component {
     }
 
     render() {
-        let iconStyle = {
-            width: '32px',
-            height: '32px'
-        };
-
         let articlesExist = (this.props.selectedFeed != null && this.props.selectedFeed.feedArticles != null);
         let buttonClass = articlesExist ? styles.controlsButton : styles.controlsButtonRight;
+        let iconClass = articlesExist ? styles.controlsButtonIcon : styles.controlsButtonIconRight;
 
         return(
             <button className={`${styles.iconButton} ${buttonClass}`} 
                     onClick={this.handleDeleteClick} title="Delete Feed">
-                <FaTrash style={iconStyle} />
+                <FaTrash className={iconClass} />
             </button>
         );
     }

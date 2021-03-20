@@ -46,17 +46,13 @@ export class SyncButton extends Component {
     }
 
     render() {
-        let iconStyle = {
-            width: '32px',
-            height: '32px'
-        };
-        
-        let iconSync = (this.state.spin) ? 
-                        <FaSyncAlt style={iconStyle} className="spin" /> : 
-                        <FaSyncAlt style={iconStyle} />;
-
         let articlesExist = (this.props.selectedFeed != null && this.props.selectedFeed.feedArticles != null);
         let buttonClass = articlesExist ? styles.controlsButton : styles.controlsButtonRight;
+        let iconClass = articlesExist ? styles.controlsButtonIcon : styles.controlsButtonIconRight;
+
+        let iconSync = (this.state.spin) ? 
+                        <FaSyncAlt className={`${iconClass} spin`} /> : 
+                        <FaSyncAlt className={iconClass} />;        
 
         return(
             <button className={`${styles.iconButton} ${buttonClass}`} 
