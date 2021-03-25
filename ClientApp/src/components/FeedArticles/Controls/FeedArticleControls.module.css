@@ -24,6 +24,13 @@
     transform: scale(2.0);
 }
 
+.controlsImageIcon {
+    margin: 0 0 30px 0;
+    width: 40px;
+    height: 40px;
+    color: #fc0505;
+}
+
 .controlsButton {
     margin-bottom: 20px;
     margin-left: 0;
@@ -45,4 +52,23 @@
 .controlsButtonIconRight {
     width: 20px;
     height: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .controlsImage {
+        margin: 0 20px 0 0;
+    }
+
+    .controlsImageIcon {
+        margin: 0 20px 0 0;
+    }
+
+    .controlsButton {
+        margin: 0 20px 0 0;
+    }
+
+    .controlsButtonIcon {
+        width: 24px;
+        height: 24px;
+    }
 }

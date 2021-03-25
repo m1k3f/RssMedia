@@ -8,21 +8,15 @@ export class FeedImageLink extends Component {
     renderImage = () => {
         let image = '';
         let selectedFeed = this.props.selectedFeed;
-        let iconStyle = {
-            marginBottom: '30px',
-            width: '40px',
-            height: '40px',
-            color: '#fc0505'
-        };
 
         if (selectedFeed === null || selectedFeed.feedRssUrl.length === 0) {
             image = (
-                <FaRss style={iconStyle} />
+                <FaRss className={styles.controlsImageIcon} />
             ); 
         }
         else if (selectedFeed.feedRssUrl.includes("youtube.com")) {
             image = (
-                <FaYoutube style={iconStyle} />
+                <FaYoutube className={styles.controlsImageIcon} />
             );            
         }
         else if (selectedFeed.feedImageUrl != null && selectedFeed.feedImageUrl.length > 0) {

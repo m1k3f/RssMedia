@@ -98,14 +98,14 @@ export class NavMenu extends Component {
         </div>
         {this.renderFeedButtons()}        
         <div className={styles.headerButtonsRight}>
-          <button className={`${styles.headerHelpButton} ${styles.iconButton}`} onClick={this.handleHelpButtonClick} title="Help">
+          {/* <button className={`${styles.headerHelpButton} ${styles.iconButton}`} onClick={this.handleHelpButtonClick} title="Help">
             <FaQuestionCircle style={helpIconStyle} />
-          </button>
+          </button> */}
           <a className={styles.headerCodeLink} href="https://github.com/m1k3f/RssMedia" 
               target="_blank" rel="noopener noreferrer" title="View the Code!">
             <FaGithub style={githubIconStyle} />
           </a>
-          {this.renderHelpModal()}
+          {/* {this.renderHelpModal()} */}
         </div>        
       </header>
     );
