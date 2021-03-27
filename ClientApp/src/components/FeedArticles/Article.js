@@ -32,11 +32,21 @@ export class Article extends Component {
     }
 
     handleArticleLink = (e) => {
-        this.setState({
-            opened: true,
-            showViewLink: true,
-            showEnclosureModal: false
-        });
+        let article = this.props.data;
+        if (this.getScreenWidth() < 800 && article.articleUrl !== null && article.articleUrl.length > 0) {
+            let a = document.createElement('a');
+            a.href = article.articleUrl;
+            a.target="_blank";
+            a.rel="noopener noreferrer";
+            a.click();
+        }
+        else {
+            this.setState({
+                opened: true,
+                showViewLink: true,
+                showEnclosureModal: false
+            });
+        }
     }
 
     handleModalsCallback = () => {
@@ -53,6 +63,16 @@ export class Article extends Component {
             showViewLink: false,
             showEnclosureModal: true
         })
+    }
+
+    getScreenWidth = () => {
+        return Math.max(
+            document.body.scrollWidth,
+            document.documentElement.scrollWidth,
+            document.body.offsetWidth,
+            document.documentElement.offsetWidth,
+            document.documentElement.clientWidth
+          );
     }
 
     getFormattedDateTime = (dateTimeValue) => {

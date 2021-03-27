@@ -14,6 +14,8 @@ export class FeedLinks extends Component {
     static contextType = FeedContext;
 
     handleOverflowButtonClick = () => {
+        this.feedsWrapper.scrollTop = 0;
+
         if (this.state.overflowVisible) {
             this.feedsWrapper.classList.remove(styles.divFeedsExpanded);
             this.feedsWrapper.classList.add(styles.divFeedsHidden);

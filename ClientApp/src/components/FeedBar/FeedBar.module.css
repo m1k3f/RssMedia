@@ -10,11 +10,9 @@
     border: none;
     outline: none;
     cursor: pointer;
-    /* padding: 6px;     */
 }
 
 .divFeedBar {
-    /* border: 2px solid #8c8c8c; */
     border: 2px solid #879fab;
     border-radius: 5px;
     background-color: var(--mainBackgroundColor);
@@ -22,6 +20,8 @@
     display: flex;
     align-items: flex-start;
     min-width: 100%;
+    position: sticky;
+    top: 10px;
     z-index: 100;
 }
 
@@ -86,6 +86,7 @@
 .divFeedsWrapper {
     display: flex;
     align-items: flex-start;
+    scrollbar-width: thin;
     /* transition: max-height .3s ease-out; */
 }
 
@@ -95,8 +96,8 @@
 }
 
 .divFeedsExpanded {
-    overflow-y: visible;
-    max-height: 80vh;
+    overflow-y: auto;
+    max-height: 70vh;
 }
 
 .divFeeds {
@@ -104,7 +105,6 @@
     align-items: flex-start;
     justify-content: left;
     flex-wrap: wrap;
-    /* z-index: 100; */
     width: 100%;
 }
 
