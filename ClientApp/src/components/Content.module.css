@@ -13,6 +13,10 @@
     justify-content: center;
     align-items: center;
     height: 50vh;
+    position: absolute;
+    top: 120px;
+    left: 45%;
+    z-index: 0;
 }
 
 .divMainContentButton {
@@ -43,5 +47,9 @@
 @media screen and (max-width: 600px) {
     .readerApp {
         width: 95vw;
+    }
+
+    .divMainContentButtons {
+        left: 35%;
     }
 }

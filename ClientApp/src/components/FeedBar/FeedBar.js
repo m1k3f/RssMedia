@@ -19,7 +19,7 @@ export class FeedBar extends Component {
         if (feedLinks.length > 0) {
             content = (
                 <React.Fragment>
-                    <FeedLinkAll links = {feedLinks} />
+                    {/* <FeedLinkAll links = {feedLinks} /> */}
                     <FeedLinks 
                         links = {feedLinks} 
                     />

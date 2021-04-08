@@ -73,8 +73,6 @@
     justify-content: space-between;
     margin-right: 2px;
     padding-left: 10px;
-    border-left: 1px solid #cccccc;
-    width: 100%;
 }
 
 .divFeedLinksButton {
@@ -87,16 +85,16 @@
     display: flex;
     align-items: flex-start;
     scrollbar-width: thin;
-    /* transition: max-height .3s ease-out; */
+    transition: max-height .1s ease-in-out;
 }
 
 .divFeedsHidden {
     overflow-y: hidden;
-    max-height: 35px;
+    max-height: 35px;    
 }
 
 .divFeedsExpanded {
-    overflow-y: auto;
+    overflow-y: visible;
     max-height: 70vh;
 }
 
@@ -133,4 +131,10 @@
 .divFeedsActive {
     background-color: var(--feedButtonHoverColor);
     color: var(--feedButtonHoverTextColor);
+}
+
+@media screen and (max-width: 600px) {
+    .divFeedsExpanded {
+        overflow-y: auto;
+    }
 }
