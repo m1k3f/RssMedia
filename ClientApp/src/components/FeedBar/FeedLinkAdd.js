@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FaSpinner, FaPlus } from 'react-icons/fa';
+import { FaSpinner } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { NewFeed } from './modals/NewFeed';

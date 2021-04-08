@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { FeedLinkAdd } from './FeedLinkAdd';
-import { FeedLinkAll } from './FeedLinkAll';
+// import { FeedLinkAll } from './FeedLinkAll';
 import { FeedLinks } from './FeedLinks';
 import styles from './FeedBar.module.css';
 

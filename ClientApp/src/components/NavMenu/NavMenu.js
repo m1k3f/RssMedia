@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FaRssSquare, FaFileUpload, FaFileDownload, FaTrash, FaQuestionCircle, FaGithub } from 'react-icons/fa';
+import { FaRssSquare, FaFileUpload, FaFileDownload, FaTrash, FaGithub } from 'react-icons/fa';
 
 import FeedContext from '../context/FeedContext';
 import { FeedExportButton } from './controls/FeedExportButton';
@@ -80,10 +80,10 @@ export class NavMenu extends Component {
   }
 
   render () {    
-    let helpIconStyle = {
-      color: '#0044cc',
-      fontSize: '30px'
-    };
+    // let helpIconStyle = {
+    //   color: '#0044cc',
+    //   fontSize: '30px'
+    // };
 
     let githubIconStyle = {
       color: 'black',

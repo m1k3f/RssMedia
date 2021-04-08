@@ -4,7 +4,6 @@ import { FaPlus, FaFileUpload } from 'react-icons/fa';
 import FeedContext from './context/FeedContext';
 import { FeedBar } from './FeedBar/FeedBar';
 import { FeedArticles } from './FeedArticles/FeedArticles';
-import { HelpInfoMain } from './HelpInfoMain';
 import { FeedLinkAdd } from './FeedBar/FeedLinkAdd';
 import { FeedImportButton } from './NavMenu/controls/FeedImportButton';
 
@@ -15,7 +14,7 @@ export class Content extends Component {
     static contextType = FeedContext;
 
     renderContent = () => {
-        const { feedLinksSettings, selectedFeed, selectedFeedLoading } = this.context;
+        const { selectedFeed, selectedFeedLoading } = this.context;
         let content = null;
         
         if (selectedFeed === null && !selectedFeedLoading) {            
