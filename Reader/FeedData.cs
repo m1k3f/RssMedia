@@ -28,6 +28,8 @@ namespace Reader
             var articleList = new List<Models.Reader.Article>();
             foreach (var rssArticle in _rssFeed.Items)
             {
+                var enclosureData = GetArticleEnclosure(rssArticle);
+
                 var article = new Models.Reader.Article()
                 {
                     Id = Guid.NewGuid(),
@@ -38,7 +40,8 @@ namespace Reader
                     ArticleDescription = GetArticleDescription(rssArticle),
                     ArticleTitle = rssArticle.Title,                    
                     ArticleContent = rssArticle.Content,
-                    ArticleEnclosureUrl = GetArticleEnclosureUrl(rssArticle),
+                    ArticleEnclosureContentType = enclosureData.contentType,
+                    ArticleEnclosureUrl = enclosureData.url,
                     ArticleImageUrl = GetArticleImageUrl(rssArticle)
                 };
 
@@ -102,22 +105,24 @@ namespace Reader
             return description;
         }
 
-        private string GetArticleEnclosureUrl(CodeHollow.FeedReader.FeedItem rssArticle)
+        private Models.Reader.ArticleEnclosure GetArticleEnclosure(CodeHollow.FeedReader.FeedItem rssArticle)
         {
-            string enclosureUrl = null;
+            var enclosure = new Models.Reader.ArticleEnclosure();
 
             if (_rssFeed.Type == CodeHollow.FeedReader.FeedType.MediaRss)
             {
                 var item = (CodeHollow.FeedReader.Feeds.MediaRssFeedItem)rssArticle.SpecificItem;
-                enclosureUrl = item.Enclosure.Url;
+                enclosure.contentType = item.Enclosure.MediaType;
+                enclosure.url = item.Enclosure.Url;
             }
             else if (_rssFeed.Type == CodeHollow.FeedReader.FeedType.Rss_2_0)
             {
                 var item = (CodeHollow.FeedReader.Feeds.Rss20FeedItem)rssArticle.SpecificItem;
-                enclosureUrl = item.Enclosure.Url;
+                enclosure.contentType = item.Enclosure.MediaType;
+                enclosure.url = item.Enclosure.Url;
             }
 
-            return enclosureUrl;
+            return enclosure;
         }        
 
         private string GetArticleImageUrl(CodeHollow.FeedReader.FeedItem rssArticle)
