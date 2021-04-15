@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -230,6 +231,29 @@ namespace RssMedia.Controllers {
                 _logger.LogError(ex, $"Error resolving url '{originalUrl.First().Value}'", null);
                 return StatusCode(500, ex.Message);
             }            
+        }
+
+        [HttpPost]
+        [ActionName("RemoteConnect")]
+        public async Task<IActionResult> RemoteConnect([FromBody]RemoteConnection connection)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(connection.OriginalUrl))
+                {
+                    var utilities = new Reader.UtilitiesService(_client);
+                    connection = await utilities.GetConnectionDetails(connection);
+                }
+
+                var connectionJson = JsonSerializer.Serialize(connection);
+
+                return Ok(connectionJson);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"Error connecting to '{connection.OriginalUrl}'", null);
+                return StatusCode(500, ex.Message);
+            }
         }
 
         #region Private Methods

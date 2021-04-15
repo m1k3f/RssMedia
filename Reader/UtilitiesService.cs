@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using Models.Reader;
+
 namespace Reader
 {
     public class UtilitiesService : IUtilitiesService
@@ -30,6 +32,21 @@ namespace Reader
                 resolvedUrl = finalUrl;
 
             return resolvedUrl.ToString();
+        }
+
+        public async Task<RemoteConnection> GetConnectionDetails(RemoteConnection connection)
+        {
+            var client = _clientFactory.CreateClient();            
+            using var response = await client.GetAsync(connection.OriginalUrl, HttpCompletionOption.ResponseHeadersRead);
+            if (response.IsSuccessStatusCode)
+            {
+                //Check for header x-frame-options
+                IEnumerable<string> xFrameOptionValue;
+                var xFrameOptionsExists = response.Headers.TryGetValues("X-Frame-Options", out xFrameOptionValue);
+                connection.ShowUrlInIframe = (xFrameOptionsExists) ? false : true;
+            }
+
+            return connection;
         }
     }
 }
