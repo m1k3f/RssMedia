@@ -32,7 +32,7 @@ export class ViewLink extends Component {
                 showConfirmButton: false,
                 showCancelButton: false,
                 showCloseButton: true,
-                width: '90%',
+                width: '98vw',
                 customClass: styles.swalPopup
             })
             .then((value) => {
