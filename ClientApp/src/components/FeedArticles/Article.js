@@ -136,18 +136,20 @@ export class Article extends Component {
         let content = '';
         let article = this.props.data;
         if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0) {
-            let iconStyle = {
-                color: '#4d4d4d',
-                width: '20px',
-                height: '20px'
-            };
+            if (article.articleEnclosureContentType.includes('audio')) {
+                let iconStyle = {
+                    color: '#4d4d4d',
+                    width: '20px',
+                    height: '20px'
+                };
 
-            content = (
-                <button className={`${styles.iconButton} ${styles.feedArticleDetailsButton}`} 
-                        onClick={this.handleEnclosureClick} title="View Attachment">
-                    <FaPaperclip style={iconStyle} />
-                </button>
-            );
+                content = (
+                    <button className={`${styles.iconButton} ${styles.feedArticleDetailsButton}`} 
+                            onClick={this.handleEnclosureClick} title="View Attachment">
+                        <FaPaperclip style={iconStyle} />
+                    </button>
+                );
+            }
         }
         
         return (content);
@@ -159,6 +161,12 @@ export class Article extends Component {
         if (article.articleImageUrl != null && article.articleImageUrl.length > 0) {
             content = (
                 <img src={article.articleImageUrl} style={{marginBottom:'10px'}} alt="" />
+            );
+        }
+        else if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0 &&
+                article.articleEnclosureContentType !== null && article.articleEnclosureContentType.includes('image')) {
+            content = (
+                <img src={article.articleEnclosureUrl} style={{marginBottom:'10px'}} alt="" />
             );
         }
 
