@@ -31,9 +31,11 @@ export class Article extends Component {
         }
     }
 
-    handleArticleLink = (e) => {
+    handleArticleLink = async (e) => {
         let article = this.props.data;
-        if (this.getScreenWidth() < 800 && article.articleUrl !== null && article.articleUrl.length > 0) {
+        let showLink = (this.getScreenWidth() > 800 && await this.showIframeLink(article.articleUrl));
+
+        if (article.articleUrl !== null && article.articleUrl.length > 0 && !showLink) {
             let a = document.createElement('a');
             a.href = article.articleUrl;
             a.target="_blank";
@@ -73,6 +75,29 @@ export class Article extends Component {
             document.documentElement.offsetWidth,
             document.documentElement.clientWidth
           );
+    }
+
+    showIframeLink = async (url) => {
+        let showLink = false;
+
+        let remoteConnection = {
+            originalUrl: url
+        };
+
+        let request = new Request(process.env.REACT_APP_APIREMOTECONNECTION, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },                    
+            body: JSON.stringify(remoteConnection)
+        });
+
+        let serviceRemoteConnectObject = await fetch(request).then((response) => response.json());
+        if (serviceRemoteConnectObject !== null && serviceRemoteConnectObject.ShowUrlInIframe) {
+            showLink = true;
+        }
+
+        return showLink;
     }
 
     getFormattedDateTime = (dateTimeValue) => {
