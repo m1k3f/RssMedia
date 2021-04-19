@@ -41,10 +41,6 @@
     line-height: 10px;    
 }
 
-.divButtonCenter {
-    
-}
-
 .headerButtonCenter {
     background-color: #ffffff;    
     /* transition: transform .2s; */
@@ -58,7 +54,9 @@
 .headerButtonsRight {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     line-height: 10px;
+    min-width: 150px;
 }
 
 .headerHelpButton {
@@ -71,4 +69,10 @@
 .headerCodeLink {
     margin-left: 6px;
     padding: 4px;
+}
+
+@media screen and (max-width: 800px) {
+    .headerButtonsRight {
+        min-width: 0;
+    }
 }

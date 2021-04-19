@@ -12,25 +12,6 @@ export class FeedLinks extends Component {
     }
 
     static contextType = FeedContext;
-
-    handleOverflowButtonClick = () => {
-        this.feedsWrapper.scrollTop = 0;
-
-        if (this.state.overflowVisible) {
-            this.feedsWrapper.classList.remove(styles.divFeedsExpanded);
-            this.feedsWrapper.classList.add(styles.divFeedsHidden);
-            this.setState({
-                overflowVisible: false
-            });
-        }
-        else {
-            this.feedsWrapper.classList.remove(styles.divFeedsHidden);
-            this.feedsWrapper.classList.add(styles.divFeedsExpanded);
-            this.setState({
-                overflowVisible: true
-            });
-        }
-    }
         
     handleFeedLinkCallback = (existingFeedLink, droppedFeedLink) => {
         if (droppedFeedLink !== null) {
@@ -116,16 +97,15 @@ export class FeedLinks extends Component {
 
         return(
             <div className={styles.divFeedLinks}>
-                <div className={`${styles.divFeedsWrapper} ${styles.divFeedsHidden}`} 
+                <button className={`${styles.divFeedLinksButton} ${styles.iconButton}`} >
+                    {buttonIcon}
+                </button>
+                <div className={`${styles.divFeedsWrapper}`} 
                         ref={el => this.feedsWrapper = el}>
                     <div className={`fade-in ${styles.divFeeds}`}>
                         {this.renderFeedLinks()}                    
                     </div>                    
-                </div>
-                <button className={`${styles.divFeedLinksButton} ${styles.iconButton}`} 
-                        onClick={this.handleOverflowButtonClick}>
-                    {buttonIcon}
-                </button>
+                </div>                
             </div>
         );
     }

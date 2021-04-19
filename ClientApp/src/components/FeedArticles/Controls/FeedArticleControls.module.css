@@ -8,8 +8,9 @@
 .divFeedTitle {
     font-size: 24px;
     font-weight: 600;
-    padding-top: 15px;
-    padding-bottom: 10px
+    /* padding-top: 15px;
+    padding-bottom: 10px */
+    margin: 10px 0 10px 0;
 }
 
 .controlsImage {
@@ -54,7 +55,7 @@
     height: 20px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .controlsImage {
         margin: 0 20px 0 0;
     }

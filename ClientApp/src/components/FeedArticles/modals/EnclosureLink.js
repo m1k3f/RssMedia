@@ -16,6 +16,8 @@ export class EnclosureLink extends Component {
         article: null
     }    
 
+    // audioErrorTime = 0;
+
     showEnclosureLinkModal = () => {
         if (this.props.article !== null) {
 
@@ -63,11 +65,9 @@ export class EnclosureLink extends Component {
                         <FaSpinner className="spin" />
                     </div>
                 </div>
-                <div ref={el => this.audioErrorMessage = el} style={{visibility: 'hidden'}}>
-                    <p className={styles.enclosureAudioErrorText}>
-                        An error occurred playing the audio.
-                    </p>
-                </div>
+                {/* <div ref={el => this.audioErrorMessage = el} style={{visibility: 'hidden'}}>
+                    <p className={styles.enclosureAudioErrorText} ref={el => this.errorMessage = el} />
+                </div> */}
             </div>
         );        
     }
@@ -86,7 +86,6 @@ export class EnclosureLink extends Component {
 
     onAudioError = () => {
         this.audioSpinner.style.visibility = 'hidden';
-        this.audioErrorMessage.style.visibility = 'visible';
     }
 
     // getResolvedUrl = async (enclosureUrl) => {

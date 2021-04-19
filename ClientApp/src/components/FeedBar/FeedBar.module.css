@@ -1,5 +1,6 @@
 :root {
     --mainBackgroundColor: #ffffff;
+    --feedBarColor: #ffffff;
     --feedButtonColor: #698896;
     --feedButtonTextColor: #fbfbfb;
     --feedButtonHoverColor: #ffffff;
@@ -13,27 +14,25 @@
 }
 
 .divFeedBar {
-    border: 2px solid #879fab;
+    border: 2px solid #999999;
     border-radius: 5px;
-    background-color: var(--mainBackgroundColor);
+    background-color: var(--feedBarColor);
     padding: 10px;
     display: flex;
     align-items: flex-start;
-    min-width: 100%;
-    position: sticky;
-    top: 10px;
+    width: 100%;
+    position: absolute;
+    top: 60px;
     z-index: 100;
 }
 
 .divAdd {
     display: flex;
     align-items: flex-start;
-    padding-left: 4px;
-    padding-right: 6px;
 }
 
 .divAddLink {
-    padding: 8px;
+    padding: 6px;
     background-color: var(--mainBackgroundColor);
 }
 
@@ -46,7 +45,6 @@
 
 .divAllFeedsButton {
     cursor: pointer;
-    /* padding: 6px; */
     padding: 4px 8px;
     margin: 4px 0 0 0;
     border: 2px solid var(--feedButtonColor);
@@ -71,21 +69,31 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-right: 2px;
-    padding-left: 10px;
 }
 
 .divFeedLinksButton {
-    padding: 10px;
-    background-color: var(--mainBackgroundColor);
+    padding: 6px;
+    margin: 4px 4px 0 0;
+    background-color: var(--feedBarColor);
     color: #4d4d4d;
+    display: none;
 }
 
 .divFeedsWrapper {
     display: flex;
     align-items: flex-start;
     scrollbar-width: thin;
-    transition: max-height .1s ease-in-out;
+    transition: max-height .4s linear -.2s;
+    overflow-y: hidden;
+    max-height: 35px;
+}
+
+.divFeedsWrapper:hover {
+    max-height: 70vh;
+}
+
+.divFeedLinksButton:focus ~ .divFeedsWrapper {
+    max-height: 70vh;
 }
 
 .divFeedsHidden {
@@ -94,7 +102,6 @@
 }
 
 .divFeedsExpanded {
-    overflow-y: visible;
     max-height: 70vh;
 }
 
@@ -109,7 +116,7 @@
 .feedLink {
     cursor: pointer;
     padding: 4px 8px;
-    margin: 4px 3px 8px 3px;
+    margin: 4px 3px 4px 3px;
     border: 2px solid var(--feedButtonColor);
     border-radius: 30px;
     background-color: var(--feedButtonColor);
@@ -133,8 +140,19 @@
     color: var(--feedButtonHoverTextColor);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .divFeedsExpanded {
         overflow-y: auto;
+    }    
+
+    .feedLink {
+        padding: 4px 4px;
+        font-size: 10px;
+    }
+}
+
+@media only screen and (hover: none) {
+    .divFeedLinksButton {
+        display: block;
     }
 }
