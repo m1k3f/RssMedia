@@ -144,6 +144,11 @@
     margin-bottom: 10px;
 }
 
+.feedArticleImage {
+    margin-bottom: 10px;
+    max-width: 80%;    
+}
+
 @media screen and (max-width: 800px) {
     .divFeedArticles {
         width: 95vw;
@@ -152,14 +157,10 @@
     
     .feedControlsArticles {
         flex-direction: column;
-        align-items: center;
-        padding: 12px 0 0 0;
     }
 
     .divFeedArticlesControls {
         flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
         margin: 0 0 10px 0;
     }
 }

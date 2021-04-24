@@ -160,13 +160,13 @@ export class Article extends Component {
         let article = this.props.data;
         if (article.articleImageUrl != null && article.articleImageUrl.length > 0) {
             content = (
-                <img src={article.articleImageUrl} style={{marginBottom:'10px'}} alt="" />
+                <img src={article.articleImageUrl} className={styles.feedArticleImage} alt="" />
             );
         }
         else if (article.articleEnclosureUrl !== null && article.articleEnclosureUrl.length > 0 &&
                 article.articleEnclosureContentType !== null && article.articleEnclosureContentType.includes('image')) {
             content = (
-                <img src={article.articleEnclosureUrl} style={{marginBottom:'10px'}} alt="" />
+                <img src={article.articleEnclosureUrl} className={styles.feedArticleImage} alt="" />
             );
         }
 
