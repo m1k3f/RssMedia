@@ -84,7 +84,7 @@ export class Content extends Component {
         return (
             <main className={styles.mainContent}>
                 <FeedBar />
-                {this.renderContent()}
+                {this.renderContent()}                
             </main>
         );
     }

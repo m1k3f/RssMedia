@@ -51,7 +51,7 @@ export class FeedArticles extends Component {
                     <section className={styles.feedControlsArticles}>
                         <FeedArticlesControls feed={selectedFeed} />
                         {this.renderArticles(selectedFeed)}
-                    </section>
+                    </section>                    
                 </div>
             );
         }

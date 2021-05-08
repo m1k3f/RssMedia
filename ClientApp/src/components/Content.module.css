@@ -1,11 +1,13 @@
 .readerApp {    
     margin: auto;
     width: 80vw;
+    height: 100vh;
     position: relative;
 }
 
 .mainContent {
-    font-size: 13px;    
+    font-size: 13px;
+    height: 90%;
 }
 
 .divMainContentButtons {

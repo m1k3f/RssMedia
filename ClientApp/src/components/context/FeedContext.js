@@ -10,7 +10,8 @@ class FeedProvider extends Component {
         this.state = {
             selectedFeed: null,
             selectedFeedLoading: false,
-            feedLinksSettings: this.getFeedLinksStorage()
+            feedLinksSettings: this.getFeedLinksStorage(),
+            selectedEnclosureArticle: null
         }
     }    
 
@@ -42,6 +43,12 @@ class FeedProvider extends Component {
 
         this.setState({
             feedLinksSettings: feedLinksSettings
+        });
+    }
+
+    setSelectedEnclosureArticle = (article) => {
+        this.setState({
+            selectedEnclosureArticle: article
         });
     }
 
@@ -88,8 +95,8 @@ class FeedProvider extends Component {
 
     render() {
         const { children } = this.props
-        const { selectedFeed, selectedFeedLoading, feedLinksSettings } = this.state
-        const { setFeed, setFeedLinks, setSettings, getFeedLinksStorage, saveAndRefreshFeedLinks } = this
+        const { selectedFeed, selectedFeedLoading, feedLinksSettings, selectedEnclosureArticle } = this.state
+        const { setFeed, setFeedLinks, setSettings, setSelectedEnclosureArticle, getFeedLinksStorage, saveAndRefreshFeedLinks } = this
 
         return (
             <FeedContext.Provider 
@@ -101,6 +108,8 @@ class FeedProvider extends Component {
                         feedLinksSettings,
                         setFeedLinks,
                         setSettings,
+                        selectedEnclosureArticle,
+                        setSelectedEnclosureArticle,
                         getFeedLinksStorage,
                         saveAndRefreshFeedLinks
                     }

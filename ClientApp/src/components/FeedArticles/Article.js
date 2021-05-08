@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { FaLink, FaPaperclip, FaAngleUp, FaAngleDown } from 'react-icons/fa';
-
 import ReactHtmlParser from 'react-html-parser';
+
+import FeedContext from '../context/FeedContext';
 import { EnclosureLink } from './modals/EnclosureLink';
 import { ViewLink } from './modals/ViewLink';
 import styles from './FeedArticles.module.css';
 
 export class Article extends Component {  
+
+    static contextType = FeedContext;
 
     state = {
         opened: false,
@@ -60,11 +63,13 @@ export class Article extends Component {
     }
 
     handleEnclosureClick = (e) => {
-        this.setState({
-            opened: true,
-            showViewLink: false,
-            showEnclosureModal: true
-        })
+        // this.setState({
+        //     opened: true,
+        //     showViewLink: false,
+        //     showEnclosureModal: true
+        // })
+        const {setSelectedEnclosureArticle} = this.context;
+        setSelectedEnclosureArticle(this.props.data);
     }
 
     getScreenWidth = () => {
@@ -178,9 +183,9 @@ export class Article extends Component {
         if (this.state.showViewLink) {
             content = <ViewLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
         }
-        else if (this.state.showEnclosureModal) {
-            content = <EnclosureLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
-        }
+        // else if (this.state.showEnclosureModal) {
+        //     content = <EnclosureLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
+        // }
 
         return content;
     }
