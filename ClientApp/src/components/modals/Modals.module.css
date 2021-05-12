@@ -41,24 +41,27 @@
     padding: 10px;
 } */
 
-.enclosurePlayer {
-    /* display: flex;
-    flex-direction: column; */
-    width: 400px;
-    height: 90px;
-    margin: 0 auto 0 auto;
-    padding: 5px 20px 5px 20px;
-    /* border: 1px solid black; */
-    border-radius: 40px 40px 0 0;
-    box-shadow: 0 0 6px 0 black;
-    background-color: white;
-    position: sticky;
+.divEnclosurePlayer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: fixed;
     bottom: 0;
-    /* left: 0; */
+    left: 0;
+    right: 0;
     z-index: 100;
     animation-name: enclosurePlayerSlideUp;
-    animation-duration: .4s;
-    animation-timing-function: ease-in;
+    animation-duration: .5s;
+    animation-timing-function: ease;
+}
+
+.enclosurePlayer {
+    width: 420px;
+    height: 90px;
+    padding: 10px 15px 5px 15px;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 0 6px 0 black;
+    background-color: white;    
 }
 
 @keyframes enclosurePlayerSlideUp {
@@ -74,9 +77,23 @@
     cursor: pointer;
     float:right;
     margin: 6px;
+    width: 18px;
+    height: 18px;
+}
+
+.audioTitle {
+    text-align: center;
+    margin: 10px 0px 0 0px;
+    padding: 0 4px 0 12px;
+    font-size: 13px;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .enclosureAudio {
+    margin: 6px 0 0 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -85,5 +102,12 @@
 
 .audioElement {
     outline: none;
-    margin-right: 10px;
+    margin: 0 4px 0 0;
+    font-size: 13px;
 }
+
+/* @media screen and (max-width: 800px) {
+    .enclosurePlayer {
+        left: 0;
+    }
+} */

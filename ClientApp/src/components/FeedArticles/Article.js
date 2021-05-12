@@ -3,7 +3,6 @@ import { FaLink, FaPaperclip, FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import ReactHtmlParser from 'react-html-parser';
 
 import FeedContext from '../context/FeedContext';
-import { EnclosureLink } from './modals/EnclosureLink';
 import { ViewLink } from './modals/ViewLink';
 import styles from './FeedArticles.module.css';
 
@@ -13,23 +12,20 @@ export class Article extends Component {
 
     state = {
         opened: false,
-        showViewLink: false,
-        showEnclosureModal: false
+        showViewLink: false
     }
 
     handleHeaderClick = (e) => {
         if (this.state.opened) {
             this.setState({
                 opened: false,
-                showViewLink: false,
-                showEnclosureModal: false
+                showViewLink: false
             });
         }
         else {
             this.setState({
                 opened: true,
-                showViewLink: false,
-                showEnclosureModal: false
+                showViewLink: false
             });
         }
     }
@@ -48,8 +44,7 @@ export class Article extends Component {
         else {
             this.setState({
                 opened: true,
-                showViewLink: true,
-                showEnclosureModal: false
+                showViewLink: true
             });
         }
     }
@@ -57,17 +52,11 @@ export class Article extends Component {
     handleModalsCallback = () => {
         this.setState({
             opened: true,
-            showViewLink: false,
-            showEnclosureModal: false
+            showViewLink: false
         });
     }
 
     handleEnclosureClick = (e) => {
-        // this.setState({
-        //     opened: true,
-        //     showViewLink: false,
-        //     showEnclosureModal: true
-        // })
         const {setSelectedEnclosureArticle} = this.context;
         setSelectedEnclosureArticle(this.props.data);
     }
@@ -183,9 +172,6 @@ export class Article extends Component {
         if (this.state.showViewLink) {
             content = <ViewLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
         }
-        // else if (this.state.showEnclosureModal) {
-        //     content = <EnclosureLink article = {this.props.data} articleCallback = {this.handleModalsCallback} />
-        // }
 
         return content;
     }
