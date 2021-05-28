@@ -125,9 +125,8 @@ export class FeedImportButton extends Component {
         let content = null;
 
         if (this.state.isLoading) {
-            let spinnerStyle = { paddingTop: '8px', paddingBottom: '8px' };
             content = (
-                <div className={styles.headerButtonCenter} style={{spinnerStyle}}>
+                <div className={styles.headerButtonCenter}>
                     <FaSpinner style={this.props.iconStyle} className="spin" />
                 </div>
             );

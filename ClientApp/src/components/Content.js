@@ -32,18 +32,24 @@ export class Content extends Component {
                 height: '30px'
             };
 
+            let spinnerStyle = {
+                width: '30px',
+                height: '30px',
+                margin: '0 40px 24px 40px'
+            };
+
             content = (
                 <React.Fragment>
                     <div className={styles.divMainContentButtons}>                    
-                        <FeedLinkAdd iconStyle={addIconStyle}>
+                        <FeedLinkAdd iconStyle={spinnerStyle}>
                             <div className={styles.divMainContentButton}>
                                 <div style={{height: '50%'}}>
-                                    <FaPlus style={addIconStyle} />
+                                    <FaPlus style={iconStyle} />
                                 </div>
                                 <p className={styles.divMainContentButtonText}>Add Feed</p>
                             </div>
                         </FeedLinkAdd>
-                        <FeedImportButton iconStyle={iconStyle}>
+                        <FeedImportButton iconStyle={spinnerStyle}>
                             <div className={styles.divMainContentButton}>
                                 <div style={{height: '50%'}}>
                                     <FaFileUpload style={iconStyle} />
@@ -51,7 +57,7 @@ export class Content extends Component {
                                 <p className={styles.divMainContentButtonText}>Import Feeds</p>
                             </div>
                         </FeedImportButton>
-                        <FeedExportButton iconStyle={iconStyle}>
+                        <FeedExportButton iconStyle={spinnerStyle}>
                             <div className={styles.divMainContentButton}>
                                 <div style={{height: '50%'}}>
                                     <FaFileDownload style={iconStyle} />
@@ -59,7 +65,7 @@ export class Content extends Component {
                                 <p className={styles.divMainContentButtonText}>Export Feeds</p>
                             </div>
                         </FeedExportButton>
-                        <DeleteFeedsButton iconStyle={iconStyle}>
+                        <DeleteFeedsButton iconStyle={spinnerStyle}>
                             <div className={styles.divMainContentButton}>
                                 <div style={{height: '50%'}}>
                                     <FaTrash style={iconStyle} />

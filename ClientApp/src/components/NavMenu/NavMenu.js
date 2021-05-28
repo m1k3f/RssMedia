@@ -39,36 +39,42 @@ export class NavMenu extends Component {
       };
 
       let addIconStyle = {
-        color: '#29a3a3',
+        // color: '#29a3a3',
         width: '18px',
         height: '18px'
+      }
+
+      let spinnerStyle = {
+        width: '18px',
+        height: '18px',
+        margin: '4px 0 4px 0'
       }
 
       content = (
         <div className={styles.headerButtonsCenter}>
           <div className={styles.divButtonCenter}>
-            <FeedLinkAdd iconStyle={addIconStyle}>
+            <FeedLinkAdd iconStyle={spinnerStyle}>
               <div className={styles.divHeaderButtonCenter}>
                 <FaPlus style={addIconStyle} title="Add Feed" />
               </div>
             </FeedLinkAdd>
           </div>
           <div className={styles.divButtonCenter}>
-            <FeedImportButton iconStyle={iconStyle}>
+            <FeedImportButton iconStyle={spinnerStyle}>
               <div className={styles.divHeaderButtonCenter}>
                 <FaFileUpload style={iconStyle} title="Import Feeds" />
               </div>
             </FeedImportButton>
           </div>
           <div className={styles.divButtonCenter}>
-            <FeedExportButton iconStyle={iconStyle}>
+            <FeedExportButton iconStyle={spinnerStyle}>
               <div className={styles.divHeaderButtonCenter}>
                 <FaFileDownload style={iconStyle} title="Export Feeds" />
               </div>
             </FeedExportButton>
           </div>
           <div className={styles.divButtonCenter}>
-            <DeleteFeedsButton iconStyle={iconStyle}>
+            <DeleteFeedsButton iconStyle={spinnerStyle}>
               <div className={styles.divHeaderButtonCenter}>
                 <FaTrash style={iconStyle} title="Delete All Feeds" />
               </div>
