@@ -39,9 +39,16 @@ export class NewFeed extends Component {
     getNewFeedModalContent = () => {
         return (
             <div className={styles.addEditButtonModal}>                
-                <input className={styles.addEditButtonModalInput} placeholder="Name..." 
+                <p className={styles.addEditText}>
+                    Feed Name
+                </p>
+                <input className={styles.addEditButtonModalInput} placeholder="" 
                         type="text" ref={el => this.feedName = el} />
-                <input className={styles.addEditButtonModalInput} placeholder="URL..." 
+
+                <p className={styles.addEditText}>
+                    Link to an RSS feed or a webpage with associated RSS feeds
+                </p>
+                <input className={styles.addEditButtonModalInput} placeholder="" 
                         type="text" ref={el => this.feedUrl = el} />
             </div>
         );

@@ -16,6 +16,11 @@
     font-size: 13px;
 }
 
+.addEditText {
+    font-size: 13px;
+    margin: 10px 0 2px 2px;
+}
+
 .divViewLink {
     display: flex;
     flex-direction: column;

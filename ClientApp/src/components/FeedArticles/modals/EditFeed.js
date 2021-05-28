@@ -52,17 +52,26 @@ export class EditFeed extends Component {
         let feedUrlDisplay = (feedUrl.length > 50) ? `${feedUrl.substring(0, 50)}...` : feedUrl;
 
         return (
-            <div className={styles.addEditButtonModal}>                
+            <div className={styles.addEditButtonModal}>
+                <p className={styles.addEditText}>
+                    Feed Button Name
+                </p>
                 <input className={styles.addEditButtonModalItem} 
-                        placeholder="Feed Button Name..." 
+                        placeholder="" 
                         type="text" 
                         defaultValue={feedName} 
                         ref={el => this.feedLinkName = el} />
+                <p className={styles.addEditText}>
+                    Feed Title
+                </p>
                 <input className={styles.addEditButtonModalItem} 
-                        placeholder="Feed Title..." 
+                        placeholder="" 
                         type="text"
                         defaultValue={feedTitle}
                         ref={el => this.feedTitle = el} />
+                <p className={styles.addEditText}>
+                    Feed URL
+                </p>
                 <a className={styles.addEditButtonModalItem} href={feedUrl}>
                     {feedUrlDisplay}
                 </a>
