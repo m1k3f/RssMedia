@@ -20,11 +20,11 @@ export class Content extends Component {
         let content = null;
         
         if (selectedFeed === null && !selectedFeedLoading) {
-            let addIconStyle = {    
-                color: '#29a3a3',        
-                width: '30px',
-                height: '30px'
-            };
+            // let addIconStyle = {    
+            //     color: '#29a3a3',        
+            //     width: '30px',
+            //     height: '30px'
+            // };
 
             let iconStyle = {
                 color: 'black',
