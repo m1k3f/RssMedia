@@ -31,9 +31,7 @@
 
 ## Future Enhancements
 
-- Feed Bar: better ability to see all added feeds when there are many and overflow is hidden.
-- Option to add a feed group to view articles from multiple feeds of the user's choosing (works similar to the 'All Feeds' button).
+- Option to add a feed group to view articles from multiple feeds of the user's choosing
 - When adding a new feed, the service will search for and display any hyperlinks for a given URL that could be associated to RSS feeds.
-- More configuration options in the Settings window.
 - Sync feed/feeds every X minutes.
 - Light and dark theme with toggle switch.
