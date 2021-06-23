@@ -60,7 +60,7 @@ export class NavMenu extends Component {
             </FeedLinkAdd>
           </div>
           <div className={styles.divButtonCenter}>
-            <FeedImportButton iconStyle={spinnerStyle}>
+            <FeedImportButton iconStyle={spinnerStyle} isSample={false}>
               <div className={styles.divHeaderButtonCenter}>
                 <FaFileUpload style={iconStyle} title="Import Feeds" />
               </div>

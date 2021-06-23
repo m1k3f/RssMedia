@@ -13,6 +13,7 @@
 .divMainContentButtons {
     margin-top: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 50vh;
@@ -20,6 +21,18 @@
     position: absolute;
     top: 100px;
     z-index: 0;
+}
+
+.contentButtonsFirstRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentButtonsSecondRow {
+    display: flex;
+    flex-direction: row;
 }
 
 .divMainContentButton {

@@ -12,8 +12,24 @@ export class FeedImportButton extends Component {
         isLoading: false
     }
 
-    handleFeedsImport = (e) => {
-        this.fileImport.click();
+    handleFeedsImport = async (e) => {
+        if (this.props.isSample) {
+            await this.handleSampleFile();
+        }
+        else {
+            this.fileImport.click();
+        }        
+    }
+
+    handleSampleFile = async () => {
+        this.showSpinner(true);
+
+        let sampleData = this.getSampleFileContents();
+        let fileFeedLinksArray = this.getFileFeedLinksArray(sampleData);
+        let feedLinksData = await this.getFeedLinksData(fileFeedLinksArray);
+        this.saveFeedLinks(feedLinksData);
+
+        this.showSpinner(false);
     }
 
     handleFile = async (e) => {
@@ -44,6 +60,12 @@ export class FeedImportButton extends Component {
 
     wait = async (milliseconds) => {
         await new Promise(r => setTimeout(r, milliseconds));
+    }
+
+    getSampleFileContents = () => {
+        //better way of hardcoding sample data?
+        let sample = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<opml version=\"2.0\">\n  <head>\n    <title>FeedReader</title>\n    <dateModified>6/23/2021 11:54:13 AM</dateModified>\n  </head>\n  <body>\n    <outline text=\"NPR News\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://feeds.npr.org/1001/rss.xml\" />\n    <outline text=\"NPR News Now Podcast\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://feeds.npr.org/500005/podcast.xml\" />\n    <outline text=\"NPR TED Radio Hour Podcast\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://feeds.npr.org/510298/podcast.xml\" />\n    <outline text=\"New York Times\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml\" />\n    <outline text=\"Wall Street Journal Minute Briefing Podcast\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://video-api.wsj.com/podcast/rss/wsj/minute-briefing\" />\n    <outline text=\"Wall Street Journal Youtube\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://www.youtube.com/feeds/videos.xml?user=WSJDigitalNetwork\" />\n    <outline text=\"Associated Press Youtube\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://www.youtube.com/feeds/videos.xml?channel_id=UC52X5wxOL_s5yw0dQk7NtgA\" />\n    <outline text=\"Arstechnica\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"http://feeds.arstechnica.com/arstechnica/index/\" />\n    <outline text=\"CBC World This Hour Podcast\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://www.cbc.ca/podcasting/includes/hourlynews.xml\" />\n    <outline text=\"Smitten Kitchen\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"http://feeds.feedburner.com/smittenkitchen\" />\n    <outline text=\"Krebs on Security\" type=\"rss\" htmlUrl=\"\" xmlUrl=\"https://krebsonsecurity.com/feed/\" />\n  </body>\n</opml>"
+        return sample;
     }
 
     getFileContents = (file) => {
